@@ -1,0 +1,33 @@
+
+.esriGE_dynamicInfographic {
+    overflow: hidden;
+}
+
+    
+
+    .esriGE_dynamicInfographic .Tapestry_Details_Image div:first-child {
+        background-size: cover;
+    }
+
+    .esriGE_dynamicInfographic .RelatedVariables_ComparisonDiv {
+        text-align: right;
+    }
+
+    
+
+    
+
+    .esriGE_dynamicInfographic .AgePyramid_MinMax {
+        top: 0px;
+    }
+
+    .esriGE_dynamicInfographic .BaseWidget_Title {
+        font-weight: normal;
+    }
+
+
+
+.OneVarMultiComparison_Row.OneVarMultiComparison_Row_highlighted,
+.OneVarMultiComparison_CurrentRow.OneVarMultiComparison_Row_highlighted {
+    background-color: rgba(0, 145, 251, 0.2) !important;
+}
