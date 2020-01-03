@@ -95,7 +95,7 @@ function(declare, lang, array, Deferred, domConstruct, domStyle, topic, appTopic
     _loadType: function(gxeContext,typeDefs,callback) {
       var self = this;
       var typeDef = typeDefs.shift();
-      window["require"]([typeDef.requiredPath],function(Type){
+      window["require"]([typeDef.requiredPath],function(Type) {
         var type = new Type({interrogationRules:typeDef.interrogationRules});
         gxeContext.documentTypes.index[type.key] = type;
         gxeContext.documentTypes.list.push(type);
@@ -234,9 +234,10 @@ function(declare, lang, array, Deferred, domConstruct, domStyle, topic, appTopic
         "dojo/i18n!esri/dijit/metadata/nls/i18nFgdc",
         "dojo/i18n!esri/dijit/metadata/nls/i18nIso",
         "dojo/i18n!esri/dijit/metadata/nls/i18nInspire",
-        "dojo/i18n!esri/dijit/metadata/nls/i18nGemini"],
+        "dojo/i18n!esri/dijit/metadata/nls/i18nGemini",
+        "dojo/i18n!esri/dijit/metadata/nls/i18nMpa"],
       function(LoadDocumentPane, PrimaryToolbar, DescriptorMixin, ServiceCategoryOptions,
-        i18nBase, i18nArcGIS, i18nFgdc, i18nIso, i18nInspire, i18nGemini){
+        i18nBase, i18nArcGIS, i18nFgdc, i18nIso, i18nInspire, i18nGemini, i18nMpa){
         
         if (!ServiceCategoryOptions.prototype.xtnWasExtended) {
           lang.extend(ServiceCategoryOptions, {
@@ -271,7 +272,8 @@ function(declare, lang, array, Deferred, domConstruct, domStyle, topic, appTopic
             i18nFgdc: i18nFgdc,
             i18nIso: i18nIso,
             i18nInspire: i18nInspire,
-            i18nGemini: i18nGemini
+            i18nGemini: i18nGemini,
+            i18nMpa: i18nMpa
           });
           lang.extend(DescriptorMixin, {
             postMixInProperties: function() {
