@@ -1,0 +1,17 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\custom",
+    "\\custom\\3.25",
+    "\\custom\\3.25\\app",
+    "\\custom\\3.25\\app\\content",
+    "\\custom\\3.25\\esri",
+    "\\custom\\3.25\\esri\\dijit",
+    "\\custom\\3.25\\esri\\dijit\\metadata",
+    "\\custom\\3.25\\esri\\dijit\\metadata\\types",
+    "\\custom\\3.25\\esri\\dijit\\metadata\\types\\mpa",
+    "\\custom\\3.25\\esri\\dijit\\metadata\\types\\mpa\\base"
+  ],
+  "SelectedNode": "\\custom\\3.25\\app\\content\\MetadataEditor.js",
+  "PreviewInSolutionExplorer": false
+}
