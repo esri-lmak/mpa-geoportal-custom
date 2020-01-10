@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
 <title>Geoportal Standalone Metadata Editor</title>
@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="//js.arcgis.com/3.19/esri/themes/calcite/esri/esri.css">
 <link rel="stylesheet" href="//js.arcgis.com/3.19/esri/dijit/metadata/css/gxe.css"/>
 <link rel="stylesheet" href="//js.arcgis.com/3.19/esri/dijit/metadata/css/gxe-calcite.css"/>
-<script src="//js.arcgis.com/3.19"></script>
+<script data-main="./custom/3.25/" src="./custom/require.js"></script>
 <script>
 
   var gxeWasInitialized = false;
@@ -19,7 +19,9 @@
     "arcgis", "fgdc", 
     "iso-19115", "iso-19119", "iso-19115-2",
     "inspire-iso-19115", "inspire-iso-19119", 
-    "gemini-iso-19115", "gemini-iso-19119"
+    "gemini-iso-19115", "gemini-iso-19119",
+    "mpa-iso-19115", "mpa-iso-19119",
+    "myprofile-iso-19115", "myprofile-iso-19119"
   ];
 
   var gxeTypeDefinitions = [
@@ -134,8 +136,79 @@
           value: "2.2"
         }
       ]
-    }   
-
+    },
+    {
+      key: "mpa-iso-19115",
+      requiredPath: "esri/dijit/metadata/types/mpa/base/DataDocumentType",
+      interrogationRules: [
+        {
+          path: "/gmd:MD_Metadata/gmd:identificationInfo/gmd:MD_DataIdentification",
+          must: true
+        },
+        {
+          path: "/gmd:MD_Metadata/gmd:metadataStandardName/gco:CharacterString",
+          value: "MPA"
+        },
+        {
+          path: "/gmd:MD_Metadata/gmd:metadataStandardVersion/gco:CharacterString",
+          value: "1.0"
+        }
+      ]
+    },
+    {
+      key: "mpa-iso-19119",
+      requiredPath: "esri/dijit/metadata/types/mpa/base/ServiceDocumentType",
+      interrogationRules: [
+        {
+          path: "/gmd:MD_Metadata/gmd:identificationInfo/srv:SV_ServiceIdentification",
+          must: true
+        },
+        {
+          path: "/gmd:MD_Metadata/gmd:metadataStandardName/gco:CharacterString",
+          value: "MPA"
+        },
+        {
+          path: "/gmd:MD_Metadata/gmd:metadataStandardVersion/gco:CharacterString",
+          value: "1.0"
+        }
+      ]
+    },
+    {
+      key: "myprofile-iso-19115",
+      requiredPath: "app/gxe/types/myprofile/base/DataDocumentType",
+      interrogationRules: [
+        {
+          path: "/gmd:MD_Metadata/gmd:identificationInfo/gmd:MD_DataIdentification",
+          must: true
+        },
+        {
+          path: "/gmd:MD_Metadata/gmd:metadataStandardName/gco:CharacterString",
+          value: "MyProfile"
+        },
+        {
+          path: "/gmd:MD_Metadata/gmd:metadataStandardVersion/gco:CharacterString",
+          value: "1.0"
+        }
+      ]
+    },
+    {
+      key: "myprofile-iso-19119",
+      requiredPath: "app/gxe/types/myprofile/base/ServiceDocumentType",
+      interrogationRules: [
+        {
+          path: "/gmd:MD_Metadata/gmd:identificationInfo/srv:SV_ServiceIdentification",
+          must: true
+        },
+        {
+          path: "/gmd:MD_Metadata/gmd:metadataStandardName/gco:CharacterString",
+          value: "MyProfile"
+        },
+        {
+          path: "/gmd:MD_Metadata/gmd:metadataStandardVersion/gco:CharacterString",
+          value: "1.0"
+        }
+      ]
+    }
   ];
 
   function openMetadataEditor() {
@@ -150,9 +223,11 @@
              "dojo/i18n!esri/dijit/metadata/nls/i18nIso",
              "dojo/i18n!esri/dijit/metadata/nls/i18nInspire",
              "dojo/i18n!esri/dijit/metadata/nls/i18nGemini",
+             "dojo/i18n!esri/dijit/metadata/nls/i18nMpa",
+             "dojo/i18n!app/gxe/types/myprofile/nls/i18nMyProfile",
              "dojo/domReady!"],
       function(lang, array, Deferred, Dialog, DescriptorMixin, 
-        i18nArcGIS, i18nFgdc, i18nIso, i18nInspire, i18nGemini) {
+        i18nArcGIS, i18nFgdc, i18nIso, i18nInspire, i18nGemini, i18nMpa, i18nMyProfile) {
       
         if (!DescriptorMixin.prototype.xtnWasExtended) {
           lang.extend(DescriptorMixin, {
@@ -161,7 +236,9 @@
             i18nFgdc: i18nFgdc,
             i18nIso: i18nIso,
             i18nInspire: i18nInspire,
-            i18nGemini: i18nGemini
+            i18nGemini: i18nGemini,
+            i18nMpa: i18nMpa,
+            i18nMyProfile: i18nMyProfile
           });
         }
       
@@ -260,15 +337,16 @@
 	          });
           }
         );
-        
       }
     );
-    
   }
   
 </script>
-
+</head>
 <body class="calcite">
+  <div style="margin:20px;">
+      <h1>Geoportal Standalone Metadata Editor</h1>
+  </div>
   <div style="margin:20px;">
     <button onclick="openMetadataEditor()">Open Metadata Editor</button>
     <span id="idLoading" style="padding-left:10px;"></span>

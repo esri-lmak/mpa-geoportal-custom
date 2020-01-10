@@ -12,7 +12,9 @@ define([],function(){var obj={
       "arcgis", "fgdc", 
       "iso-19115", "iso-19119", "iso-19115-2",
       "inspire-iso-19115", "inspire-iso-19119", 
-      "gemini-iso-19115", "gemini-iso-19119"
+      "gemini-iso-19115", "gemini-iso-19119",
+      "mpa-iso-19115", "mpa-iso-19119",
+      "myprofile-iso-19115", "myprofile-iso-19119"
     ],
     basemap: "hybrid",
     allowViewXml: true,
@@ -133,8 +135,79 @@ define([],function(){var obj={
           value: "2.2"
         }
       ]
-    }   
-
+    },
+    {
+      key: "mpa-iso-19115",
+      requiredPath: "esri/dijit/metadata/types/mpa/base/DataDocumentType",
+      interrogationRules: [
+        {
+          path: "/gmd:MD_Metadata/gmd:identificationInfo/gmd:MD_DataIdentification",
+          must: true
+        },
+        {
+          path: "/gmd:MD_Metadata/gmd:metadataStandardName/gco:CharacterString",
+          value: "MPA"
+        },
+        {
+          path: "/gmd:MD_Metadata/gmd:metadataStandardVersion/gco:CharacterString",
+          value: "2.2"
+        }
+      ]
+    },
+    {
+      key: "mpa-iso-19119",
+      requiredPath: "esri/dijit/metadata/types/mpa/base/ServiceDocumentType",
+      interrogationRules: [
+        {
+          path: "/gmd:MD_Metadata/gmd:identificationInfo/srv:SV_ServiceIdentification",
+          must: true
+        },
+        {
+          path: "/gmd:MD_Metadata/gmd:metadataStandardName/gco:CharacterString",
+          value: "MPA"
+        },
+        {
+          path: "/gmd:MD_Metadata/gmd:metadataStandardVersion/gco:CharacterString",
+          value: "2.2"
+        }
+      ]
+    },
+    {
+      key: "myprofile-iso-19115",
+      requiredPath: "app/gxe/types/myprofile/base/DataDocumentType",
+      interrogationRules: [
+        {
+          path: "/gmd:MD_Metadata/gmd:identificationInfo/gmd:MD_DataIdentification",
+          must: true
+        },
+        {
+          path: "/gmd:MD_Metadata/gmd:metadataStandardName/gco:CharacterString",
+          value: "MyProfile"
+        },
+        {
+          path: "/gmd:MD_Metadata/gmd:metadataStandardVersion/gco:CharacterString",
+          value: "1.0"
+        }
+      ]
+    },
+    {
+      key: "myprofile-iso-19119",
+      requiredPath: "app/gxe/types/myprofile/base/ServiceDocumentType",
+      interrogationRules: [
+        {
+          path: "/gmd:MD_Metadata/gmd:identificationInfo/srv:SV_ServiceIdentification",
+          must: true
+        },
+        {
+          path: "/gmd:MD_Metadata/gmd:metadataStandardName/gco:CharacterString",
+          value: "MyProfile"
+        },
+        {
+          path: "/gmd:MD_Metadata/gmd:metadataStandardVersion/gco:CharacterString",
+          value: "1.0"
+        }
+      ]
+    }
   ]
   
 // .......................................................................................
