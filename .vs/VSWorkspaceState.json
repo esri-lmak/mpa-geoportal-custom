@@ -1,18 +1,16 @@
 {
   "ExpandedNodes": [
     "",
+    "\\app",
+    "\\app\\context",
     "\\custom",
     "\\custom\\3.25",
+    "\\custom\\3.25\\app",
     "\\custom\\3.25\\esri",
     "\\custom\\3.25\\esri\\dijit",
     "\\custom\\3.25\\esri\\dijit\\metadata",
-    "\\custom\\3.25\\esri\\dijit\\metadata\\form",
-    "\\custom\\3.25\\esri\\dijit\\metadata\\types",
-    "\\custom\\3.25\\esri\\dijit\\metadata\\types\\mpa",
-    "\\custom\\3.25\\esri\\dijit\\metadata\\types\\mpa\\gmd",
-    "\\custom\\3.25\\esri\\dijit\\metadata\\types\\mpa\\gmd\\dataTheme",
-    "\\custom\\3.25\\esri\\dijit\\metadata\\types\\mpa\\gmd\\dataTheme\\templates"
+    "\\custom\\3.25\\esri\\dijit\\metadata\\nls"
   ],
-  "SelectedNode": "\\custom\\3.25\\esri\\dijit\\metadata\\form\\MpaDataThemeOptions.js",
+  "SelectedNode": "\\custom\\3.25\\esri\\config.js",
   "PreviewInSolutionExplorer": false
 }

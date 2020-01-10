@@ -86,7 +86,8 @@ function(declare, lang, Deferred, topic, appTopics, i18n, AppClient, SignIn,
         
     _showAgsOAuthSignIn: function(oauth) {
       var self = this, portalUrl = oauth.portalUrl;
-      arcgisUtils.arcgisUrl = portalUrl;  // PortalImplementation
+      // arcgisUtils.arcgisUrl = portalUrl;  // PortalImplementation
+      esriId._arcgisUrl = portalUrl;
       esriId.getCredential(portalUrl,{oAuthPopupConfirmation:false}).then(function (){
         var portal = new arcgisPortal.Portal(portalUrl);
         portal.signIn().then(function(portalUser){
