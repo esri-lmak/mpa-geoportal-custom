@@ -15,7 +15,6 @@
 <link rel="stylesheet" href="./app/style/main.css">
 <link rel="stylesheet" href="./lib/typeahead.css">
 <link rel="stylesheet" href="./custom/custom.css">
-</head>
 
 <body class="calcite">
 <div id="custom-banner" class="custom-banner"></div>
@@ -44,10 +43,10 @@
 <script src="./lib/jquery-3.2.1.min.js"></script>
 <script src="./lib/bootstrap-3.3.7.min.js"></script>
 <script src="./lib/typeahead.js"></script>
-<script data-main="./custom/3.25/" src="./custom/require.js"></script>
+<script src="https://mpa.esrisg.dev/arcgis_js_api/library/3.25/3.25/init.js"></script>
 <script src="./custom/custom.js"></script>
 <script>
-require(["init"],function() {
+require(["app"],function() {
   require(["dojo/ready","app/context/AppContext","app/context/AppStarter"],
   function(ready,AppContext,AppStarter) {
     window.AppContext = new AppContext();
