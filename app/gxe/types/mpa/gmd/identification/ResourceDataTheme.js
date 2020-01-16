@@ -29,13 +29,16 @@ define(["dojo/_base/declare",
 		"app/gxe/types/mpa/base/MpaDescriptor", 
 		"esri/dijit/metadata/form/Element", 
 		"esri/dijit/metadata/form/InputSelectOne", 
-		"app/gxe/form/MpaDataThemeOptions",
-		"app/gxe/form/MpaMarineDataThemeLevel2Options", 
-		"app/gxe/form/MpaMarineDataThemeLevel3Options", 
+		"esri/dijit/metadata/form/iso/CodeListReference",
+		"esri/dijit/metadata/form/iso/CodeListElement", 
+		"esri/dijit/metadata/form/iso/CodeSpaceAttribute",
+		"esri/dijit/metadata/form/iso/CodeListValueAttribute",
+		"esri/dijit/metadata/form/Options",
+		"esri/dijit/metadata/form/Option",
 		"dojo/text!./templates/ResourceDataTheme.html"],
-function (e, t, _TemplatedMixin, o, Descriptor, a, s, m, n, p, template) {
+function (declare, lang, _TemplatedMixin, o, Descriptor, a, s, m, n, p, q, r, t, template) {
 	
-    var oThisClass = e([Descriptor, _TemplatedMixin], {
+    var oThisClass = declare([Descriptor, _TemplatedMixin], {
         templateString: template
     });
     return oThisClass

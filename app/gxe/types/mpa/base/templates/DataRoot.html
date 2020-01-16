@@ -2,8 +2,10 @@
   <div data-dojo-type="esri/dijit/metadata/form/Element"
     data-dojo-props="target:'gmd:MD_Metadata',label:'${i18nMpa.documentTypes.data.caption}'">
     <div data-dojo-type="esri/dijit/metadata/form/Tabs">
-      <div data-dojo-type="esri/dijit/metadata/types/iso/gmd/metadataEntity/MetadataSection"
+      <!-- specific for MPA -->
+      <div data-dojo-type="app/gxe/types/mpa/gmd/metadataEntity/MetadataSection"
         data-dojo-props="label:'${i18nIso.sections.metadata}'"></div>
+      <!-- specific for MPA -->
       <div data-dojo-type="app/gxe/types/mpa/gmd/identification/DataIdentification"
         data-dojo-props="label:'${i18nIso.sections.identification}'"></div>
       <div data-dojo-type="esri/dijit/metadata/types/iso/gmd/distribution/Distribution"

@@ -6,7 +6,7 @@ define(["dojo/_base/declare",
         "esri/dijit/metadata/types/iso/gmd/dataQuality/Quality",
         "esri/dijit/metadata/types/iso/gmd/distribution/Distribution",
         "app/gxe/types/mpa/gmd/identification/DataIdentification",
-        "esri/dijit/metadata/types/iso/gmd/metadataEntity/MetadataSection",
+        "app/gxe/types/mpa/gmd/metadataEntity/MetadataSection",
         "dojo/text!./templates/DataRoot.html"],
 function(declare, lang, Descriptor, Element, Tabs, Quality, Distribution, 
   DataIdentification, MetadataSection, template) {

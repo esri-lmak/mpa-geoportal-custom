@@ -32,11 +32,12 @@ define(["dojo/_base/declare",
 		"esri/dijit/metadata/form/Tabs", 
 		"esri/dijit/metadata/form/iso/GcoElement", 
 		"esri/dijit/metadata/types/iso/gmd/identification/DataRepresentation", 
-		"esri/dijit/metadata/types/iso/gmd/identification/ResourceExtent", 
+		"app/gxe/types/mpa/gmd/identification/ResourceExtent", 
 		"esri/dijit/metadata/types/iso/gmd/identification/ResourceLanguage", 
-		"esri/dijit/metadata/types/iso/gmd/identification/ResourceClassification", 
+		"esri/dijit/metadata/types/iso/gmd/identification/ResourceClassification",
+		"app/gxe/types/mpa/gmd/identification/ResourceDataTheme", 
 		"dojo/text!./templates/DataResourceTab.html"],
-function (e, t, _TemplatedMixin, a, Descriptor, i, n, r, s, c, d, m, f, template) {
+function (e, t, _TemplatedMixin, a, Descriptor, i, n, r, s, c, d, m, f, d, template) {
 	
     var oThisClass = e([Descriptor, _TemplatedMixin], {
         templateString: template

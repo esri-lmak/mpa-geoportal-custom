@@ -37,10 +37,9 @@ define(["dojo/_base/declare",
 		"esri/dijit/metadata/types/iso/gmd/identification/ResourceThumbnail", 
 		"esri/dijit/metadata/types/iso/gmd/maintenance/MD_MaintenanceFrequencyCode", 
 		"esri/dijit/metadata/types/inspire/gmd/identification/DataResourceKeywords", 
-		"esri/dijit/metadata/types/inspire/gmd/constraints/ResourceConstraints", 
 		"./DataResourceTab", 
 		"dojo/text!./templates/DataIdentification.html"],
-function (e, i, _TemplatedMixin, t, Descriptor, n, a, s, c, r, d, m, f, g, u, b, R, template) {
+function (e, i, _TemplatedMixin, t, Descriptor, n, a, s, c, r, d, m, f, g, u, b, template) {
 	
     var oThisClass = e([Descriptor, _TemplatedMixin], {
         templateString: template
