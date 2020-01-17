@@ -7,6 +7,97 @@
         </div>
     </div>
 
+    <div data-dojo-type="esri/dijit/metadata/form/Element" data-dojo-props="target:'gmd:mainUpdateFrequency',minOccurs:1,
+        label:'Maintenance and Update Frequency'">
+        <div data-dojo-type="esri/dijit/metadata/form/InputSelectOne">
+            <div data-dojo-type="esri/dijit/metadata/form/Options">
+                <div data-dojo-type="esri/dijit/metadata/form/Option"
+                    data-dojo-props="label:'${i18nMpa.frequency.continual}',value:'continual',selected:true">
+                </div>
+                <div data-dojo-type="esri/dijit/metadata/form/Option"
+                    data-dojo-props="label:'${i18nMpa.frequency.daily}',value:'daily'">
+                </div>
+                <div data-dojo-type="esri/dijit/metadata/form/Option"
+                    data-dojo-props="label:'${i18nMpa.frequency.weekly}',value:'weekly'">
+                </div>
+                <div data-dojo-type="esri/dijit/metadata/form/Option"
+                    data-dojo-props="label:'${i18nMpa.frequency.fortnightly}',value:'fortnightly'">
+                </div>
+                <div data-dojo-type="esri/dijit/metadata/form/Option"
+                    data-dojo-props="label:'${i18nMpa.frequency.monthly}',value:'monthly'">
+                </div>
+                <div data-dojo-type="esri/dijit/metadata/form/Option"
+                    data-dojo-props="label:'${i18nMpa.frequency.quarterly}',value:'quarterly'">
+                </div>
+                <div data-dojo-type="esri/dijit/metadata/form/Option"
+                    data-dojo-props="label:'${i18nMpa.frequency.biannually}',value:'biannually'">
+                </div>
+                <div data-dojo-type="esri/dijit/metadata/form/Option"
+                    data-dojo-props="label:'${i18nMpa.frequency.annually}',value:'annually'">
+                </div>
+                <div data-dojo-type="esri/dijit/metadata/form/Option"
+                    data-dojo-props="label:'${i18nMpa.frequency.asNeeded}',value:'asNeeded'">
+                </div>
+                <div data-dojo-type="esri/dijit/metadata/form/Option"
+                    data-dojo-props="label:'${i18nMpa.frequency.irregular}',value:'irregular'">
+                </div>
+                <div data-dojo-type="esri/dijit/metadata/form/Option"
+                    data-dojo-props="label:'${i18nMpa.frequency.notPlanned}',value:'notPlanned'">
+                </div>
+                <div data-dojo-type="esri/dijit/metadata/form/Option"
+                    data-dojo-props="label:'${i18nMpa.frequency.unknown}',value:'unknown'">
+                </div>
+                <div data-dojo-type="esri/dijit/metadata/form/Option"
+                    data-dojo-props="label:'${i18nMpa.frequency.periodic}',value:'periodic'">
+                </div>
+                <div data-dojo-type="esri/dijit/metadata/form/Option"
+                    data-dojo-props="label:'${i18nMpa.frequency.semiMonthly}',value:'semiMonthly'">
+                </div>
+                <div data-dojo-type="esri/dijit/metadata/form/Option"
+                    data-dojo-props="label:'${i18nMpa.frequency.biennially}',value:'biennially'">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div data-dojo-type="esri/dijit/metadata/form/Element" data-dojo-props="target:'gmd:geometricObjectType',minOccurs:1,
+        label:'Geometric Object Type'">
+        <div data-dojo-type="esri/dijit/metadata/form/InputSelectOne">
+            <div data-dojo-type="esri/dijit/metadata/form/Options">
+                <div data-dojo-type="esri/dijit/metadata/form/Option"
+                    data-dojo-props="label:'${i18nMpa.geometricObjectType.annotation}',value:'annotation',selected:true">
+                </div>
+                <div data-dojo-type="esri/dijit/metadata/form/Option"
+                    data-dojo-props="label:'${i18nMpa.geometricObjectType.complex}',value:'complex'">
+                </div>
+                <div data-dojo-type="esri/dijit/metadata/form/Option"
+                    data-dojo-props="label:'${i18nMpa.geometricObjectType.composite}',value:'composite'">
+                </div>
+                <div data-dojo-type="esri/dijit/metadata/form/Option"
+                    data-dojo-props="label:'${i18nMpa.geometricObjectType.curve}',value:'curve'">
+                </div>
+                <div data-dojo-type="esri/dijit/metadata/form/Option"
+                    data-dojo-props="label:'${i18nMpa.geometricObjectType.point}',value:'point'">
+                </div>
+                <div data-dojo-type="esri/dijit/metadata/form/Option"
+                    data-dojo-props="label:'${i18nMpa.geometricObjectType.solid}',value:'solid'">
+                </div>
+                <div data-dojo-type="esri/dijit/metadata/form/Option"
+                    data-dojo-props="label:'${i18nMpa.geometricObjectType.surface}',value:'surface'">
+                </div>
+                <div data-dojo-type="esri/dijit/metadata/form/Option"
+                    data-dojo-props="label:'${i18nMpa.geometricObjectType.raster}',value:'raster'">
+                </div>
+                <div data-dojo-type="esri/dijit/metadata/form/Option"
+                    data-dojo-props="label:'${i18nMpa.geometricObjectType.textual}',value:'textual'">
+                </div>
+                <div data-dojo-type="esri/dijit/metadata/form/Option"
+                    data-dojo-props="label:'${i18nMpa.geometricObjectType.model}',value:'model'">
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div data-dojo-type="esri/dijit/metadata/form/Element" data-dojo-props="target:'gmd:purpose',minOccurs:0,
         label:'${i18nIso.AbstractMD_Identification.purpose}'">
         <div data-dojo-type="esri/dijit/metadata/form/iso/GcoElement" data-dojo-props="target:'gco:CharacterString'">

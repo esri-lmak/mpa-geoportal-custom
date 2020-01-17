@@ -31,17 +31,17 @@ define(["dojo/_base/declare",
 		"esri/dijit/metadata/form/iso/AbstractObject", 
 		"esri/dijit/metadata/form/iso/CodeListReference", 
 		"esri/dijit/metadata/form/iso/ObjectReference", 
-		"esri/dijit/metadata/types/iso/gmd/citation/ResourceCitation", 
+		"app/gxe/types/mpa/gmd/citation/ResourceCitation",
+		"app/gxe/types/mpa/gmd/identification/ResourceDescription", 
 		"esri/dijit/metadata/types/iso/gmd/citation/ResourceContact", 
-		"esri/dijit/metadata/types/iso/gmd/identification/ResourceDescription", 
 		"esri/dijit/metadata/types/iso/gmd/identification/ResourceThumbnail", 
-		"esri/dijit/metadata/types/iso/gmd/maintenance/MD_MaintenanceFrequencyCode", 
 		"esri/dijit/metadata/types/inspire/gmd/identification/DataResourceKeywords", 
+		"app/gxe/types/mpa/gmd/constraints/ResourceConstraints", 
 		"./DataResourceTab", 
 		"dojo/text!./templates/DataIdentification.html"],
-function (e, i, _TemplatedMixin, t, Descriptor, n, a, s, c, r, d, m, f, g, u, b, template) {
+function (declare, lang, _TemplatedMixin, has, Descriptor, a, b, c, d, e, f, g, h, i, j, k, template) {
 	
-    var oThisClass = e([Descriptor, _TemplatedMixin], {
+    var oThisClass = declare([Descriptor, _TemplatedMixin], {
         templateString: template
     });
     return oThisClass

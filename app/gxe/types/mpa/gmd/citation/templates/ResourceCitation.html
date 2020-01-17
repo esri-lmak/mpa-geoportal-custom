@@ -21,8 +21,69 @@
         -->
 
       <div data-dojo-type="esri/dijit/metadata/form/Element" data-dojo-props="target:'gmd:date',minOccurs:1,
-            label:'${i18nIso.CI_Citation.resource.date}'">
-        <div data-dojo-type="esri/dijit/metadata/types/iso/gmd/citation/CI_Date"></div>
+        label:'${i18nIso.CI_Citation.resource.date}'">
+        <div data-dojo-type="esri/dijit/metadata/form/iso/AbstractObject"
+          data-dojo-props="target:'gmd:CI_Date',minOccurs:0">
+          <div data-dojo-type="esri/dijit/metadata/form/Element"
+            data-dojo-props="target:'gmd:date',label:'${i18nIso.CI_Date.date}'">
+            <div data-dojo-type="esri/dijit/metadata/form/iso/GcoElement" data-dojo-props="target:'gco:Date'">
+              <div data-dojo-type="esri/dijit/metadata/form/InputDate"></div>
+            </div>
+          </div>
+          <div data-dojo-type="esri/dijit/metadata/form/iso/CodeListReference"
+            data-dojo-props="target:'gmd:dateType',label:'${i18nIso.CI_DateTypeCode.caption}'">
+            <div data-dojo-type="esri/dijit/metadata/form/InputSelectOne" data-dojo-props="">
+              <div data-dojo-type="esri/dijit/metadata/form/Option"
+                data-dojo-props="label:'${i18nMpa.dateType.creation}',value:'creation',selected:true">
+              </div>
+              <div data-dojo-type="esri/dijit/metadata/form/Option"
+                data-dojo-props="label:'${i18nMpa.dateType.publication}',value:'publication'">
+              </div>
+              <div data-dojo-type="esri/dijit/metadata/form/Option"
+                data-dojo-props="label:'${i18nMpa.dateType.revision}',value:'revision'">
+              </div>
+              <div data-dojo-type="esri/dijit/metadata/form/Option"
+                data-dojo-props="label:'${i18nMpa.dateType.expiry}',value:'expiry'">
+              </div>
+              <div data-dojo-type="esri/dijit/metadata/form/Option"
+                data-dojo-props="label:'${i18nMpa.dateType.lastRevision}',value:'lastRevision'">
+              </div>
+              <div data-dojo-type="esri/dijit/metadata/form/Option"
+                data-dojo-props="label:'${i18nMpa.dateType.nextUpdate}',value:'nextUpdate'">
+              </div>
+              <div data-dojo-type="esri/dijit/metadata/form/Option"
+                data-dojo-props="label:'${i18nMpa.dateType.unavailable}',value:'unavailable'">
+              </div>
+              <div data-dojo-type="esri/dijit/metadata/form/Option"
+                data-dojo-props="label:'${i18nMpa.dateType.inForce}',value:'inForce'">
+              </div>
+              <div data-dojo-type="esri/dijit/metadata/form/Option"
+                data-dojo-props="label:'${i18nMpa.dateType.adopted}',value:'adopted'">
+              </div>
+              <div data-dojo-type="esri/dijit/metadata/form/Option"
+                data-dojo-props="label:'${i18nMpa.dateType.deprecated}',value:'deprecated'">
+              </div>
+              <div data-dojo-type="esri/dijit/metadata/form/Option"
+                data-dojo-props="label:'${i18nMpa.dateType.superseded}',value:'superseded'">
+              </div>
+              <div data-dojo-type="esri/dijit/metadata/form/Option"
+                data-dojo-props="label:'${i18nMpa.dateType.validityBegins}',value:'validityBegins'">
+              </div>
+              <div data-dojo-type="esri/dijit/metadata/form/Option"
+                data-dojo-props="label:'${i18nMpa.dateType.validityExpires}',value:'validityExpires'">
+              </div>
+              <div data-dojo-type="esri/dijit/metadata/form/Option"
+                data-dojo-props="label:'${i18nMpa.dateType.released}',value:'released'">
+              </div>
+              <div data-dojo-type="esri/dijit/metadata/form/Option"
+                data-dojo-props="label:'${i18nMpa.dateType.distribution}',value:'distribution'">
+              </div>
+              <div data-dojo-type="esri/dijit/metadata/form/Option"
+                data-dojo-props="label:'${i18nMpa.dateType.extraction}',value:'extraction'">
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
       <div data-dojo-type="esri/dijit/metadata/form/Element" data-dojo-props="target:'gmd:publisher',

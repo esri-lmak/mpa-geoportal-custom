@@ -38,6 +38,7 @@
 	<name tagname="gmd:CI_Series">Series</name>
 	<name tagname="gmd:CI_Telephone">Telephone</name>
 	<name tagname="gmd:citation">Citation</name>
+	<name tagname="gmd:citationLanguage">Citation Language</name>
 	<name tagname="gmd:citedResponsibleParty">Cited responsible party</name>
 	<name tagname="gmd:city">City</name>
 	<name tagname="gmd:classification">Classification</name>
@@ -66,6 +67,7 @@
 	<name tagname="gmd:dataQualityInfo">Data quality info</name>
 	<name tagname="gmd:dataset">Dataset Set</name>
 	<name tagname="gmd:dataSetURI">Dataset URI</name>
+	<name tagname="gmd:dataTheme">Data Theme</name>
 	<name tagname="gmd:dataType">Data type</name>
 	<name tagname="gmd:date">Date</name>
 	<name tagname="gmd:dateOfNextUpdate">Date of next update</name>
@@ -207,6 +209,9 @@
 	<name tagname="gmd:localisedString">Localised String</name>
 	<name tagname="gmd:maintenanceAndUpdateFrequency">Maintenance and update frequency</name>
 	<name tagname="gmd:maintenanceNote">Maintenance note</name>
+	<name tagname="gmd:marineDataTheme">Marine Data Theme</name>
+	<name tagname="gmd:marineDataThemeLevel2">Marine Data Theme Level 2</name>
+	<name tagname="gmd:marineDataThemeLevel3">Marine Data Theme Level 3</name>
 	<name tagname="gmd:maximumOccurrence">Maximum occurrence</name>
 	<name tagname="gmd:maximumValue">Maximum value</name>
 	<name tagname="gmd:maxValue">Maximum value</name>
@@ -321,6 +326,7 @@
 	<name tagname="gmd:PT_FreeText">Free text</name>
 	<name tagname="gmd:PT_Locale">Locale</name>
 	<name tagname="gmd:PT_LocaleContainer">Locale Container</name>
+	<name tagname="gmd:publisher">Publisher</name>
 	<name tagname="gmd:purpose">Purpose</name>
 	<name tagname="gmd:radiometricCalibrationDataAvailability">Radiometric calibration data availability</name>
 	<name tagname="gmd:rationale">Rationale</name>

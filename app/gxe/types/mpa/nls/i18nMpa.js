@@ -107,6 +107,24 @@ define({
           malay: "Malay",
           tamil: "Tamil"
       },
+      dateType: {
+          creation: "Creation",
+          publication: "Publication",
+          revision: "Revision",
+          expiry: "Expiry",
+          lastRevision: "Last Revision",
+          nextUpdate: "Next Update",
+          unavailable: "Unavailable",
+          inForce: "In Force",
+          adopted: "Adopted",
+          deprecated: "Deprecated",
+          superseded: "Superseded",
+          validityBegins: "Validity Begins",
+          validityExpires: "Validity Expires",
+          released: "Released",
+          distribution: "Distribution",
+          extraction: "Extraction"
+      },
       statusCode: {
           completed: "(1) Completed",
           historicalArchive: "(2) Historical Archive",
@@ -126,6 +144,65 @@ define({
           withdrawn: "(16) Withdrawn",
           purposed: "(17) Purposed",
           deprecated: "(18) Deprecated"
+      },
+      frequency: {
+          continual: "Continual",
+          daily: "Daily",
+          weekly: "Weekly",
+          fortnightly: "Fortnightly",
+          monthly: "Monthly",
+          quarterly: "Quarterly",
+          biannually: "Biannually",
+          annually: "Annually",
+          asNeeded: "As Needed",
+          irregular: "Irregular",
+          notPlanned: "Not Planned",
+          unknown: "Unknown",
+          periodic: "Perdiodic",
+          semiMonthly: "Semi-monthly",
+          biennially: "Biennially"
+      },
+      geometricObjectType: {
+          annotation: "Annotation",
+          complex: "Complex",
+          composite: "Composite",
+          curve: "Curve",
+          point: "Point",
+          solid: "Solid",
+          surface: "Surface",
+          raster: "N/A - Raster",
+          textual: "N/A - Textual",
+          model: "N/A - 3D Model"
+      },
+      useContraints: {
+          copyright: "Copyright",
+          patent: "Patent",
+          patentPending: "Patent Pending",
+          trademark: "Trademark",
+          license: "License",
+          intPropertyRights: "Intellectual Property Rights",
+          otherRestrictions: "Other Restrictions",
+          licenseRestricted: "License Restricted",
+          licenseEndUser: "License End User",
+          licenseDistributor: "License Distributor",
+          private: "Private",
+          statutory: "Statutory",
+          inConfidence: "In-confidence"
+      },
+      securityClassification: {
+          confidential: "Confidential",
+          restricted: "Restricted",
+          officialOpen: "Official (Open)",
+          officialClosed: "Official (Closed)"
+      },
+      sensitivityClassification: {
+          sensitiveHigh: "Sensitive High",
+          sensitiveNormal: "Sensitive Normal",
+          nonSensitive: "Non-Sensitive"
+      },
+      informationMarker: {
+          officialClosed: "Official (Closed)",
+          officialOpen: "Official (Open)"
       },
   
       language: {
