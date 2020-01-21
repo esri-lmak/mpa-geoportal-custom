@@ -4,7 +4,7 @@
         data-dojo-props="target:'gmd:MD_LegalConstraints',minOccurs:0">
 
         <div data-dojo-type="esri/dijit/metadata/form/Element" data-dojo-props="target:'gmd:useConstraints',minOccurs:1,
-            label:'Use Contraints'">
+            label:'${i18nMpa.identificationSection.constraintsTab.useConstraints}'">
             <div data-dojo-type="esri/dijit/metadata/form/InputSelectOne">
                 <div data-dojo-type="esri/dijit/metadata/form/Options">
                     <div data-dojo-type="esri/dijit/metadata/form/Option"
@@ -51,7 +51,7 @@
         </div>
 
         <div data-dojo-type="esri/dijit/metadata/form/Element" data-dojo-props="target:'gmd:otherConstraints',minOccurs:0,maxOccurs:'unbounded',
-          label:'${i18nIso.MD_LegalConstraints.otherConstraints}'">
+          label:'${i18nMpa.identificationSection.constraintsTab.otherConstraints}'">
             <div data-dojo-type="esri/dijit/metadata/form/iso/GcoElement"
                 data-dojo-props="target:'gco:CharacterString'"></div>
         </div>

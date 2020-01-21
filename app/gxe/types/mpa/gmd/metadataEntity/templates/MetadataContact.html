@@ -8,27 +8,27 @@
         
         <div data-dojo-type="esri/dijit/metadata/form/Element"
           data-dojo-props="target:'gmd:contactPerson',
-            label:'Contact Person'">
+            label:'${i18nMpa.metadataSection.contactTab.contactPerson}'">
           <div data-dojo-type="esri/dijit/metadata/form/iso/GcoElement"
             data-dojo-props="target:'gco:CharacterString'"></div>
         </div>
 
         <div data-dojo-type="esri/dijit/metadata/form/Element"
           data-dojo-props="target:'gmd:organisationName',
-            label:'${i18nIso.CI_ResponsibleParty.organisationName}'">
+            label:'${i18nMpa.metadataSection.contactTab.organisationName}'">
           <div data-dojo-type="esri/dijit/metadata/form/iso/GcoElement"
             data-dojo-props="target:'gco:CharacterString'"></div>
         </div>
 
         <div data-dojo-type="esri/dijit/metadata/form/iso/CodeListReference"
           data-dojo-props="target:'gmd:role',
-            label:'${i18nIso.CI_RoleCode.caption}',minOccurs:1">
+            label:'${i18nMpa.metadataSection.contactTab.role}',minOccurs:1">
           <div data-dojo-type="esri/dijit/metadata/types/iso/gmd/citation/CI_RoleCode"></div>
         </div>
 
         <div data-dojo-type="esri/dijit/metadata/form/Element"
           data-dojo-props="target:'gmd:telephone',
-            label:'Telephone'">
+            label:'${i18nMpa.metadataSection.contactTab.telephone}'">
           <div data-dojo-type="esri/dijit/metadata/form/iso/GcoElement"
             data-dojo-props="target:'gco:CharacterString'"></div>
         </div>

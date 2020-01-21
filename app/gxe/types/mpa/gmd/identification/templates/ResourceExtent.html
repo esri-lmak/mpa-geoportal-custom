@@ -9,13 +9,122 @@
         </div>
     </div>
 
+    <div data-dojo-type="esri/dijit/metadata/form/Element" data-dojo-props="target:'gmd:horizontalCoordinateSystem',minOccurs:1,
+        label:'${i18nMpa.extentTab.horizontalCoordinateSystem}'">
+        <div data-dojo-type="esri/dijit/metadata/form/InputSelectOne">
+            <div data-dojo-type="esri/dijit/metadata/form/Options">
+                <div data-dojo-type="esri/dijit/metadata/form/Option"
+                    data-dojo-props="label:'${i18nMpa.horizontalCoordinateSystem.svy21}',value:'svy21'">
+                </div>
+                <div data-dojo-type="esri/dijit/metadata/form/Option"
+                    data-dojo-props="label:'${i18nMpa.horizontalCoordinateSystem.wgs84}',value:'wgs84'">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div data-dojo-type="esri/dijit/metadata/form/Element" data-dojo-props="target:'gmd:verticalCoordinateSystem',minOccurs:0,
+        label:'${i18nMpa.extentTab.verticalCoordinateSystem}'">
+        <div data-dojo-type="esri/dijit/metadata/form/iso/GcoElement" data-dojo-props="target:'gco:CharacterString'">
+        </div>
+    </div>
+
+    <div data-dojo-type="esri/dijit/metadata/form/Element" data-dojo-props="target:'gmd:datum',minOccurs:0,
+        label:'${i18nMpa.extentTab.datum}'">
+        <div data-dojo-type="esri/dijit/metadata/form/iso/GcoElement" data-dojo-props="target:'gco:CharacterString'">
+        </div>
+    </div>
+
+    <div data-dojo-type="esri/dijit/metadata/form/Element" data-dojo-props="target:'gmd:spheroid',minOccurs:0,
+        label:'${i18nMpa.extentTab.spheroid}'">
+        <div data-dojo-type="esri/dijit/metadata/form/iso/GcoElement" data-dojo-props="target:'gco:CharacterString'">
+        </div>
+    </div>
+
+    <div data-dojo-type="esri/dijit/metadata/form/Element" data-dojo-props="target:'gmd:majorAxis',minOccurs:0,
+        label:'${i18nMpa.extentTab.majorAxis}'">
+        <div data-dojo-type="esri/dijit/metadata/form/iso/GcoElement" data-dojo-props="target:'gco:Decimal'">
+            <div data-dojo-type="esri/dijit/metadata/form/InputNumber"
+                data-dojo-props="hint:'${i18nBase.hints.longitude}'"></div>
+        </div>
+    </div>
+
+    <div data-dojo-type="esri/dijit/metadata/form/Element" data-dojo-props="target:'gmd:minorAxis',minOccurs:0,
+        label:'${i18nMpa.extentTab.minorAxis}'">
+        <div data-dojo-type="esri/dijit/metadata/form/iso/GcoElement" data-dojo-props="target:'gco:Decimal'">
+            <div data-dojo-type="esri/dijit/metadata/form/InputNumber"
+                data-dojo-props="hint:'${i18nBase.hints.longitude}'"></div>
+        </div>
+    </div>
+
+    <div data-dojo-type="esri/dijit/metadata/form/Element" data-dojo-props="target:'gmd:primeMeridian',minOccurs:0,
+        label:'${i18nMpa.extentTab.primeMeridian}'">
+        <div data-dojo-type="esri/dijit/metadata/form/iso/GcoElement" data-dojo-props="target:'gco:CharacterString'">
+        </div>
+    </div>
+
+    <div data-dojo-type="esri/dijit/metadata/form/Element" data-dojo-props="target:'gmd:angularUnit',minOccurs:0,
+        label:'${i18nMpa.extentTab.angularUnit}'">
+        <div data-dojo-type="esri/dijit/metadata/form/iso/GcoElement" data-dojo-props="target:'gco:CharacterString'">
+        </div>
+    </div>
+
+    <div data-dojo-type="esri/dijit/metadata/form/Element" data-dojo-props="target:'gmd:projection',minOccurs:0,
+        label:'${i18nMpa.extentTab.projection}'">
+        <div data-dojo-type="esri/dijit/metadata/form/iso/GcoElement" data-dojo-props="target:'gco:CharacterString'">
+        </div>
+    </div>
+
+    <div data-dojo-type="esri/dijit/metadata/form/Element" data-dojo-props="target:'gmd:falseEasting',minOccurs:0,
+        label:'${i18nMpa.extentTab.falseEasting}'">
+        <div data-dojo-type="esri/dijit/metadata/form/iso/GcoElement" data-dojo-props="target:'gco:Decimal'">
+            <div data-dojo-type="esri/dijit/metadata/form/InputNumber"
+                data-dojo-props="hint:'${i18nBase.hints.longitude}'"></div>
+        </div>
+    </div>
+
+    <div data-dojo-type="esri/dijit/metadata/form/Element" data-dojo-props="target:'gmd:falseNorthing',minOccurs:0,
+        label:'${i18nMpa.extentTab.falseNorthing}'">
+        <div data-dojo-type="esri/dijit/metadata/form/iso/GcoElement" data-dojo-props="target:'gco:Decimal'">
+            <div data-dojo-type="esri/dijit/metadata/form/InputNumber"
+                data-dojo-props="hint:'${i18nBase.hints.longitude}'"></div>
+        </div>
+    </div>
+
+    <div data-dojo-type="esri/dijit/metadata/form/Element" data-dojo-props="target:'gmd:centralMeridian',minOccurs:0,
+        label:'${i18nMpa.extentTab.centralMeridian}'">
+        <div data-dojo-type="esri/dijit/metadata/form/iso/GcoElement" data-dojo-props="target:'gco:Decimal'">
+            <div data-dojo-type="esri/dijit/metadata/form/InputNumber"
+                data-dojo-props="hint:'${i18nBase.hints.longitude}'"></div>
+        </div>
+    </div>
+
+    <div data-dojo-type="esri/dijit/metadata/form/Element" data-dojo-props="target:'gmd:scaleFactor',
+        minOccurs:0, label:'${i18nMpa.extentTab.scaleFactor}'">
+        <div data-dojo-type="esri/dijit/metadata/form/InputNumber"></div>
+    </div>
+
+    <div data-dojo-type="esri/dijit/metadata/form/Element" data-dojo-props="target:'gmd:latitudeOfOrigin',minOccurs:0,
+        label:'${i18nMpa.extentTab.latitudeOfOrigin}'">
+        <div data-dojo-type="esri/dijit/metadata/form/iso/GcoElement" data-dojo-props="target:'gco:Decimal'">
+            <div data-dojo-type="esri/dijit/metadata/form/InputNumber"
+                data-dojo-props="hint:'${i18nBase.hints.longitude}'"></div>
+        </div>
+    </div>
+
+    <div data-dojo-type="esri/dijit/metadata/form/Element" data-dojo-props="target:'gmd:linearUnit',minOccurs:0,
+        label:'${i18nMpa.extentTab.linearUnit}'">
+        <div data-dojo-type="esri/dijit/metadata/form/iso/GcoElement" data-dojo-props="target:'gco:CharacterString'">
+        </div>
+    </div>
+
     <div data-dojo-type="esri/dijit/metadata/form/Element" data-dojo-props="target:'gmd:featureCount',
-        minOccurs:1, label:'Feature Count'">
+        minOccurs:1, label:'${i18nMpa.extentTab.featureCount}'">
         <div data-dojo-type="esri/dijit/metadata/form/InputNumber"></div>
     </div>
 
     <div data-dojo-type="esri/dijit/metadata/form/Element" data-dojo-props="target:'gmd:scale',
-        minOccurs:1, label:'Scale'">
+        minOccurs:1, label:'${i18nMpa.extentTab.scale}'">
         <div data-dojo-type="esri/dijit/metadata/form/InputNumber"></div>
     </div>
 

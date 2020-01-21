@@ -1,0 +1,358 @@
+<div data-dojo-attach-point="containerNode">
+
+  <div data-dojo-type="esri/dijit/metadata/form/iso/ObjectReference" data-dojo-props="target:'gmd:dataQualityInfo',
+      label:'${i18nIso.MD_Metadata.dataQualityInfo}',showHeader:false">
+    <div data-dojo-type="esri/dijit/metadata/form/iso/AbstractObject"
+      data-dojo-props="target:'gmd:DQ_DataQuality',minOccurs:0">
+
+      <div data-dojo-type="esri/dijit/metadata/form/Tabs">
+
+        <!-- specific for MPA -->
+        <div data-dojo-attach-point="containerNode">
+
+          <div data-dojo-type="esri/dijit/metadata/form/iso/ObjectReference"
+            data-dojo-props="target:'gmd:DQ_Scope',minOccurs:0,label:'${i18nMpa.qualitySection.scope}',showHeader:false">
+            <div data-dojo-type="esri/dijit/metadata/form/iso/AbstractObject"
+              data-dojo-props="target:'gmd:DQ_Scope',minOccurs:0">
+
+              <div data-dojo-type="esri/dijit/metadata/form/Element" data-dojo-props="target:'gmd:DQ_ScopeQuality',minOccurs:1,
+                label:'${i18nMpa.qualitySection.scopeTab.scopeQuality}'">
+                <div data-dojo-type="esri/dijit/metadata/form/InputSelectOne">
+                  <div data-dojo-type="esri/dijit/metadata/form/Options">
+                    <div data-dojo-type="esri/dijit/metadata/form/Option"
+                      data-dojo-props="label:'${i18nMpa.dataQualityScope.attribute}',value:'attribute'">
+                    </div>
+                    <div data-dojo-type="esri/dijit/metadata/form/Option"
+                      data-dojo-props="label:'${i18nMpa.dataQualityScope.attributeType}',value:'attributeType'">
+                    </div>
+                    <div data-dojo-type="esri/dijit/metadata/form/Option"
+                      data-dojo-props="label:'${i18nMpa.dataQualityScope.collectionHardware}',value:'collectionHardware'">
+                    </div>
+                    <div data-dojo-type="esri/dijit/metadata/form/Option"
+                      data-dojo-props="label:'${i18nMpa.dataQualityScope.collectionSession}',value:'collectionSession'">
+                    </div>
+                    <div data-dojo-type="esri/dijit/metadata/form/Option"
+                      data-dojo-props="label:'${i18nMpa.dataQualityScope.dataset}',value:'dataset'">
+                    </div>
+                    <div data-dojo-type="esri/dijit/metadata/form/Option"
+                      data-dojo-props="label:'${i18nMpa.dataQualityScope.series}',value:'series'">
+                    </div>
+                    <div data-dojo-type="esri/dijit/metadata/form/Option"
+                      data-dojo-props="label:'${i18nMpa.dataQualityScope.nonGeographicDataset}',value:'nonGeographicDataset'">
+                    </div>
+                    <div data-dojo-type="esri/dijit/metadata/form/Option"
+                      data-dojo-props="label:'${i18nMpa.dataQualityScope.dimensionGroup}',value:'dimensionGroup'">
+                    </div>
+                    <div data-dojo-type="esri/dijit/metadata/form/Option"
+                      data-dojo-props="label:'${i18nMpa.dataQualityScope.feature}',value:'feature'">
+                    </div>
+                    <div data-dojo-type="esri/dijit/metadata/form/Option"
+                      data-dojo-props="label:'${i18nMpa.dataQualityScope.featureType}',value:'featureType'">
+                    </div>
+                    <div data-dojo-type="esri/dijit/metadata/form/Option"
+                      data-dojo-props="label:'${i18nMpa.dataQualityScope.propertyType}',value:'propertyType'">
+                    </div>
+                    <div data-dojo-type="esri/dijit/metadata/form/Option"
+                      data-dojo-props="label:'${i18nMpa.dataQualityScope.fieldSession}',value:'fieldSession'">
+                    </div>
+                    <div data-dojo-type="esri/dijit/metadata/form/Option"
+                      data-dojo-props="label:'${i18nMpa.dataQualityScope.software}',value:'software'">
+                    </div>
+                    <div data-dojo-type="esri/dijit/metadata/form/Option"
+                      data-dojo-props="label:'${i18nMpa.dataQualityScope.service}',value:'service'">
+                    </div>
+                    <div data-dojo-type="esri/dijit/metadata/form/Option"
+                      data-dojo-props="label:'${i18nMpa.dataQualityScope.model}',value:'model'">
+                    </div>
+                    <div data-dojo-type="esri/dijit/metadata/form/Option"
+                      data-dojo-props="label:'${i18nMpa.dataQualityScope.tile}',value:'tile'">
+                    </div>
+                    <div data-dojo-type="esri/dijit/metadata/form/Option"
+                      data-dojo-props="label:'${i18nMpa.dataQualityScope.metadata}',value:'metadata'">
+                    </div>
+                    <div data-dojo-type="esri/dijit/metadata/form/Option"
+                      data-dojo-props="label:'${i18nMpa.dataQualityScope.initiative}',value:'initiative'">
+                    </div>
+                    <div data-dojo-type="esri/dijit/metadata/form/Option"
+                      data-dojo-props="label:'${i18nMpa.dataQualityScope.sample}',value:'sample'">
+                    </div>
+                    <div data-dojo-type="esri/dijit/metadata/form/Option"
+                      data-dojo-props="label:'${i18nMpa.dataQualityScope.document}',value:'document'">
+                    </div>
+                    <div data-dojo-type="esri/dijit/metadata/form/Option"
+                      data-dojo-props="label:'${i18nMpa.dataQualityScope.repository}',value:'repository'">
+                    </div>
+                    <div data-dojo-type="esri/dijit/metadata/form/Option"
+                      data-dojo-props="label:'${i18nMpa.dataQualityScope.aggregate}',value:'aggregate'">
+                    </div>
+                    <div data-dojo-type="esri/dijit/metadata/form/Option"
+                      data-dojo-props="label:'${i18nMpa.dataQualityScope.product}',value:'product'">
+                    </div>
+                    <div data-dojo-type="esri/dijit/metadata/form/Option"
+                      data-dojo-props="label:'${i18nMpa.dataQualityScope.collection}',value:'collection'">
+                    </div>
+                    <div data-dojo-type="esri/dijit/metadata/form/Option"
+                      data-dojo-props="label:'${i18nMpa.dataQualityScope.coverage}',value:'coverage'">
+                    </div>
+                    <div data-dojo-type="esri/dijit/metadata/form/Option"
+                      data-dojo-props="label:'${i18nMpa.dataQualityScope.application}',value:'application'">
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div data-dojo-type="esri/dijit/metadata/form/Element" data-dojo-props="target:'gmd:DQ_NameType',minOccurs:1,
+                label:'${i18nMpa.qualitySection.scopeTab.nameType}'">
+                <div data-dojo-type="esri/dijit/metadata/form/iso/GcoElement"
+                  data-dojo-props="target:'gco:CharacterString'">
+                </div>
+              </div>
+
+              <div data-dojo-type="esri/dijit/metadata/form/Element" data-dojo-props="target:'gmd:DQ_Name',minOccurs:1,
+                label:'${i18nMpa.qualitySection.scopeTab.name}'">
+                <div data-dojo-type="esri/dijit/metadata/form/iso/GcoElement"
+                  data-dojo-props="target:'gco:CharacterString'">
+                </div>
+              </div>
+
+              <div data-dojo-type="esri/dijit/metadata/form/Element" data-dojo-props="target:'gmd:DQ_Alias',minOccurs:0,
+                label:'${i18nMpa.qualitySection.scopeTab.alias}'">
+                <div data-dojo-type="esri/dijit/metadata/form/iso/GcoElement"
+                  data-dojo-props="target:'gco:CharacterString'">
+                </div>
+              </div>
+
+              <div data-dojo-type="esri/dijit/metadata/form/Element" data-dojo-props="target:'gmd:DQ_ElementName',minOccurs:1,
+                label:'${i18nMpa.qualitySection.scopeTab.elementName}'">
+                <div data-dojo-type="esri/dijit/metadata/form/iso/GcoElement"
+                  data-dojo-props="target:'gco:CharacterString'">
+                </div>
+              </div>
+
+              <div data-dojo-type="esri/dijit/metadata/form/Element" data-dojo-props="target:'gmd:DQ_BaseMeasure',minOccurs:1,
+                label:'${i18nMpa.qualitySection.scopeTab.baseMeasure}'">
+                <div data-dojo-type="esri/dijit/metadata/form/iso/GcoElement"
+                  data-dojo-props="target:'gco:CharacterString'">
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <div data-dojo-attach-point="containerNode">
+
+          <div data-dojo-type="esri/dijit/metadata/form/iso/ObjectReference"
+            data-dojo-props="target:'gmd:DQ_Value',minOccurs:0,label:'${i18nMpa.qualitySection.value}',showHeader:false">
+            <div data-dojo-type="esri/dijit/metadata/form/iso/AbstractObject"
+              data-dojo-props="target:'gmd:DQ_Value',minOccurs:0">
+
+              <div data-dojo-type="esri/dijit/metadata/form/Element" data-dojo-props="target:'gmd:DQ_Parameter',minOccurs:0,
+                label:'${i18nMpa.qualitySection.valueTab.parameter}'">
+                <div data-dojo-type="esri/dijit/metadata/form/iso/GcoElement"
+                  data-dojo-props="target:'gco:CharacterString'">
+                </div>
+              </div>
+
+              <div data-dojo-type="esri/dijit/metadata/form/Element" data-dojo-props="target:'gmd:DQ_ValueType',minOccurs:1,
+                label:'${i18nMpa.qualitySection.valueTab.valueType}'">
+                <div data-dojo-type="esri/dijit/metadata/form/InputSelectOne">
+                  <div data-dojo-type="esri/dijit/metadata/form/Options">
+                    <div data-dojo-type="esri/dijit/metadata/form/Option"
+                      data-dojo-props="label:'${i18nMpa.valueType.boolean}',value:'boolean'">
+                    </div>
+                    <div data-dojo-type="esri/dijit/metadata/form/Option"
+                      data-dojo-props="label:'${i18nMpa.valueType.integer}',value:'integer'">
+                    </div>
+                    <div data-dojo-type="esri/dijit/metadata/form/Option"
+                      data-dojo-props="label:'${i18nMpa.valueType.real}',value:'real'">
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div data-dojo-type="esri/dijit/metadata/form/Element" data-dojo-props="target:'gmd:DQ_ValueStructure',minOccurs:0,
+                label:'${i18nMpa.qualitySection.valueTab.valueStructure}'">
+                <div data-dojo-type="esri/dijit/metadata/form/iso/GcoElement"
+                  data-dojo-props="target:'gco:CharacterString'">
+                </div>
+              </div>
+
+              <div data-dojo-type="esri/dijit/metadata/form/Element" data-dojo-props="target:'gmd:DQ_Definition',minOccurs:1,
+                label:'${i18nMpa.qualitySection.valueTab.definition}'">
+                <div data-dojo-type="esri/dijit/metadata/form/iso/GcoElement"
+                  data-dojo-props="target:'gco:CharacterString'">
+                </div>
+              </div>
+
+              <div data-dojo-type="esri/dijit/metadata/form/Element" data-dojo-props="target:'gmd:DQ_Description',minOccurs:0,
+                label:'${i18nMpa.qualitySection.valueTab.description}'">
+                <div data-dojo-type="esri/dijit/metadata/form/iso/GcoElement"
+                  data-dojo-props="target:'gco:CharacterString'">
+                  <div data-dojo-type="esri/dijit/metadata/form/InputTextArea" data-dojo-props="large:true">
+                  </div>
+                </div>
+              </div>
+
+              <div data-dojo-type="esri/dijit/metadata/form/Element" data-dojo-props="target:'gmd:DQ_SourceReference',minOccurs:0,
+                label:'${i18nMpa.qualitySection.valueTab.sourceReference}'">
+                <div data-dojo-type="esri/dijit/metadata/form/iso/GcoElement"
+                  data-dojo-props="target:'gco:CharacterString'">
+                </div>
+              </div>
+
+              <div data-dojo-type="esri/dijit/metadata/form/Element" data-dojo-props="target:'gmd:DQ_Identifier',minOccurs:1,
+                label:'${i18nMpa.qualitySection.valueTab.identifier}'">
+                <div data-dojo-type="esri/dijit/metadata/form/iso/GcoElement"
+                  data-dojo-props="target:'gco:CharacterString'">
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <div data-dojo-attach-point="containerNode">
+
+          <div data-dojo-type="esri/dijit/metadata/form/iso/ObjectReference"
+            data-dojo-props="target:'gmd:DQ_Quality',minOccurs:0,label:'${i18nMpa.qualitySection.quality}',showHeader:false">
+            <div data-dojo-type="esri/dijit/metadata/form/iso/AbstractObject"
+              data-dojo-props="target:'gmd:DQ_Quality',minOccurs:0">
+
+              <div data-dojo-type="esri/dijit/metadata/form/Element" data-dojo-props="target:'gmd:DQ_AQL',
+                minOccurs:1, label:'${i18nMpa.qualitySection.qualityTab.acceptanceQualityLimit}'">
+                <div data-dojo-type="esri/dijit/metadata/form/InputNumber" data-dojo-props="minValue:0,maxValue:100">
+                </div>
+              </div>
+
+              <div data-dojo-type="esri/dijit/metadata/form/Element" data-dojo-props="target:'gmd:DQ_FeatureType',minOccurs:0,
+                label:'${i18nMpa.qualitySection.qualityTab.featureType}'">
+                <div data-dojo-type="esri/dijit/metadata/form/iso/GcoElement"
+                  data-dojo-props="target:'gco:CharacterString'">
+                </div>
+              </div>
+
+              <div data-dojo-type="esri/dijit/metadata/form/Element" data-dojo-props="target:'gmd:DQ_ErrorCount',
+                minOccurs:0, label:'${i18nMpa.qualitySection.qualityTab.errorCount}'">
+                <div data-dojo-type="esri/dijit/metadata/form/InputNumber" data-dojo-props="minValue:0"></div>
+              </div>
+
+              <div data-dojo-type="esri/dijit/metadata/form/Element" data-dojo-props="target:'gmd:DQ_ErrorRate',
+                minOccurs:0, label:'${i18nMpa.qualitySection.qualityTab.errorRate}'">
+                <div data-dojo-type="esri/dijit/metadata/form/InputNumber" data-dojo-props="minValue:0,maxValue:100">
+                </div>
+              </div>
+
+              <div data-dojo-type="esri/dijit/metadata/form/Element" data-dojo-props="target:'gmd:DQ_Pass',minOccurs:1,
+                label:'${i18nMpa.qualitySection.qualityTab.pass}'">
+                <div data-dojo-type="esri/dijit/metadata/form/InputSelectOne">
+                  <div data-dojo-type="esri/dijit/metadata/form/Options">
+                    <div data-dojo-type="esri/dijit/metadata/form/Option"
+                      data-dojo-props="label:'${i18nMpa.yesNoCode.yes}',value:'yes'">
+                    </div>
+                    <div data-dojo-type="esri/dijit/metadata/form/Option"
+                      data-dojo-props="label:'${i18nMpa.yesNoCode.no}',value:'no'">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div data-dojo-attach-point="containerNode">
+
+          <div data-dojo-type="esri/dijit/metadata/form/iso/ObjectReference"
+            data-dojo-props="target:'gmd:DQ_EvaluationMethod',minOccurs:0,label:'${i18nMpa.qualitySection.evaluationMethod}',showHeader:false">
+            <div data-dojo-type="esri/dijit/metadata/form/iso/AbstractObject"
+              data-dojo-props="target:'gmd:DQ_EvaluationMethod',minOccurs:0">
+
+              <div data-dojo-type="esri/dijit/metadata/form/Element" data-dojo-props="target:'gmd:DQ_EvaluationMethodType',minOccurs:0,
+                label:'${i18nMpa.qualitySection.evaluationMethodTab.type}'">
+                <div data-dojo-type="esri/dijit/metadata/form/InputSelectOne">
+                  <div data-dojo-type="esri/dijit/metadata/form/Options">
+                    <div data-dojo-type="esri/dijit/metadata/form/Option"
+                      data-dojo-props="label:'${i18nMpa.evaluationMethodType.directInternal}',value:'directInternal'">
+                    </div>
+                    <div data-dojo-type="esri/dijit/metadata/form/Option"
+                      data-dojo-props="label:'${i18nMpa.evaluationMethodType.directExternal}',value:'directExternal'">
+                    </div>
+                    <div data-dojo-type="esri/dijit/metadata/form/Option"
+                      data-dojo-props="label:'${i18nMpa.evaluationMethodType.indirect}',value:'indirect'">
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div data-dojo-type="esri/dijit/metadata/form/Element" data-dojo-props="target:'gmd:DQ_EvaluationMethodDescription',minOccurs:0,
+                label:'${i18nMpa.qualitySection.evaluationMethodTab.description}'">
+                <div data-dojo-type="esri/dijit/metadata/form/iso/GcoElement"
+                  data-dojo-props="target:'gco:CharacterString'">
+                  <div data-dojo-type="esri/dijit/metadata/form/InputTextArea" data-dojo-props="large:true">
+                  </div>
+                </div>
+              </div>
+
+              <div data-dojo-type="esri/dijit/metadata/form/Element" data-dojo-props="target:'gmd:DQ_EvaluationMethodProcedure',minOccurs:0,
+                label:'${i18nMpa.qualitySection.evaluationMethodTab.procedure}'">
+                <div data-dojo-type="esri/dijit/metadata/form/iso/GcoElement"
+                  data-dojo-props="target:'gco:CharacterString'">
+                </div>
+              </div>
+
+              <div data-dojo-type="esri/dijit/metadata/form/Element" data-dojo-props="target:'gmd:DQ_Date',minOccurs:0,
+                label:'${i18nMpa.qualitySection.evaluationMethodTab.date}'">
+                <div data-dojo-type="esri/dijit/metadata/form/iso/GcoElement" data-dojo-props="target:'gco:Date'">
+                  <div data-dojo-type="esri/dijit/metadata/form/InputDate" data-dojo-props="useNow:true"></div>
+                </div>
+              </div>
+
+              <div data-dojo-type="esri/dijit/metadata/form/Element" data-dojo-props="target:'gmd:DQ_DateUnit',minOccurs:0,
+                label:'${i18nMpa.qualitySection.evaluationMethodTab.dateUnit}'">
+                <div data-dojo-type="esri/dijit/metadata/form/iso/GcoElement"
+                  data-dojo-props="target:'gco:CharacterString'">
+                </div>
+              </div>
+
+              <div data-dojo-type="esri/dijit/metadata/form/Element" data-dojo-props="target:'gmd:DQ_Value',minOccurs:0,
+                label:'${i18nMpa.qualitySection.evaluationMethodTab.value}'">
+                <div data-dojo-type="esri/dijit/metadata/form/iso/GcoElement"
+                  data-dojo-props="target:'gco:CharacterString'">
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <div data-dojo-attach-point="containerNode">
+
+          <div data-dojo-type="esri/dijit/metadata/form/iso/ObjectReference"
+            data-dojo-props="target:'gmd:lineage',minOccurs:0,label:'${i18nMpa.qualitySection.lineage}',showHeader:false">
+            <div data-dojo-type="esri/dijit/metadata/form/iso/AbstractObject"
+              data-dojo-props="target:'gmd:LI_Lineage',minOccurs:0">
+
+              <div data-dojo-type="esri/dijit/metadata/form/Element" data-dojo-props="target:'gmd:statement',
+                  label:'${i18nIso.LI_Lineage.statement}'">
+                <div data-dojo-type="esri/dijit/metadata/form/iso/GcoElement"
+                  data-dojo-props="target:'gco:CharacterString'">
+                  <div data-dojo-type="esri/dijit/metadata/form/InputTextArea" data-dojo-props="large:true">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!--         
+        <div data-dojo-type="esri/dijit/metadata/types/iso/gmd/dataQuality/ConformanceReport"
+          data-dojo-props="label:'${i18nIso.qualitySection.conformance}'"></div>
+            
+        <div data-dojo-type="esri/dijit/metadata/types/iso/gmd/dataQuality/Lineage"
+          data-dojo-props="label:'${i18nIso.qualitySection.lineage}'"></div>    
+        -->
+
+      </div>
+    </div>
+  </div>
+</div>
