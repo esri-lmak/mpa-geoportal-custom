@@ -115,6 +115,22 @@ function(declare, lang, Deferred, dojoRequest) {
       var info = {handleAs:"text"};
       return dojoRequest.get(url,info);
     },
+
+    readMetadataXML: function(itemId) {
+      var url = this.getRestUri()+"/metadata/item";
+      url += "/"+encodeURIComponent(itemId)+"/xml";
+      url = this.appendAccessToken(url);
+      var info = {handleAs:"xml"};
+      return dojoRequest.get(url,info);
+    },
+
+    readMetadataJson: function(itemId) {
+      var url = this.getRestUri()+"/metadata/item";
+      url += "/"+encodeURIComponent(itemId);
+      url = this.appendAccessToken(url);
+      var info = {handleAs:"json"};
+      return dojoRequest.get(url,info);
+    },
     
     uploadMetadata: function(xml,itemId,filename) {
       var url = this.getRestUri()+"/metadata/item";

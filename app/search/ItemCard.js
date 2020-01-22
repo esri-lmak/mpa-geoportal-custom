@@ -42,13 +42,14 @@ define(["dojo/_base/declare",
   "app/content/SetApprovalStatus",
   "app/content/SetField",
   "app/content/UploadMetadata",
+  "app/content/UploadData",
   "app/preview/PreviewUtil",
   "app/preview/PreviewPane"], 
 function(declare, lang, array, string, topic, xhr, on, appTopics, domClass, domConstruct,
   _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, Tooltip, TooltipDialog, popup, 
   template, i18n, AppClient, ServiceType, util, ConfirmationDialog, ChangeOwner, DeleteItems,
-  MetadataEditor, gxeConfig, SetAccess, SetApprovalStatus, SetField, UploadMetadata, 
-  PreviewUtil, PreviewPane) {
+  MetadataEditor, gxeConfig, SetAccess, SetApprovalStatus, SetField, UploadMetadata,
+  UploadData, PreviewUtil, PreviewPane) {
   
   var oThisClass = declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin], {
  
@@ -363,6 +364,15 @@ function(declare, lang, array, string, topic, xhr, on, appTopics, domClass, domC
           innerHTML: i18n.item.actions.options.uploadMetadata,
           onclick: function() {
             (new UploadMetadata({itemId:itemId})).show();
+          }
+        }));
+
+        links.push(domConstruct.create("a",{
+          "class": "small",
+          href: "javascript:void(0)",
+          innerHTML: i18n.item.actions.options.uploadData,
+          onclick: function() {
+            (new UploadData({itemId:itemId})).show();
           }
         }));
       }

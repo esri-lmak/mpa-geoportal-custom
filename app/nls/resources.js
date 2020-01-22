@@ -247,7 +247,8 @@ define({
         options: {
           caption: "Options",
           editMetadata: "Edit Metadata",
-          uploadMetadata: "Upload Metadata"
+          uploadMetadata: "Upload Metadata",
+          uploadData: "Upload Data"
         },
         urlLinks: {
           thumbnail: "Thumbnail",
@@ -320,6 +321,11 @@ define({
       },
       uploadMetadata: {
         caption: "Upload Metadata",
+        button: "Upload"
+      },
+      uploadData: {
+        caption: "Upload Data",
+        instructions: "This data will update TITLE and archive the existing data to TITLE_lastModified.",
         button: "Upload"
       }
     },
