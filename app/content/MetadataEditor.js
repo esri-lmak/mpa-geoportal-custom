@@ -234,9 +234,10 @@ function(declare, lang, array, Deferred, domConstruct, domStyle, topic, appTopic
         "dojo/i18n!esri/dijit/metadata/nls/i18nFgdc",
         "dojo/i18n!esri/dijit/metadata/nls/i18nIso",
         "dojo/i18n!esri/dijit/metadata/nls/i18nInspire",
-        "dojo/i18n!esri/dijit/metadata/nls/i18nGemini"],
+        "dojo/i18n!esri/dijit/metadata/nls/i18nGemini",
+		    "dojo/i18n!app/gxe/types/mpa/nls/i18nMpa"],
       function(LoadDocumentPane, PrimaryToolbar, DescriptorMixin, ServiceCategoryOptions,
-        i18nBase, i18nArcGIS, i18nFgdc, i18nIso, i18nInspire, i18nGemini){
+        i18nBase, i18nArcGIS, i18nFgdc, i18nIso, i18nInspire, i18nGemini, i18nMpa){
         
         if (!ServiceCategoryOptions.prototype.xtnWasExtended) {
           lang.extend(ServiceCategoryOptions, {
@@ -264,14 +265,15 @@ function(declare, lang, array, Deferred, domConstruct, domStyle, topic, appTopic
         }
         
         if (!DescriptorMixin.prototype.xtnWasExtended) {
-          //console.warn("Extending DescriptorMixin...",DescriptorMixin);
+          // console.warn("Extending DescriptorMixin...",DescriptorMixin);
           lang.extend(DescriptorMixin, {
             xtnWasExtended: true,
             i18nArcGIS: i18nArcGIS,
             i18nFgdc: i18nFgdc,
             i18nIso: i18nIso,
             i18nInspire: i18nInspire,
-            i18nGemini: i18nGemini
+            i18nGemini: i18nGemini,
+			      i18nMpa: i18nMpa
           });
           lang.extend(DescriptorMixin, {
             postMixInProperties: function() {

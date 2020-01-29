@@ -26,6 +26,7 @@ load("classpath:metadata/js/EvaluatorFor_DC.js");
 load("classpath:metadata/js/EvaluatorFor_FGDC.js");
 load("classpath:metadata/js/EvaluatorFor_ISO.js");
 load("classpath:metadata/js/EvaluatorFor_ISO_extended.js"); // add  extended class
+load("classpath:metadata/js/EvaluatorFor_MPA.js") // Added MPA
 
 G._metadataTypes =  {
   "iso19115base": {
@@ -98,6 +99,16 @@ G._metadataTypes =  {
     identifier: "http://www.openarchives.org/OAI/2.0/oai_dc/",
     detailsXslt: "metadata/details/rdf-details.xslt",
     //toKnownXslt: "metadata/xslt/qualifiedDCToISO19139v1.0.xslt",
+  },
+  "mpa-iso-19115": {
+    key: "mpa-iso-19115",
+    evaluator: G.evaluators.mpa,
+    interrogationXPath: "/gmd:MD_Metadata",
+    identifier: "http://www.isotc211.org/2005/gmd",
+    detailsXslt: "metadata/details/mpa-details/xml-to-html-MPA.xsl",
+    //xsdLocation: "http://www.ngdc.noaa.gov/metadata/published/xsd/schema.xsd",
+    //schematronXslt: "metadata/schematron/Gemini2_R2r2-schematron.xslt",
+    toKnownXslt: null
   }
 };
 

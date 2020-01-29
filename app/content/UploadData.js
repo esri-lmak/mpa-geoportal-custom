@@ -39,11 +39,12 @@ define(["dojo/_base/declare",
       _fileName: null,
       _text: null,
       _working: false,
+
+      // Custom fields
       _userName: null,
-      _featureName: null,
-      _lastModified: null,
       _fileId: null,
       _file: null,
+      _xmlData: null,
 
       postCreate: function () {
         this.inherited(arguments);
@@ -60,23 +61,8 @@ define(["dojo/_base/declare",
 
         var client = new AppClient();
         client.readMetadataXML(this.itemId).then(function (response) {
-          var fileIdentifier = response.getElementsByTagName("gmd:fileIdentifier");
-          var fileId = fileIdentifier[0];
-          this._fileId = fileId.textContent.trim();
-          console.log(this._fileId);
-          var citationTitle = response.getElementsByTagName("gmd:title");
-          var title = citationTitle[0];
-          this._featureName = title.textContent.trim();
-          console.log(this._featureName);
-        }).otherwise(function (err) {
-          showErr(err);
-          console.error("Unable to retrieve metadata.");
-          console.error(err);
-        });
-
-        client.readMetadataJson(this.itemId).then(function (response) {
-          this._lastModified = response['_source']['sys_modified_dt'];
-          console.log(this._lastModified);
+          this._xmlData = response;
+          console.log(this._xmlData);
         }).otherwise(function (err) {
           showErr(err);
           console.error("Unable to retrieve metadata.");
@@ -194,29 +180,27 @@ define(["dojo/_base/declare",
       },
 
       begin: function () {
-        var baseRestURL = "";
+        var baseRestURL = "https://mpa.esrisg.dev/geoportal/";
         var username = "siteadmin";
         var password = "";
 
-        createAuthToken(baseRestURL, username, password, function authCallBack(token) {
+        self.createAuthToken(baseRestURL, username, password, function authCallBack(token) {
           document.getElementById("textArea").innerHTML = token;
         });
       },
 
       createAuthToken: function (baseRestURL, username, password, callback) {
-        var APIPath = "/api/auth/login";
+        var APIPath = "/oauth/token";
         var completeRestURL = baseRestURL + APIPath;
         console.log("REST API URL: " + completeRestURL);
 
         var method = "POST";
-        var postData = "{\"featureName\": \"" + this._featureName
-          + "\",\"uploadedBy\": \"" + this._userName
-          + "\",\"lastModified\": \"" + this._lastModified
-          + "\",\"fileId\": \"" + this._fileId
-          + "\",\"inputFile\": \"" + this._file
-          + "\",\"username\": \"" + username 
-          + "\",\"password\": \"" + password 
-          + "\",\"loginMode\": 1,\"applicationType\": 35}";
+        var postData = "{\"uploaded_by\": \"" + this._userName +
+          "\",\"data_file \": \"" + this._file +
+          "\",\"metadata_file\": \"" + this._xmlData +
+          "\",\"username\": \"" + username +
+          "\",\"password\": \"" + password +
+          "\",\"loginMode\": 1,\"applicationType\": 35}";
         var url = completeRestURL;
         var async = true;
         var request = new XMLHttpRequest();

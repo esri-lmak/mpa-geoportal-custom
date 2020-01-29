@@ -33,7 +33,7 @@ function(declare, lang, domConstruct, DocumentType, PortalItemTransformer, i18nM
       if (!this.isService && (p === "/gmd:MD_Metadata/gmd:hierarchyLevel/gmd:MD_ScopeCode/@codeListValue")) {
         // show only a subset of options
         attribute.optionsFilter = "dataset,series";
-      } else if(!this.isService && (p === "/gmd:MD_Metadata/gmd:dataQualityInfo/gmd:DQ_DataQuality/gmd:scope/gmd:DQ_Scope/gmd:level/gmd:MD_ScopeCode/@codeListValue")) {
+      } else if(!this.isService && (p === "/gmd:MD_Metadata/gmd:dataQualityInfo/gmd:DQ_DataQuality/gmd:DQ_Scope/gmd:DQ_ScopeQuality/@codeListValue")) {
        // show only a subset of options
         attribute.optionsFilter = "dataset,series";
       } else {
@@ -53,7 +53,7 @@ function(declare, lang, domConstruct, DocumentType, PortalItemTransformer, i18nM
       } else if (p === "/gmd:MD_Metadata/gmd:dataQualityInfo") {
         // change multiplicity
         element.minOccurs = 1;
-      } else if (p === "/gmd:MD_Metadata/gmd:dataQualityInfo/gmd:DQ_DataQuality/gmd:report") {
+      } else if (p === "/gmd:MD_Metadata/gmd:dataQualityInfo/gmd:DQ_DataQuality/gmd:DQ_Scope/gmd:DQ_ScopeQuality") {
         // change multiplicity
         element.minOccurs = 1;
       } else if (this.isService && (p === "/gmd:MD_Metadata/gmd:dataQualityInfo/gmd:DQ_DataQuality/gmd:lineage/gmd:LI_Lineage/gmd:statement")) {

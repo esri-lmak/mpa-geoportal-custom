@@ -4,7 +4,7 @@ define([],function(){var obj={
     editable: {
       // Warning: The editor will be lossy if allowNonGxeDocs is enabled.
       allowNonGxeDocs: false, 
-      geoportalTypes: ["arcgis", "fgdc", "iso19115", "iso19115-2"]
+      geoportalTypes: ["arcgis", "fgdc", "iso19115", "iso19115-2", "mpa-iso-19115"]
     },
     
     gxeContext: {

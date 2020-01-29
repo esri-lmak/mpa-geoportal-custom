@@ -134,7 +134,7 @@ define({
         },
         yesNoCode: {
             yes: "Yes",
-            no: "no"
+            no: "No"
         },
         mpaDataThemeCode: {
             caption: "Data Theme",
