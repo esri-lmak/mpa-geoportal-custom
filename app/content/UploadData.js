@@ -180,17 +180,15 @@ define(["dojo/_base/declare",
       },
 
       begin: function () {
-        var baseRestURL = "https://mpa.esrisg.dev/geoportal/";
+        var baseRestURL = "https://mpa.esrisg.dev/geoportal";
         var username = "siteadmin";
-        var password = "";
+        var password = "zaq123..";
 
-        self.createAuthToken(baseRestURL, username, password, function authCallBack(token) {
-          document.getElementById("textArea").innerHTML = token;
-        });
+        self.uploadData(baseRestURL, username, password);
       },
 
-      createAuthToken: function (baseRestURL, username, password, callback) {
-        var APIPath = "/oauth/token";
+      uploadData: function (baseRestURL, username, password) {
+        var APIPath = "/metadata/uploadData";
         var completeRestURL = baseRestURL + APIPath;
         console.log("REST API URL: " + completeRestURL);
 
@@ -200,7 +198,7 @@ define(["dojo/_base/declare",
           "\",\"metadata_file\": \"" + this._xmlData +
           "\",\"username\": \"" + username +
           "\",\"password\": \"" + password +
-          "\",\"loginMode\": 1,\"applicationType\": 35}";
+          "}";
         var url = completeRestURL;
         var async = true;
         var request = new XMLHttpRequest();
@@ -209,13 +207,12 @@ define(["dojo/_base/declare",
           var status = request.status; // HTTP response status, e.g., 200 for "200 OK"
           console.log(status);
           var token = request.getResponseHeader("x-mstr-authtoken");
-
-          return callback(token);
         }
 
         request.open(method, url, async);
         request.setRequestHeader("Content-Type", "application/json");
         request.setRequestHeader("Accept", "application/json");
+		    request.setRequestHeader("Authorisation", "Basic " + btoa(self.username + ":" + self.password));
         request.send(postData);
       }
 

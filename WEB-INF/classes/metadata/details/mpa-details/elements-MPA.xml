@@ -64,6 +64,7 @@
 	<name tagname="gmd:country">Country</name>
 	<name tagname="gmd:country">Country</name>
 	<name tagname="gmd:credit">Credit</name>
+	<name tagname="gmd:dataLastUpdatedDate">Data Last Updated Date</name>
 	<name tagname="gmd:dataQualityInfo">Data quality info</name>
 	<name tagname="gmd:dataset">Dataset Set</name>
 	<name tagname="gmd:dataSetURI">Dataset URI</name>
@@ -305,6 +306,7 @@
 	<name tagname="gmd:mediumNote">Medium note</name>
 	<name tagname="gmd:metadataConstraints">Metadata constraints</name>
 	<name tagname="gmd:metadataExtensionInfo">Metadata extension info</name>
+	<name tagname="gmd:metadataLastUpdatedDate">Metadata Last Updated Date</name>
 	<name tagname="gmd:metadataMaintenance">Metadata maintenance</name>
 	<name tagname="gmd:metadataStandardName">Metadata standard name</name>
 	<name tagname="gmd:metadataStandardVersion">Metadata standard version</name>

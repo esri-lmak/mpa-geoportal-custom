@@ -34,6 +34,11 @@ define({
                 email: "Email"
             },
             date: "Date",
+            dateTab: {
+                date: "Date",
+                metadataLastUpdatedDate: "Metadata Last Updated Date",
+                dataLastUpdatedDate: "Data Last Updated Date"
+            },
             standard: "Standard",
             reference: "Reference"
         },
@@ -165,11 +170,12 @@ define({
         },
         mpaMarineDataThemeLevel2Code: {
             caption: "Marine Data Theme (Level II)",
+            none: "-",
             encChart: "ENC Chart",
             satelliteImagery: "Satellite Imagery",
             boundaries: "Boundaries",
             hydrographyOceanography: "Hydrography and Oceanography",
-            costalGeography: "Costal Geography",
+            coastalGeography: "Coastal Geography",
             atmosphere: "Atmosphere",
             speciesDistributionHabitats: "Species Distribution and Habitats",
             ecosystemServicesFunction: "Ecosystem Services and Functions",
@@ -179,6 +185,65 @@ define({
             management: "Management",
             societal: "Societal"
         },
+        mpaMarineDataThemeLevel3Boundaries : [
+            { label: "Administrative Coastline", value: "administrativeCoastline" },
+            { label: "Natural Manmade Coastline", value: "naturalManmadeCoastline" },
+            { label: "Marine Spatial Planning", value: "marineSpatialPlanning" }
+        ],
+        mpaMarineDataThemeLevel3Hydrography : [
+            { label: "Hydrodynamics", value: "hydrodynamics" },
+            { label: "Water Quality", value: "waterQuality" },
+            { label: "Bathymetry", value: "bathymetry" },
+            { label: "Marine Substrates", value: "marineSubstrates" }
+        ],
+        mpaMarineDataThemeLevel3Coastal : [
+            { label: "Geomorphic Landform and Processes", value: "geomorphicLandformProcesses" },
+            { label: "Elevation", value: "elevation" }
+        ],
+        mpaMarineDataThemeLevel3Atmosphere : [
+            { label: "Wind", value: "wind" }
+        ],
+        mpaMarineDataThemeLevel3Species : [
+            { label: "Coastal and Marine Habitat", value: "coastalMarineHabitat" },
+            { label: "Corals", value: "corals" },
+            { label: "Birds", value: "birds" },
+            { label: "Invertebrates", value: "invertebrates" },
+            { label: "Marine Plants and Algae", value: "marinePlantsAlgae" },
+            { label: "Marine Animals", value: "marineAnimals" }
+        ],
+        mpaMarineDataThemeLevel3Ecosystems : [
+            { label: "Marine Protected Areas", value: "marineProtectedAreas" }
+        ],
+        mpaMarineDataThemeLevel3Anthropogenic : [
+            { label: "Environmental Impact Assessmemt, Environmental Impact Study, Environmental Monitoring and Management Programme", value: "environmentalImpactAssessment" },
+            { label: "Climate Change", value: "climateChange" }
+        ],
+        mpaMarineDataThemeLevel3Infrastructure : [
+            { label: "Transport and Communication", value: "transportCommunication" },
+            { label: "Utilities", value: "utilities" }
+        ],
+        mpaMarineDataThemeLevel3Economy : [
+            { label: "Aquaculture", value: "aquaculture" },
+            { label: "Energy", value: "energy" },
+            { label: "Port Facilities/Maritime Industry", value: "portFacilities" },
+            { label: "Natural Resources", value: "naturalResources" },
+            { label: "Foreshore and Waterfront Development", value: "foreshoreWaterfrontDevelopment" }
+        ],
+        mpaMarineDataThemeLevel3Management : [
+            { label: "Hazards (Manmade and Natural)", value: "hazards" },
+            { label: "Sedimentation", value: "sedimentation" },
+            { label: "Oil Spill Contingency, Search and Rescue", value: "oilSpillContingency" },
+            { label: "Microbiological Contamination", value: "microbiologicalContamination" },
+            { label: "Eutrophication", value: "eutrophication" },
+            { label: "Noise", value: "noise" },
+            { label: "Hazardous Substances", value: "hazardousSubstances" }
+        ],
+        mpaMarineDataThemeLevel3Societal : [
+            { label: "Recreation", value: "recreation" }
+        ],
+        mpaMarineDataThemeLevel3None : [
+            { label: "-", value: "none" }
+        ],
         mpaMarineDataThemeLevel3Code: {
             caption: "Marine Data Theme (Level III)",
             none: "-",
@@ -208,7 +273,7 @@ define({
             portFacilities: "Port Facilities/Maritime Industry",
             naturalResources: "Natural Resources",
             foreshoreWaterfrontDevelopment: "Foreshore and Waterfront Development",
-            hazards: "Hazards (Manmade and Natural",
+            hazards: "Hazards (Manmade and Natural)",
             sedimentation: "Sedimentation",
             oilSpillContingency: "Oil Spill Contingency, Search and Rescue",
             microbiologicalContamination: "Microbiological Contamination",
