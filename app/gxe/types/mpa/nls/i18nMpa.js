@@ -185,25 +185,25 @@ define({
             management: "Management",
             societal: "Societal"
         },
-        mpaMarineDataThemeLevel3Boundaries : [
+        mpaMarineDataThemeLevel3Boundaries: [
             { label: "Administrative Coastline", value: "administrativeCoastline" },
             { label: "Natural Manmade Coastline", value: "naturalManmadeCoastline" },
             { label: "Marine Spatial Planning", value: "marineSpatialPlanning" }
         ],
-        mpaMarineDataThemeLevel3Hydrography : [
+        mpaMarineDataThemeLevel3Hydrography: [
             { label: "Hydrodynamics", value: "hydrodynamics" },
             { label: "Water Quality", value: "waterQuality" },
             { label: "Bathymetry", value: "bathymetry" },
             { label: "Marine Substrates", value: "marineSubstrates" }
         ],
-        mpaMarineDataThemeLevel3Coastal : [
+        mpaMarineDataThemeLevel3Coastal: [
             { label: "Geomorphic Landform and Processes", value: "geomorphicLandformProcesses" },
             { label: "Elevation", value: "elevation" }
         ],
-        mpaMarineDataThemeLevel3Atmosphere : [
+        mpaMarineDataThemeLevel3Atmosphere: [
             { label: "Wind", value: "wind" }
         ],
-        mpaMarineDataThemeLevel3Species : [
+        mpaMarineDataThemeLevel3Species: [
             { label: "Coastal and Marine Habitat", value: "coastalMarineHabitat" },
             { label: "Corals", value: "corals" },
             { label: "Birds", value: "birds" },
@@ -211,25 +211,25 @@ define({
             { label: "Marine Plants and Algae", value: "marinePlantsAlgae" },
             { label: "Marine Animals", value: "marineAnimals" }
         ],
-        mpaMarineDataThemeLevel3Ecosystems : [
+        mpaMarineDataThemeLevel3Ecosystems: [
             { label: "Marine Protected Areas", value: "marineProtectedAreas" }
         ],
-        mpaMarineDataThemeLevel3Anthropogenic : [
+        mpaMarineDataThemeLevel3Anthropogenic: [
             { label: "Environmental Impact Assessmemt, Environmental Impact Study, Environmental Monitoring and Management Programme", value: "environmentalImpactAssessment" },
             { label: "Climate Change", value: "climateChange" }
         ],
-        mpaMarineDataThemeLevel3Infrastructure : [
+        mpaMarineDataThemeLevel3Infrastructure: [
             { label: "Transport and Communication", value: "transportCommunication" },
             { label: "Utilities", value: "utilities" }
         ],
-        mpaMarineDataThemeLevel3Economy : [
+        mpaMarineDataThemeLevel3Economy: [
             { label: "Aquaculture", value: "aquaculture" },
             { label: "Energy", value: "energy" },
             { label: "Port Facilities/Maritime Industry", value: "portFacilities" },
             { label: "Natural Resources", value: "naturalResources" },
             { label: "Foreshore and Waterfront Development", value: "foreshoreWaterfrontDevelopment" }
         ],
-        mpaMarineDataThemeLevel3Management : [
+        mpaMarineDataThemeLevel3Management: [
             { label: "Hazards (Manmade and Natural)", value: "hazards" },
             { label: "Sedimentation", value: "sedimentation" },
             { label: "Oil Spill Contingency, Search and Rescue", value: "oilSpillContingency" },
@@ -238,10 +238,10 @@ define({
             { label: "Noise", value: "noise" },
             { label: "Hazardous Substances", value: "hazardousSubstances" }
         ],
-        mpaMarineDataThemeLevel3Societal : [
+        mpaMarineDataThemeLevel3Societal: [
             { label: "Recreation", value: "recreation" }
         ],
-        mpaMarineDataThemeLevel3None : [
+        mpaMarineDataThemeLevel3None: [
             { label: "-", value: "none" }
         ],
         mpaMarineDataThemeLevel3Code: {

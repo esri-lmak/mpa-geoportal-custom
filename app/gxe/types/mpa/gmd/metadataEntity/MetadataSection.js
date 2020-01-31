@@ -8,7 +8,7 @@ define(["dojo/_base/declare",
         "app/gxe/types/mpa/gmd/metadataEntity/MetadataContact",
         "app/gxe/types/mpa/gmd/metadataEntity/MetadataDate",
         "esri/dijit/metadata/types/iso/gmd/metadataEntity/MetadataStandard",
-        "esri/dijit/metadata/types/iso/gmd/metadataEntity/MetadataReference", 
+        "app/gxe/types/mpa/gmd/metadataEntity/MetadataReference", 
         "dojo/text!./templates/MetadataSection.html"],
 function (declare, lang, _TemplatedMixin, has, Descriptor, Tabs, g, h, k, l, m, template) {
 

@@ -9,28 +9,28 @@
                 </div>
                 <div data-dojo-type="esri/dijit/metadata/form/Option"
                     data-dojo-props="label:'${i18nMpa.mpaDataThemeCode.biota}',value:'biota'">
-				</div>
+                </div>
                 <div data-dojo-type="esri/dijit/metadata/form/Option"
                     data-dojo-props="label:'${i18nMpa.mpaDataThemeCode.boundaries}',value:'boundaries'">
-				</div>
+                </div>
                 <div data-dojo-type="esri/dijit/metadata/form/Option"
                     data-dojo-props="label:'${i18nMpa.mpaDataThemeCode.climatologyMeteorologyAtmospheric}',value:'climatologyMeteorologyAtmospheric'">
                 </div>
                 <div data-dojo-type="esri/dijit/metadata/form/Option"
                     data-dojo-props="label:'${i18nMpa.mpaDataThemeCode.economy}',value:'economy'">
-				</div>
+                </div>
                 <div data-dojo-type="esri/dijit/metadata/form/Option"
                     data-dojo-props="label:'${i18nMpa.mpaDataThemeCode.elevation}',value:'elevation'">
-				</div>
+                </div>
                 <div data-dojo-type="esri/dijit/metadata/form/Option"
                     data-dojo-props="label:'${i18nMpa.mpaDataThemeCode.environment}',value:'environment'">
-				</div>
+                </div>
                 <div data-dojo-type="esri/dijit/metadata/form/Option"
                     data-dojo-props="label:'${i18nMpa.mpaDataThemeCode.geoscientificInformation}',value:'geoscientificInformation'">
                 </div>
                 <div data-dojo-type="esri/dijit/metadata/form/Option"
                     data-dojo-props="label:'${i18nMpa.mpaDataThemeCode.health}',value:'health'">
-				</div>
+                </div>
                 <div data-dojo-type="esri/dijit/metadata/form/Option"
                     data-dojo-props="label:'${i18nMpa.mpaDataThemeCode.imageryBaseMapsEarthCover}',value:'imageryBaseMapsEarthCover'">
                 </div>
@@ -42,19 +42,19 @@
                 </div>
                 <div data-dojo-type="esri/dijit/metadata/form/Option"
                     data-dojo-props="label:'${i18nMpa.mpaDataThemeCode.location}',value:'location'">
-				</div>
+                </div>
                 <div data-dojo-type="esri/dijit/metadata/form/Option"
                     data-dojo-props="label:'${i18nMpa.mpaDataThemeCode.oceans}',value:'oceans'">
-				</div>
+                </div>
                 <div data-dojo-type="esri/dijit/metadata/form/Option"
                     data-dojo-props="label:'${i18nMpa.mpaDataThemeCode.planningCadastre}',value:'planningCadastre'">
                 </div>
                 <div data-dojo-type="esri/dijit/metadata/form/Option"
                     data-dojo-props="label:'${i18nMpa.mpaDataThemeCode.society}',value:'society'">
-				</div>
+                </div>
                 <div data-dojo-type="esri/dijit/metadata/form/Option"
                     data-dojo-props="label:'${i18nMpa.mpaDataThemeCode.structure}',value:'structure'">
-				</div>
+                </div>
                 <div data-dojo-type="esri/dijit/metadata/form/Option"
                     data-dojo-props="label:'${i18nMpa.mpaDataThemeCode.transportation}',value:'transportation'">
                 </div>
@@ -65,7 +65,8 @@
                     data-dojo-props="label:'${i18nMpa.mpaDataThemeCode.extraterrestrial}',value:'extraterrestrial'">
                 </div>
                 <div data-dojo-type="esri/dijit/metadata/form/Option"
-                    data-dojo-props="label:'${i18nMpa.mpaDataThemeCode.disaster}',value:'disaster'"></div>
+                    data-dojo-props="label:'${i18nMpa.mpaDataThemeCode.disaster}',value:'disaster'">
+                </div>
             </div>
         </div>
     </div>
@@ -74,7 +75,7 @@
         label:'${i18nMpa.mpaMarineDataThemeLevel2Code.caption}'" data-dojo-attach-event="onChange: populate">
         <div data-dojo-type="esri/dijit/metadata/form/InputSelectOne" style="display: none;">
             <div data-dojo-type="esri/dijit/metadata/form/Options">
-			    <div data-dojo-type="esri/dijit/metadata/form/Option"
+                <div data-dojo-type="esri/dijit/metadata/form/Option"
                     data-dojo-props="label:'${i18nMpa.mpaMarineDataThemeLevel2Code.none}',value:'none',selected:true">
                 </div>
                 <div data-dojo-type="esri/dijit/metadata/form/Option"
@@ -118,23 +119,26 @@
                 </div>
             </div>
         </div>
-		<select data-dojo-props="target:'gmd:marineDataThemeLevel2'"
-			data-dojo-attach-event="onChange: populate" id="level2List">
-			<option value="-">${i18nMpa.mpaMarineDataThemeLevel2Code.none}</option>
-			<option value="encChart">${i18nMpa.mpaMarineDataThemeLevel2Code.encChart}</option>
-			<option value="satelliteImagery">${i18nMpa.mpaMarineDataThemeLevel2Code.satelliteImagery}</option>
-			<option value="boundaries">${i18nMpa.mpaMarineDataThemeLevel2Code.boundaries}</option>
-			<option value="hydrographyOceanography">${i18nMpa.mpaMarineDataThemeLevel2Code.hydrographyOceanography}</option>
-			<option value="coastalGeography">${i18nMpa.mpaMarineDataThemeLevel2Code.coastalGeography}</option>
-			<option value="atmosphere">${i18nMpa.mpaMarineDataThemeLevel2Code.atmosphere}</option>
-			<option value="speciesDistributionHabitats">${i18nMpa.mpaMarineDataThemeLevel2Code.speciesDistributionHabitats}</option>
-			<option value="ecosystemServicesFunction">${i18nMpa.mpaMarineDataThemeLevel2Code.ecosystemServicesFunction}</option>
-			<option value="anthropogenic">${i18nMpa.mpaMarineDataThemeLevel2Code.anthropogenic}</option>
-			<option value="infrastructure">${i18nMpa.mpaMarineDataThemeLevel2Code.infrastructure}</option>
-			<option value="economy">${i18nMpa.mpaMarineDataThemeLevel2Code.economy}</option>
-			<option value="management">${i18nMpa.mpaMarineDataThemeLevel2Code.management}</option>
-			<option value="societal">${i18nMpa.mpaMarineDataThemeLevel2Code.societal}</option>
-		</select>
+        <select data-dojo-props="target:'gmd:marineDataThemeLevel2'" data-dojo-attach-event="onChange: populate"
+            id="level2List">
+            <option value="-">${i18nMpa.mpaMarineDataThemeLevel2Code.none}</option>
+            <option value="encChart">${i18nMpa.mpaMarineDataThemeLevel2Code.encChart}</option>
+            <option value="satelliteImagery">${i18nMpa.mpaMarineDataThemeLevel2Code.satelliteImagery}</option>
+            <option value="boundaries">${i18nMpa.mpaMarineDataThemeLevel2Code.boundaries}</option>
+            <option value="hydrographyOceanography">${i18nMpa.mpaMarineDataThemeLevel2Code.hydrographyOceanography}
+            </option>
+            <option value="coastalGeography">${i18nMpa.mpaMarineDataThemeLevel2Code.coastalGeography}</option>
+            <option value="atmosphere">${i18nMpa.mpaMarineDataThemeLevel2Code.atmosphere}</option>
+            <option value="speciesDistributionHabitats">
+                ${i18nMpa.mpaMarineDataThemeLevel2Code.speciesDistributionHabitats}</option>
+            <option value="ecosystemServicesFunction">${i18nMpa.mpaMarineDataThemeLevel2Code.ecosystemServicesFunction}
+            </option>
+            <option value="anthropogenic">${i18nMpa.mpaMarineDataThemeLevel2Code.anthropogenic}</option>
+            <option value="infrastructure">${i18nMpa.mpaMarineDataThemeLevel2Code.infrastructure}</option>
+            <option value="economy">${i18nMpa.mpaMarineDataThemeLevel2Code.economy}</option>
+            <option value="management">${i18nMpa.mpaMarineDataThemeLevel2Code.management}</option>
+            <option value="societal">${i18nMpa.mpaMarineDataThemeLevel2Code.societal}</option>
+        </select>
     </div>
 
     <div data-dojo-type="esri/dijit/metadata/form/iso/CodeListReference" data-dojo-props="target:'gmd:marineDataThemeLevel3',minOccurs:1,
@@ -250,8 +254,8 @@
 				-->
             </div>
         </div>
-		<select data-dojo-props="target:'gmd:marineDataThemeLevel3'" id="level3List">
-			<option value="-">${i18nMpa.mpaMarineDataThemeLevel3Code.none}</option>
-		</select>
+        <select data-dojo-props="target:'gmd:marineDataThemeLevel3'" id="level3List">
+            <option value="-">${i18nMpa.mpaMarineDataThemeLevel3Code.none}</option>
+        </select>
     </div>
 </div>
