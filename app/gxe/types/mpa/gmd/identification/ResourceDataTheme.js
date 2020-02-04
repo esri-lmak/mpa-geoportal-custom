@@ -24,7 +24,8 @@
 
 define(["dojo/_base/declare", 
 		"dojo/_base/lang", 
-		"dijit/_TemplatedMixin", 
+		"dijit/_TemplatedMixin",
+		"dijit/registry",
 		"dojo/has",
 		"app/gxe/types/mpa/base/MpaDescriptor",
 		"app/gxe/types/mpa/nls/i18nMpa", 		
@@ -37,7 +38,7 @@ define(["dojo/_base/declare",
 		"esri/dijit/metadata/form/Options",
 		"esri/dijit/metadata/form/Option",
 		"dojo/text!./templates/ResourceDataTheme.html"],
-function (declare, lang, _TemplatedMixin, has, Descriptor, i18nMpa, a, s, m, n, p, q, r, t, template) {
+function (declare, lang, _TemplatedMixin, registry, has, Descriptor, i18nMpa, a, s, m, n, p, q, r, t, template) {
 	
     var oThisClass = declare([Descriptor, _TemplatedMixin], {
         templateString: template,
@@ -74,12 +75,27 @@ function (declare, lang, _TemplatedMixin, has, Descriptor, i18nMpa, a, s, m, n, 
 				newOptions = i18nMpa.root.mpaMarineDataThemeLevel3None;
 			}
 			
+			var marineDataThemeLevel2 = this.marineDataThemeLevel2;
+			if (marineDataThemeLevel2 != null || marineDataThemeLevel2 != undefined) {
+				marineDataThemeLevel2.set("gmd:marineDataThemeLevel2", optionValue);
+			}
+
 			level3List.options.length = 0;
 			for (index in newOptions) {
 				var newOption = document.createElement("option");
 				newOption.text = newOptions[index].label;
 				newOption.value = newOptions[index].value;
 				level3List.options.add(newOption, index);
+			}
+		},
+		
+		setValue: function() {
+			var level3List = document.getElementById("level3List");
+			var optionValue = level3List.options[level3List.selectedIndex].value;
+			
+			var marineDataThemeLevel3 = this.marineDataThemeLevel3;
+			if (marineDataThemeLevel3 != null || marineDataThemeLevel3 != undefined) {
+				marineDataThemeLevel3.set("gmd:marineDataThemeLevel3", optionValue);
 			}
 		}
     });

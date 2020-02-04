@@ -247,6 +247,7 @@ define({
         options: {
           caption: "Options",
           editMetadata: "Edit Metadata",
+          viewMetadata: "View Metadata",
           uploadMetadata: "Upload Metadata",
           uploadData: "Upload Data"
         },
@@ -345,6 +346,16 @@ define({
       "Id not found.": null,
       "org.xml.sax.SAXParseException; lineNumber: 1; columnNumber: 1; Content is not allowed in prolog.": "Not an XML file.",
       "javax.json.stream.JsonParsingException: Invalid JSON": "Invalid JSON"
+    },
+
+    approvalStatus: {
+      none: "none",
+      approved: "approved",
+      reviewed: "reviewed",
+      disapproved: "disapproved",
+      incomplete: "incomplete",
+      posted: "posted",
+      draft: "draft"
     }
 
   }

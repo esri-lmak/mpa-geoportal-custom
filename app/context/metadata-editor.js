@@ -3,7 +3,8 @@ define([],function(){var obj={
     
     editable: {
       // Warning: The editor will be lossy if allowNonGxeDocs is enabled.
-      allowNonGxeDocs: false, 
+      // Specific for MPA - to display harvested metadata
+      allowNonGxeDocs: true, 
       geoportalTypes: ["arcgis", "fgdc", "iso19115", "iso19115-2", "mpa-iso-19115"]
     },
     

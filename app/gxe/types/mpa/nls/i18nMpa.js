@@ -428,6 +428,18 @@ define({
             wgs84: "WGS84"
         },
 
+        validation: {
+            pattern: "{label} - {message}",
+            patternWithHint: "{label} - {message} {hint}",
+            ok: "OK",
+            empty: "A value is required.",
+            date: "The value must be a date.",
+            integer: "The value must be an integer.",
+            number: "The value must be an number.",
+            other: "Invalid value.",
+            url: "Invalid URL"
+        },
+
         language: {
             en: "English",
             fi: "Finnish",

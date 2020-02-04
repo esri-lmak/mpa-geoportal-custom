@@ -35,6 +35,7 @@ function(declare, lang, array, Deferred, domConstruct, domStyle, topic, appTopic
     i18n: i18n,
     
     itemId: null,
+    approvalStatus: null,
     originalXml: null,
     wasSaved: false,
     

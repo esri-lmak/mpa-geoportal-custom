@@ -344,12 +344,20 @@ function(declare, lang, array, string, topic, xhr, on, appTopics, domClass, domC
       var links = [];
       
       if (this._canEditMetadata(item,isOwner,isAdmin,isPublisher)) {
+        var text = null;
+
+        if (item.sys_approval_status_s != i18n.approvalStatus.approved) {
+          text = i18n.item.actions.options.editMetadata;
+        } else {
+          text = i18n.item.actions.options.viewMetadata;
+        }
+
         links.push(domConstruct.create("a",{
           "class": "small",
           href: "javascript:void(0)",
-          innerHTML: i18n.item.actions.options.editMetadata,
+          innerHTML: text,
           onclick: function() {
-            var editor = new MetadataEditor({itemId:itemId});
+            var editor = new MetadataEditor({itemId:itemId, approvalStatus:item.sys_approval_status_s});
             editor.show();
           }
         }));

@@ -69,7 +69,7 @@ define(["dojo/_base/declare",
           console.error(err);
         });
 
-        client.uploadMetadata(text, this.itemId, filename).then(function (response) {
+        self._uploadData().then(function (response) {
           if (response && response.status) {
             // wait for real-time update
             setTimeout(function () {
@@ -179,16 +179,12 @@ define(["dojo/_base/declare",
         dialog.show();
       },
 
-      begin: function () {
-        var baseRestURL = "https://mpa.esrisg.dev/geoportal";
+      _uploadData: function () {
+        var baseRestURL = "https://mpa.esrisg.dev/argis/rest/services/Geoportal";
         var username = "siteadmin";
         var password = "zaq123..";
 
-        self.uploadData(baseRestURL, username, password);
-      },
-
-      uploadData: function (baseRestURL, username, password) {
-        var APIPath = "/metadata/uploadData";
+        var APIPath = "/ToTmp/GPServer/ToTmp/submitJob";
         var completeRestURL = baseRestURL + APIPath;
         console.log("REST API URL: " + completeRestURL);
 
@@ -196,8 +192,6 @@ define(["dojo/_base/declare",
         var postData = "{\"uploaded_by\": \"" + this._userName +
           "\",\"data_file \": \"" + this._file +
           "\",\"metadata_file\": \"" + this._xmlData +
-          "\",\"username\": \"" + username +
-          "\",\"password\": \"" + password +
           "}";
         var url = completeRestURL;
         var async = true;
@@ -212,10 +206,12 @@ define(["dojo/_base/declare",
         request.open(method, url, async);
         request.setRequestHeader("Content-Type", "application/json");
         request.setRequestHeader("Accept", "application/json");
-		    request.setRequestHeader("Authorisation", "Basic " + btoa(self.username + ":" + self.password));
+		    request.setRequestHeader("Authorisation", "Basic " + btoa(username + ":" + password));
         request.send(postData);
-      }
 
+        return request;
+      }
+      
     });
 
     return oThisClass;
