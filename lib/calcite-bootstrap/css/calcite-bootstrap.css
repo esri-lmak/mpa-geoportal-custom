@@ -1509,6 +1509,8 @@ pre {
     display: table; }
   .container:after {
     clear: both; }
+  /* Specific for MPA */
+  /*
   @media (min-width: 768px) {
     .container {
       width: 750px; } }
@@ -1518,6 +1520,7 @@ pre {
   @media (min-width: 1200px) {
     .container {
       width: 1170px; } }
+  */
 
 .container-fluid {
   margin-right: auto;

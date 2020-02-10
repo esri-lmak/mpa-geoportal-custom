@@ -29,11 +29,48 @@ function (declare, lang, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, 
 			if (level2List != null || level2List != undefined) {
 				level2List.options[0].label = marineDataThemeLevel2 != null || marineDataThemeLevel2 != undefined === marineDataThemeLevel2.label;
 				level2List.options[0].value = marineDataThemeLevel2 != null || marineDataThemeLevel2 != undefined === marineDataThemeLevel2.value;
-			}
 
-			if (level3List != null || level3List != undefined) {
-				level3List.options[0].label = marineDataThemeLevel3 != null || marineDataThemeLevel3 != undefined === marineDataThemeLevel3.label;
-				level3List.options[0].value = marineDataThemeLevel3 != null || marineDataThemeLevel3 != undefined === marineDataThemeLevel3.value;
+				var optionLabel = level2List.options[level2List.selectedIndex].label;
+				var newOptions = [];
+			
+				if (optionLabel == i18nMpa.root.mpaMarineDataThemeLevel2Code.boundaries) {
+					newOptions = i18nMpa.root.mpaMarineDataThemeLevel3Boundaries;
+				} else if (optionLabel == i18nMpa.root.mpaMarineDataThemeLevel2Code.hydrographyOceanography) {
+					newOptions = i18nMpa.root.mpaMarineDataThemeLevel3Hydrography;
+				} else if (optionLabel == i18nMpa.root.mpaMarineDataThemeLevel2Code.coastalGeography) {
+					newOptions = i18nMpa.root.mpaMarineDataThemeLevel3Coastal;
+				} else if (optionLabel == i18nMpa.root.mpaMarineDataThemeLevel2Code.atmosphere) {
+					newOptions = i18nMpa.root.mpaMarineDataThemeLevel3Atmosphere;
+				} else if (optionLabel == i18nMpa.root.mpaMarineDataThemeLevel2Code.speciesDistributionHabitats) {
+					newOptions = i18nMpa.root.mpaMarineDataThemeLevel3Species;
+				} else if (optionLabel == i18nMpa.root.mpaMarineDataThemeLevel2Code.ecosystemServicesFunction) {
+					newOptions = i18nMpa.root.mpaMarineDataThemeLevel3Ecosystems;
+				} else if (optionLabel == i18nMpa.root.mpaMarineDataThemeLevel2Code.anthropogenic) {
+					newOptions = i18nMpa.root.mpaMarineDataThemeLevel3Anthropogenic;
+				} else if (optionLabel == i18nMpa.root.mpaMarineDataThemeLevel2Code.infrastructure) {
+					newOptions = i18nMpa.root.mpaMarineDataThemeLevel3Infrastructure;
+				} else if (optionLabel == i18nMpa.root.mpaMarineDataThemeLevel2Code.economy) {
+					newOptions = i18nMpa.root.mpaMarineDataThemeLevel3Economy;
+				} else if (optionLabel == i18nMpa.root.mpaMarineDataThemeLevel2Code.management) {
+					newOptions = i18nMpa.root.mpaMarineDataThemeLevel3Management;
+				} else if (optionLabel == i18nMpa.root.mpaMarineDataThemeLevel2Code.societal) {
+					newOptions = i18nMpa.root.mpaMarineDataThemeLevel3Societal;
+				} else {
+					newOptions = i18nMpa.root.mpaMarineDataThemeLevel3None;
+				}
+				
+				if (level3List != null || level3List != undefined) {
+					level3List.options[0].label = marineDataThemeLevel3 != null || marineDataThemeLevel3 != undefined === marineDataThemeLevel3.label;
+					level3List.options[0].value = marineDataThemeLevel3 != null || marineDataThemeLevel3 != undefined === marineDataThemeLevel3.value;
+				
+					level3List.options.length = 0;
+					for (index in newOptions) {
+						var newOption = document.createElement("option");
+						newOption.text = newOptions[index].label;
+						newOption.value = newOptions[index].value;
+						level3List.options.add(newOption, index);
+					}
+				}
 			}
 		});
 	});

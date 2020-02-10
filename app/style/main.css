@@ -284,8 +284,10 @@ and will apply to all search facets */
   width: 85%;
 }
 .g-item-card .g-item-thumbnail {
-	width: 80px;
-	height: 60px;
+  width: 80px;
+  /* Specific for MPA */
+	/* height: 60px; */
+	height: 100%;
 }
 
 /* Style for descriptions creates a cap of a few lines of text  */
