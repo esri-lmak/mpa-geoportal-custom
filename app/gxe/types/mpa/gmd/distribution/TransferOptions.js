@@ -1,6 +1,8 @@
 define(["dojo/_base/declare", 
         "dojo/_base/lang", 
+        "dijit/_WidgetBase",
         "dijit/_TemplatedMixin",
+        "dijit/_WidgetsInTemplateMixin",
         "dojo/has",
         "dojox/validate/regexp",
         "app/gxe/types/mpa/base/MpaDescriptor",
@@ -11,9 +13,9 @@ define(["dojo/_base/declare",
         "esri/dijit/metadata/form/iso/ObjectReference",
         "esri/dijit/metadata/types/iso/gmd/citation/CI_OnlineFunctionCode",
         "dojo/text!./templates/TransferOptions.html"],
-function (declare, lang, _TemplatedMixin, has, regexp, Descriptor, g, h, k, l, m, n, template) {
+function (declare, lang, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, has, regexp, Descriptor, g, h, k, l, m, n, template) {
     
-    var oThisClass = declare([Descriptor, _TemplatedMixin], {
+    var oThisClass = declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, Descriptor], {
         templateString: template
     });
     return oThisClass

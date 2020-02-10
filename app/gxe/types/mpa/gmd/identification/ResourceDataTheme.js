@@ -1,31 +1,10 @@
-// COPYRIGHT � 201 Esri
-//
-// All rights reserved under the copyright laws of the United States
-// and applicable international laws, treaties, and conventions.
-//
-// This material is licensed for use under the Esri Master License
-// Agreement (MLA), and is bound by the terms of that agreement.
-// You may redistribute and use this code without modification,
-// provided you adhere to the terms of the MLA and include this
-// copyright notice.
-//
-// See use restrictions at http://www.esri.com/legal/pdfs/mla_e204_e300/english
-//
-// For additional information, contact:
-// Environmental Systems Research Institute, Inc.
-// Attn: Contracts and Legal Services Department
-// 380 New York Street
-// Redlands, California, USA 92373
-// USA
-//
-// email: contracts@esri.com
-//
-// See http://js.arcgis.com/3.30/esri/copyright.txt for details.
-
 define(["dojo/_base/declare", 
 		"dojo/_base/lang", 
-		"dijit/_TemplatedMixin",
+		"dijit/_WidgetBase",
+        "dijit/_TemplatedMixin",
+        "dijit/_WidgetsInTemplateMixin",
 		"dijit/registry",
+		"dojo/domReady",
 		"dojo/has",
 		"app/gxe/types/mpa/base/MpaDescriptor",
 		"app/gxe/types/mpa/nls/i18nMpa", 		
@@ -38,38 +17,58 @@ define(["dojo/_base/declare",
 		"esri/dijit/metadata/form/Options",
 		"esri/dijit/metadata/form/Option",
 		"dojo/text!./templates/ResourceDataTheme.html"],
-function (declare, lang, _TemplatedMixin, registry, has, Descriptor, i18nMpa, a, s, m, n, p, q, r, t, template) {
+function (declare, lang, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, registry, domReady, has, Descriptor, i18nMpa, a, s, m, n, p, q, r, t, template) {
+		
+	require(["dojo/domReady"], function(domReady) {
+		domReady(function () {
+			var level2List = document.getElementById("level2List");
+			var level3List = document.getElementById("level3List");
+			var marineDataThemeLevel2 = this.marineDataThemeLevel2;
+			var marineDataThemeLevel3 = this.marineDataThemeLevel3;
+
+			if (level2List != null || level2List != undefined) {
+				level2List.options[0].label = marineDataThemeLevel2 != null || marineDataThemeLevel2 != undefined === marineDataThemeLevel2.label;
+				level2List.options[0].value = marineDataThemeLevel2 != null || marineDataThemeLevel2 != undefined === marineDataThemeLevel2.value;
+			}
+
+			if (level3List != null || level3List != undefined) {
+				level3List.options[0].label = marineDataThemeLevel3 != null || marineDataThemeLevel3 != undefined === marineDataThemeLevel3.label;
+				level3List.options[0].value = marineDataThemeLevel3 != null || marineDataThemeLevel3 != undefined === marineDataThemeLevel3.value;
+			}
+		});
+	});
 	
-    var oThisClass = declare([Descriptor, _TemplatedMixin], {
+    var oThisClass = declare([ _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, Descriptor], {
         templateString: template,
 		
 		populate: function() {
 			var level2List = document.getElementById("level2List");
 			var level3List = document.getElementById("level3List");
+			var optionLabel = level2List.options[level2List.selectedIndex].label;
 			var optionValue = level2List.options[level2List.selectedIndex].value;
 			var newOptions = [];
 			
-			if (optionValue == "boundaries") {
+			if (optionLabel == i18nMpa.root.mpaMarineDataThemeLevel2Code.boundaries) {
 				newOptions = i18nMpa.root.mpaMarineDataThemeLevel3Boundaries;
-			} else if (optionValue == "hydrographyOceanography") {
+			} else if (optionLabel == i18nMpa.root.mpaMarineDataThemeLevel2Code.hydrographyOceanography) {
 				newOptions = i18nMpa.root.mpaMarineDataThemeLevel3Hydrography;
-			} else if (optionValue == "coastalGeography") {
+			} else if (optionLabel == i18nMpa.root.mpaMarineDataThemeLevel2Code.coastalGeography) {
 				newOptions = i18nMpa.root.mpaMarineDataThemeLevel3Coastal;
-			} else if (optionValue == "atmosphere") {
+			} else if (optionLabel == i18nMpa.root.mpaMarineDataThemeLevel2Code.atmosphere) {
 				newOptions = i18nMpa.root.mpaMarineDataThemeLevel3Atmosphere;
-			} else if (optionValue == "speciesDistributionHabitats") {
+			} else if (optionLabel == i18nMpa.root.mpaMarineDataThemeLevel2Code.speciesDistributionHabitats) {
 				newOptions = i18nMpa.root.mpaMarineDataThemeLevel3Species;
-			} else if (optionValue == "ecosystemServicesFunction") {
+			} else if (optionLabel == i18nMpa.root.mpaMarineDataThemeLevel2Code.ecosystemServicesFunction) {
 				newOptions = i18nMpa.root.mpaMarineDataThemeLevel3Ecosystems;
-			} else if (optionValue == "anthropogenic") {
+			} else if (optionLabel == i18nMpa.root.mpaMarineDataThemeLevel2Code.anthropogenic) {
 				newOptions = i18nMpa.root.mpaMarineDataThemeLevel3Anthropogenic;
-			} else if (optionValue == "infrastructure") {
+			} else if (optionLabel == i18nMpa.root.mpaMarineDataThemeLevel2Code.infrastructure) {
 				newOptions = i18nMpa.root.mpaMarineDataThemeLevel3Infrastructure;
-			} else if (optionValue == "economy") {
+			} else if (optionLabel == i18nMpa.root.mpaMarineDataThemeLevel2Code.economy) {
 				newOptions = i18nMpa.root.mpaMarineDataThemeLevel3Economy;
-			} else if (optionValue == "management") {
+			} else if (optionLabel == i18nMpa.root.mpaMarineDataThemeLevel2Code.management) {
 				newOptions = i18nMpa.root.mpaMarineDataThemeLevel3Management;
-			} else if (optionValue == "societal") {
+			} else if (optionLabel == i18nMpa.root.mpaMarineDataThemeLevel2Code.societal) {
 				newOptions = i18nMpa.root.mpaMarineDataThemeLevel3Societal;
 			} else {
 				newOptions = i18nMpa.root.mpaMarineDataThemeLevel3None;
@@ -77,15 +76,22 @@ function (declare, lang, _TemplatedMixin, registry, has, Descriptor, i18nMpa, a,
 			
 			var marineDataThemeLevel2 = this.marineDataThemeLevel2;
 			if (marineDataThemeLevel2 != null || marineDataThemeLevel2 != undefined) {
-				marineDataThemeLevel2.set("gmd:marineDataThemeLevel2", optionValue);
+				marineDataThemeLevel2.set("value", optionValue);
 			}
-
+			
 			level3List.options.length = 0;
 			for (index in newOptions) {
 				var newOption = document.createElement("option");
 				newOption.text = newOptions[index].label;
 				newOption.value = newOptions[index].value;
 				level3List.options.add(newOption, index);
+				
+				if (index == 0) {
+					var marineDataThemeLevel3 = this.marineDataThemeLevel3;
+					if (marineDataThemeLevel3 != null || marineDataThemeLevel3 != undefined) {
+						marineDataThemeLevel3.set("value", newOptions[index].value);
+					}
+				}
 			}
 		},
 		
@@ -95,9 +101,10 @@ function (declare, lang, _TemplatedMixin, registry, has, Descriptor, i18nMpa, a,
 			
 			var marineDataThemeLevel3 = this.marineDataThemeLevel3;
 			if (marineDataThemeLevel3 != null || marineDataThemeLevel3 != undefined) {
-				marineDataThemeLevel3.set("gmd:marineDataThemeLevel3", optionValue);
+				marineDataThemeLevel3.set("value", optionValue);
 			}
 		}
+		
     });
 
     return oThisClass

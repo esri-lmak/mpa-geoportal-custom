@@ -18,6 +18,7 @@ define(["dojo/_base/declare",
     "dojo/aspect",
     "dojo/dom-construct",
     "dojo/topic",
+    "dojo/store/JsonRest",
     "app/context/app-topics",
     "app/common/Templated",
     "dojo/text!./templates/UploadData.html",
@@ -25,8 +26,43 @@ define(["dojo/_base/declare",
     "app/common/ModalDialog",
     "app/context/AppClient"
   ],
-  function (declare, lang, array, aspect, domConstruct, topic, appTopics, Templated,
+  function (declare, lang, array, aspect, domConstruct, topic, JsonRest, appTopics, Templated,
     template, i18n, ModalDialog, AppClient) {
+
+    require(["dojo/store/JsonRest"], function (JsonRest) {
+      var store = new JsonRest({
+        target: "/ToTmp/GPServer/ToTmp/submitJob"
+      });
+
+      /* 
+      // Get an object by identity
+      store.get(id).then(function (item) {
+        // item will be the DB item
+      });
+
+      // Query for objects with options
+      store.query("foo=bar", {
+        start: 10,
+        count: 10,
+        sort: [{
+          attribute: "baz",
+          descending: true
+        }]
+      }).then(function (results) {
+        // results should contain up to 10 items, sorted by "baz" in descending fashion
+      });
+
+      // Store an object identified by identity
+      store.put({
+        foo: "bar"
+      }, {
+        id: 3
+      });
+
+      // Remove an object by ID
+      store.remove(3); 
+      */
+    });
 
     var oThisClass = declare([Templated], {
 
@@ -45,6 +81,7 @@ define(["dojo/_base/declare",
       _fileId: null,
       _file: null,
       _xmlData: null,
+      _itemId: null,
 
       postCreate: function () {
         this.inherited(arguments);
@@ -206,12 +243,41 @@ define(["dojo/_base/declare",
         request.open(method, url, async);
         request.setRequestHeader("Content-Type", "application/json");
         request.setRequestHeader("Accept", "application/json");
-		    request.setRequestHeader("Authorisation", "Basic " + btoa(username + ":" + password));
-        request.send(postData);
+        request.setRequestHeader("Authorisation", "Basic " + btoa(username + ":" + password));
+        request.send(JSON.stringify(postData));
+
+        return request;
+      },
+
+      _uploadFile: function () {
+        var baseRestURL = "https://mpa.esrisg.dev/argis/rest/services/Geoportal";
+        var username = "siteadmin";
+        var password = "zaq123..";
+
+        var APIPath = "/TestUpload001/GPServer/uploads/upload";
+        var completeRestURL = baseRestURL + APIPath;
+        console.log("REST API URL: " + completeRestURL);
+
+        var method = "POST";
+        var url = completeRestURL;
+        var async = true;
+        var request = new XMLHttpRequest();
+        request.onload = function () {
+          console.log("ONLOAD");
+          var status = request.status; // HTTP response status, e.g., 200 for "200 OK"
+          console.log(status);
+          var token = request.getResponseHeader("x-mstr-authtoken");
+        }
+
+        request.open(method, url, async);
+        request.setRequestHeader("Content-Type", "application/json");
+        request.setRequestHeader("Accept", "application/json");
+        request.setRequestHeader("Authorisation", "Basic " + btoa(username + ":" + password));
+        request.send(this._file);
 
         return request;
       }
-      
+
     });
 
     return oThisClass;
