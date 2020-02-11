@@ -101,6 +101,8 @@ define(["dojo/_base/declare",
               });
               dialog.hide();
             }, 1500);
+            // get item ID from response
+            this._itemId = response.itemID;
           } else {
             self._working = false;
             dialog.okCancelBar.enableOk();
@@ -245,6 +247,8 @@ define(["dojo/_base/declare",
         console.log("REST API URL: " + completeRestURL);
 
         var method = "POST";
+        var dataFile = "{\"itemID\": \"" + this._itemId +
+        "}";
         var url = completeRestURL;
         var async = true;
         var request = new XMLHttpRequest();
@@ -259,7 +263,7 @@ define(["dojo/_base/declare",
         request.setRequestHeader("Content-Type", "application/json");
         request.setRequestHeader("Accept", "application/json");
         request.setRequestHeader("Authorisation", "Basic " + btoa(username + ":" + password));
-        request.send(this._file);
+        request.send(JSON.stringify(dataFile));
 
         return request;
       }
