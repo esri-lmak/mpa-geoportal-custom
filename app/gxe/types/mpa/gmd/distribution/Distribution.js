@@ -10,7 +10,8 @@ define(["dojo/_base/declare",
         "esri/dijit/metadata/types/iso/gmd/distribution/DistributionFormat",
         "app/gxe/types/mpa/gmd/distribution/TransferOptions",
         "dojo/text!./templates/Distribution.html"],
-function (declare, lang, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, has, Descriptor, g, h, k, l, template) {
+function (declare, lang, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, has, Descriptor, AbstractObject, 
+    ObjectReference, DistributionFormat, TransferOptions, template) {
 
     var oThisClass = declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, Descriptor], {
         templateString: template

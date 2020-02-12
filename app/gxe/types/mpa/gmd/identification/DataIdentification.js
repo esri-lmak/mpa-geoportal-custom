@@ -17,7 +17,9 @@ define(["dojo/_base/declare",
 		"app/gxe/types/mpa/gmd/constraints/ResourceConstraints", 
 		"./DataResourceTab", 
 		"dojo/text!./templates/DataIdentification.html"],
-function (declare, lang, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, has, Descriptor, a, b, c, d, e, f, g, h, i, j, k, template) {
+function (declare, lang, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, has, Descriptor, Tabs, 
+	AbstractObject, CodeListReference, ObjectReference, ResourceCitation, ResourceDescription, ResourceContact, 
+	ResourceThumbnail, DataResourceKeywords, ResourceConstraints, DataResourceTab, template) {
 	
     var oThisClass = declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, Descriptor], {
         templateString: template

@@ -10,7 +10,8 @@ define(["dojo/_base/declare",
         "esri/dijit/metadata/form/iso/CodeListReference",
         "esri/dijit/metadata/form/iso/GcoElement",
         "dojo/text!./templates/MD_SecurityConstraints.html"],
-function (declare, lang, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, has, Descriptor, g, h, k, l, template) {
+function (declare, lang, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, has, Descriptor, Element, AbstractObject, 
+    CodeListReference, GcoElement, template) {
 
     var oThisClass = declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, Descriptor], {
         templateString: template

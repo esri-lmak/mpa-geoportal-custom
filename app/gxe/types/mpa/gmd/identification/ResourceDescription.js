@@ -9,7 +9,8 @@ define(["dojo/_base/declare",
         "esri/dijit/metadata/form/InputTextArea", 
         "esri/dijit/metadata/form/iso/GcoElement", 
         "dojo/text!./templates/ResourceDescription.html"],
-function (declare, lang, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, has, Descriptor, g, h, k, template) {
+function (declare, lang, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, has, Descriptor, Element, 
+    InputTextArea, GcoElement, template) {
     
     var oThisClass = declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, Descriptor], {
         templateString: template

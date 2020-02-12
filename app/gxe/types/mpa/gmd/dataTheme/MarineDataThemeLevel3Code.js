@@ -1,5 +1,7 @@
 define(["dojo/_base/declare", 
-		"dijit/_TemplatedMixin", 
+		"dijit/_WidgetBase",
+		"dijit/_TemplatedMixin",
+		"dijit/_WidgetsInTemplateMixin", 
 		"dojo/_base/lang", 
 		"dojo/has", 
 		"app/gxe/types/mpa/base/MpaDescriptor", 
@@ -11,9 +13,10 @@ define(["dojo/_base/declare",
 		"esri/dijit/metadata/form/iso/CodeListElement", 
 		"esri/dijit/metadata/form/iso/CodeSpaceAttribute", 
 		"dojo/text!./templates/MarineDataThemeLevel3Code.html"],
-function (e, _TemplatedMixin, t, o, Descriptor, r, s, a, d, n, m, p, template) {
+function (declare, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, lang, has, Descriptor, InputSelectOne, 
+	Options, Option, CodeListAttribute, CodeListValueAttribute, CodeListElement, CodeSpaceAttribute, template) {
 	
-    var oThisClass = e([Descriptor, _TemplatedMixin], {
+    var oThisClass = declare([Descriptor, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin], {
         templateString: template
     });
     return oThisClass

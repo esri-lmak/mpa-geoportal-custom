@@ -9,7 +9,8 @@ define(["dojo/_base/declare",
         "esri/dijit/metadata/form/InputDate",
         "esri/dijit/metadata/form/iso/GcoElement",
         "dojo/text!./templates/MetadataDate.html"],
-function (declare, lang, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, has, Descriptor, g, h, k, template) {
+function (declare, lang, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, has, Descriptor, Element, 
+    InputDate, GcoElement, template) {
     
     var oThisClass = declare([ _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, Descriptor], {
         templateString: template

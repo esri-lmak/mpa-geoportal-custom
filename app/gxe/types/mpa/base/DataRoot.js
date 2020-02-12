@@ -11,10 +11,8 @@ define(["dojo/_base/declare",
 function(declare, lang, Descriptor, Element, Tabs, Quality, Distribution, 
   DataIdentification, MetadataSection, template) {
 
-  var oThisClass = declare(Descriptor, {
-    
+  var oThisClass = declare(Descriptor, { 
     templateString: template
-    
   });
 
   return oThisClass;

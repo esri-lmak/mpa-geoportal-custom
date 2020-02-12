@@ -11,7 +11,8 @@ define(["dojo/_base/declare",
         "app/gxe/types/mpa/gmd/constraints/MD_LegalConstraints", 
         "app/gxe/types/mpa/gmd/constraints/MD_SecurityConstraints",
         "dojo/text!./templates/ResourceConstraints.html"],
-function (declare, lang, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, has, Descriptor, g, h, k, l, m, template) {
+function (declare, lang, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, has, Descriptor, ElementChoice, 
+    Section, ObjectReference, MD_LegalConstraints, MD_SecurityConstraints, template) {
 
     var oThisClass = declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, Descriptor], {
         templateString: template

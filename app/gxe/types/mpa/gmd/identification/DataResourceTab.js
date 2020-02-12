@@ -15,9 +15,11 @@ define(["dojo/_base/declare",
 		"esri/dijit/metadata/types/iso/gmd/identification/ResourceClassification",
 		"app/gxe/types/mpa/gmd/identification/ResourceDataTheme", 
 		"dojo/text!./templates/DataResourceTab.html"],
-function (e, t, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, a, Descriptor, i, n, r, s, c, d, m, f, d, template) {
+function (declare, lang, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, has, Descriptor, Element, 
+	InputTextArea, Tabs, GcoElement, DataRespresentation, ResourceExtent, ResourceLanguage, ResourceClassification, 
+	ResourceDataTheme, template) {
 	
-    var oThisClass = e([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, Descriptor], {
+    var oThisClass = declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, Descriptor], {
         templateString: template
     });
     return oThisClass

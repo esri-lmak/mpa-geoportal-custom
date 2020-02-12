@@ -17,7 +17,8 @@ define(["dojo/_base/declare",
 		"esri/dijit/metadata/form/Options",
 		"esri/dijit/metadata/form/Option",
 		"dojo/text!./templates/ResourceDataTheme.html"],
-function (declare, lang, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, registry, domReady, has, Descriptor, i18nMpa, a, s, m, n, p, q, r, t, template) {
+function (declare, lang, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, registry, domReady, has, Descriptor, i18nMpa, 
+	Element, InputSelectOne, CodeListReference, CodeListElement, CodeSpaceAttribute, CodeListValueAttribute, Options, Option, template) {
 		
 	require(["dojo/domReady"], function(domReady) {
 		domReady(function () {

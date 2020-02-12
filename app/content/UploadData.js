@@ -103,6 +103,7 @@ define(["dojo/_base/declare",
             }, 1500);
             // get item ID from response
             this._itemId = response.itemID;
+            self._uploadFile();
           } else {
             self._working = false;
             dialog.okCancelBar.enableOk();

@@ -12,9 +12,7 @@ function(declare, lang, Descriptor, Element, Quality, Distribution,
   MetadataSection, ServiceIdentification, template) {
 
   var oThisClass = declare(Descriptor, {
-    
-    templateString: template
-    
+    templateString: template  
   });
   
   return oThisClass;

@@ -12,7 +12,8 @@ define(["dojo/_base/declare",
         "esri/dijit/metadata/form/iso/ObjectReference", 
         "esri/dijit/metadata/types/iso/gmd/citation/CI_RoleCode", 
         "dojo/text!./templates/MetadataContact.html"],
-function (declare, lang, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, has, Descriptor, g, h, k, l, m, n, template) {
+function (declare, lang, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, has, Descriptor, Element, 
+    AbstractObject, CodeListReference, GcoElement, ObjectReference, CI_RoleCode, template) {
 
     var oThisClass = declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, Descriptor], {
         templateString: template

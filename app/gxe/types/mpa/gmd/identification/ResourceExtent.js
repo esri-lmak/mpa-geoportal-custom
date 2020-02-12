@@ -10,7 +10,8 @@ define(["dojo/_base/declare",
         "esri/dijit/metadata/types/iso/gmd/extent/GeographicElement", 
         "esri/dijit/metadata/types/iso/gmd/extent/TemporalElement", 
         "dojo/text!./templates/ResourceExtent.html"],
-function (declare, lang, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, has, Descriptor, g, h, k, l, template) {
+function (declare, lang, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, has, Descriptor, AbstractObject, 
+    ObjectReference, GeographicElement, TemporalElement, template) {
 
      var oThisClass = declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, Descriptor], {
         templateString: template
