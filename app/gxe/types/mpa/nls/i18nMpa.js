@@ -185,6 +185,38 @@ define({
             management: "Management",
             societal: "Societal"
         },
+        mpaMarineDataThemeLevel2Value: {
+            none: "none",
+            encChart: "encChart",
+            satelliteImagery: "satelliteImagery",
+            boundaries: "boundaries",
+            hydrographyOceanography: "hydrographyOceanography",
+            coastalGeography: "coastalGeography",
+            atmosphere: "atmosphere",
+            speciesDistributionHabitats: "speciesDistributionHabitats",
+            ecosystemServicesFunction: "ecosystemServicesFunction",
+            anthropogenic: "anthropogenic",
+            infrastructure: "infrastructure",
+            economy: "economy",
+            management: "management",
+            societal: "societal"
+        },
+        mpaMarineDataThemeLevel2: [
+            { label: "-", value: "none" },
+            { label: "ENC Chart", value: "encChart" },
+            { label: "Satellite Imagery", value: "satelliteImagery" },
+            { label: "Boundaries", value: "boundaries" },
+            { label: "Hydrography and Oceanography", value: "hydrographyOceanography" },
+            { label: "Coastal Geography", value: "coastalGeography" },
+            { label: "Atmosphere", value: "atmosphere" },
+            { label: "Species Distribution and Habitats", value: "speciesDistributionHabitats" },
+            { label: "Ecosystem Services and Functions", value: "ecosystemServicesFunction" },
+            { label: "Anthropogenic", value: "anthropogenic" },
+            { label: "Infrastructure", value: "infrastructure" },
+            { label: "Economy", value: "economy" },
+            { label: "Management", value: "management" },
+            { label: "Societal", value: "societal" }
+        ],
         mpaMarineDataThemeLevel3Boundaries: [
             { label: "Administrative Coastline", value: "administrativeCoastline" },
             { label: "Natural Manmade Coastline", value: "naturalManmadeCoastline" },
