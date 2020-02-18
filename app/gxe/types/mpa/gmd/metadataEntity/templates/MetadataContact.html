@@ -1,58 +1,52 @@
 <div data-dojo-attach-point="containerNode">
 
-    <div data-dojo-type="esri/dijit/metadata/form/iso/ObjectReference"
-      data-dojo-props="target:'gmd:contact',minOccurs:1,
+  <div data-dojo-type="esri/dijit/metadata/form/iso/ObjectReference" data-dojo-props="target:'gmd:contact',minOccurs:1,
         label:'${i18nIso.MD_Metadata.contact}'">
-      <div data-dojo-type="esri/dijit/metadata/form/iso/AbstractObject"
-        data-dojo-props="target:'gmd:CI_ResponsibleParty',minOccurs:0">
-        
-        <div data-dojo-type="esri/dijit/metadata/form/Element"
-          data-dojo-props="target:'gmd:contactPerson',
+    <div data-dojo-type="esri/dijit/metadata/form/iso/AbstractObject"
+      data-dojo-props="target:'gmd:CI_ResponsibleParty',minOccurs:0">
+
+      <div data-dojo-type="esri/dijit/metadata/form/Element" data-dojo-props="target:'gmd:contactPerson',
             label:'${i18nMpa.metadataSection.contactTab.contactPerson}'">
-          <div data-dojo-type="esri/dijit/metadata/form/iso/GcoElement"
-            data-dojo-props="target:'gco:CharacterString'"></div>
+        <div data-dojo-type="esri/dijit/metadata/form/iso/GcoElement" data-dojo-props="target:'gco:CharacterString'">
         </div>
+      </div>
 
-        <div data-dojo-type="esri/dijit/metadata/form/Element"
-          data-dojo-props="target:'gmd:organisationName',
+      <div data-dojo-type="esri/dijit/metadata/form/Element" data-dojo-props="target:'gmd:organisationName',
             label:'${i18nMpa.metadataSection.contactTab.organisationName}'">
-          <div data-dojo-type="esri/dijit/metadata/form/iso/GcoElement"
-            data-dojo-props="target:'gco:CharacterString'"></div>
+        <div data-dojo-type="esri/dijit/metadata/form/iso/GcoElement" data-dojo-props="target:'gco:CharacterString'">
         </div>
+      </div>
 
-        <div data-dojo-type="esri/dijit/metadata/form/iso/CodeListReference"
-          data-dojo-props="target:'gmd:role',
+      <div data-dojo-type="esri/dijit/metadata/form/iso/CodeListReference" data-dojo-props="target:'gmd:role',
             label:'${i18nMpa.metadataSection.contactTab.role}',minOccurs:1">
-          <div data-dojo-type="esri/dijit/metadata/types/iso/gmd/citation/CI_RoleCode"></div>
-        </div>
+        <div data-dojo-type="esri/dijit/metadata/types/iso/gmd/citation/CI_RoleCode"></div>
+      </div>
 
-        <div data-dojo-type="esri/dijit/metadata/form/Element"
-          data-dojo-props="target:'gmd:telephone',
+      <div data-dojo-type="esri/dijit/metadata/form/Element" data-dojo-props="target:'gmd:telephone',
             label:'${i18nMpa.metadataSection.contactTab.telephone}'">
-          <div data-dojo-type="esri/dijit/metadata/form/iso/GcoElement"
-            data-dojo-props="target:'gco:CharacterString'"></div>
+        <div data-dojo-type="esri/dijit/metadata/form/iso/GcoElement" data-dojo-props="target:'gco:CharacterString'">
         </div>
-                
-        <div data-dojo-type="esri/dijit/metadata/form/Element" data-dojo-props="target:'gmd:contactInfo',
+      </div>
+
+      <div data-dojo-type="esri/dijit/metadata/form/Element" data-dojo-props="target:'gmd:contactInfo',
           minOccurs:0,showHeader:false">
-          <div data-dojo-type="esri/dijit/metadata/form/Element" data-dojo-props="target:'gmd:CI_Contact',
+        <div data-dojo-type="esri/dijit/metadata/form/Element" data-dojo-props="target:'gmd:CI_Contact',
             minOccurs:0,showHeader:false">
-            <div data-dojo-type="esri/dijit/metadata/form/Element" data-dojo-props="target:'gmd:address',
+          <div data-dojo-type="esri/dijit/metadata/form/Element" data-dojo-props="target:'gmd:address',
               minOccurs:0,showHeader:false">
-              <div data-dojo-type="esri/dijit/metadata/form/Element" data-dojo-props="target:'gmd:CI_Address',
+            <div data-dojo-type="esri/dijit/metadata/form/Element" data-dojo-props="target:'gmd:CI_Address',
                 minOccurs:0,showHeader:false">
-                <div data-dojo-type="esri/dijit/metadata/form/Element"
-                  data-dojo-props="target:'gmd:electronicMailAddress',minOccurs:1,
+              <div data-dojo-type="esri/dijit/metadata/form/Element" data-dojo-props="target:'gmd:electronicMailAddress',minOccurs:1,
                     label:'${i18nIso.CI_Address.electronicMailAddress}'">
-                  <div data-dojo-type="esri/dijit/metadata/form/iso/GcoElement"
-                    data-dojo-props="target:'gco:CharacterString'"></div>
-                </div>
+                <div data-dojo-type="esri/dijit/metadata/form/iso/GcoElement"
+                  data-dojo-props="target:'gco:CharacterString'"></div>
               </div>
             </div>
           </div>
         </div>
-
       </div>
+
     </div>
-      
   </div>
+
+</div>

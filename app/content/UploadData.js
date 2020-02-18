@@ -87,7 +87,6 @@ define(["dojo/_base/declare",
           this._xmlData = response;
           console.log(this._xmlData);
         }).otherwise(function (err) {
-          showErr(err);
           console.error("Unable to retrieve metadata.");
           console.error(err);
         });
@@ -249,7 +248,7 @@ define(["dojo/_base/declare",
 
         var method = "POST";
         var dataFile = "{\"itemID\": \"" + this._itemId +
-        "}";
+          "}";
         var url = completeRestURL;
         var async = true;
         var request = new XMLHttpRequest();

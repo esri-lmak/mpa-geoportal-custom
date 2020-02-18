@@ -165,7 +165,6 @@ define(["dojo/_base/declare",
             this.approvalStatus = response._source.sys_approval_status_s;
             console.log(this.approvalStatus);
           }).otherwise(function (error) {
-            showErr(error);
             console.error("Unable to retrieve metadata.");
             console.error(error);
           });

@@ -75,7 +75,7 @@
         label:'${i18nMpa.mpaMarineDataThemeLevel2Code.caption}'">
         <div data-dojo-type="esri/dijit/metadata/form/InputText" data-dojo-attach-point="marineDataThemeLevel2"
             style="display: none;"></div>
-        <select data-dojo-props="target:'gmd:marineDataThemeLevel2'" data-dojo-attach-event="onChange: populate"
+        <select data-dojo-props="target:'gmd:marineDataThemeLevel2'" data-dojo-attach-event="onChange: populate, onfocus: initialize"
             id="level2List">
             <option value="-">
                 ${i18nMpa.mpaMarineDataThemeLevel2Code.none}
