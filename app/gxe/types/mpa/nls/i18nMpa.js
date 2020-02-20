@@ -21,6 +21,7 @@ define({
             identifier: "Identifier",
             identifierTab : {
                 fileIdentifier: "File Identifier",
+                specialIdentifier: "Special Identifier",
                 language: "Metadata Language",
                 hierachyLevel: "Hierachy Level",
                 hierechyLevelName: "Hierachy Level Name"

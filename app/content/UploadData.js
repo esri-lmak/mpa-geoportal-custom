@@ -17,11 +17,11 @@ define(["dojo/_base/declare",
 
     require(["dojo/store/JsonRest"], function (JsonRest) {
       var store = new JsonRest({
-        target: "/ToTmp/GPServer/ToTmp/submitJob"
+        target: "/UploadScript/GPServer/UploadScript/submitJob"
       });
 
       /* 
-      // Get an object by identity
+	    // Get an object by identity
       store.get(id).then(function (item) {
         // item will be the DB item
       });
@@ -47,7 +47,7 @@ define(["dojo/_base/declare",
 
       // Remove an object by ID
       store.remove(3); 
-      */
+	    */
     });
 
     var oThisClass = declare([Templated], {
@@ -67,7 +67,9 @@ define(["dojo/_base/declare",
       _fileId: null,
       _file: null,
       _xmlData: null,
-      _itemId: null,
+      _title: null,
+      _itemIdData: null,
+      _itemIdMetadata: null,
 
       postCreate: function () {
         this.inherited(arguments);
@@ -85,44 +87,32 @@ define(["dojo/_base/declare",
         var client = new AppClient();
         client.readMetadataXML(this.itemId).then(function (response) {
           this._xmlData = response;
+          this._title = response.getElementsByTagName("gmd:title")[0];
+          console.log("Title: " + this._title);
           console.log(this._xmlData);
         }).otherwise(function (err) {
           console.error("Unable to retrieve metadata.");
           console.error(err);
         });
 
-        self._uploadData().then(function (response) {
-          if (response && response.status) {
-            // wait for real-time update
-            setTimeout(function () {
-              topic.publish(appTopics.ItemUploaded, {
-                response: response
-              });
-              dialog.hide();
-            }, 1500);
-            // get item ID from response
-            this._itemId = response.itemID;
-            self._uploadFile();
-          } else {
-            self._working = false;
-            dialog.okCancelBar.enableOk();
-            dialog.okCancelBar.showWorking(i18n.general.error, false);
-          }
-        }).otherwise(function (error) {
-          console.warn("UploadData.error", error);
-          var msg = i18n.general.error;
-          var err = client.checkError(error);
-          if (err && err.message) {
-            msg = self.checkForErrorTranslation(err.message);
-          }
-          if (err && err.validationErrors) {
-            self._loadValidationErrors(err.validationErrors);
-          }
+        this._itemIdData = self._uploadFile();
+		    console.log(this._itemIdData);
+
+        this._itemIdMetadata = self._uploadMetadata();
+		    console.log(this._itemIdMetadata);
+
+        var response = self._uploadData();
+        if (response && response.status) {
+          // wait for real-time update
+          setTimeout(function(){
+            topic.publish(appTopics.ItemUploaded,{response:response});
+            dialog.hide();
+          },1500);
+        } else {
           self._working = false;
           dialog.okCancelBar.enableOk();
-          dialog.okCancelBar.showError(msg, false);
-        });
-
+          dialog.okCancelBar.showWorking(i18n.general.error,false);
+        }
       },
 
       _loadValidationErrors: function (validationErrors) {
@@ -205,65 +195,106 @@ define(["dojo/_base/declare",
       },
 
       _uploadData: function () {
-        var baseRestURL = "https://mpa.esrisg.dev/argis/rest/services/Geoportal";
+        var baseRestURL = "https://mpa.esrisg.dev/arcgis/rest/services/Geoportal";
         var username = "siteadmin";
         var password = "zaq123..";
 
-        var APIPath = "/ToTmp/GPServer/ToTmp/submitJob";
+        var APIPath = "/UploadScript/GPServer/UploadScript/submitJob";
         var completeRestURL = baseRestURL + APIPath;
         console.log("REST API URL: " + completeRestURL);
 
         var method = "POST";
-        var postData = "{\"uploaded_by\": \"" + this._userName +
-          "\",\"data_file \": \"" + this._file +
-          "\",\"metadata_file\": \"" + this._xmlData +
-          "}";
+		    var postData = new FormData();
+		    postData.append("f", "pjson");
+		    postData.append("uploaded_by", this._userName);
+		    postData.append("data_file", "{\"itemID\": \"" + this._itemIdData + "\"}");
+		    postData.append("metadata_file", "{\"itemID\": \"" + this._itemIdMetadata + "\"}");
         var url = completeRestURL;
         var async = true;
         var request = new XMLHttpRequest();
+		    request.withCredentials = true;
         request.onload = function () {
           console.log("ONLOAD");
           var status = request.status; // HTTP response status, e.g., 200 for "200 OK"
           console.log(status);
           var token = request.getResponseHeader("x-mstr-authtoken");
+		      console.log(token);
         }
 
         request.open(method, url, async);
         request.setRequestHeader("Content-Type", "application/json");
         request.setRequestHeader("Accept", "application/json");
         request.setRequestHeader("Authorisation", "Basic " + btoa(username + ":" + password));
-        request.send(JSON.stringify(postData));
+        request.send(postData);
 
         return request;
       },
 
       _uploadFile: function () {
-        var baseRestURL = "https://mpa.esrisg.dev/argis/rest/services/Geoportal";
+        var baseRestURL = "https://mpa.esrisg.dev/arcgis/rest/services/Geoportal";
         var username = "siteadmin";
         var password = "zaq123..";
 
-        var APIPath = "/TestUpload001/GPServer/uploads/upload";
+        var APIPath = "/UploadScript/GPServer/uploads/upload";
         var completeRestURL = baseRestURL + APIPath;
         console.log("REST API URL: " + completeRestURL);
 
         var method = "POST";
-        var dataFile = "{\"itemID\": \"" + this._itemId +
-          "}";
+		    var postData = new FormData();
+		    postData.append("file", this._file, this._fileName);
+		    postData.append("f", "json");
         var url = completeRestURL;
         var async = true;
         var request = new XMLHttpRequest();
+		    request.withCredentials = true;
         request.onload = function () {
           console.log("ONLOAD");
           var status = request.status; // HTTP response status, e.g., 200 for "200 OK"
           console.log(status);
           var token = request.getResponseHeader("x-mstr-authtoken");
+		      console.log(token);
         }
 
         request.open(method, url, async);
         request.setRequestHeader("Content-Type", "application/json");
         request.setRequestHeader("Accept", "application/json");
         request.setRequestHeader("Authorisation", "Basic " + btoa(username + ":" + password));
-        request.send(JSON.stringify(dataFile));
+        request.send(postData);
+
+        return request;
+      },
+
+      _uploadMetadata: function () {
+        var baseRestURL = "https://mpa.esrisg.dev/arcgis/rest/services/Geoportal";
+        var username = "siteadmin";
+        var password = "zaq123..";
+
+        var APIPath = "/UploadScript/GPServer/uploads/upload";
+        var completeRestURL = baseRestURL + APIPath;
+        console.log("REST API URL: " + completeRestURL);
+
+        var method = "POST";
+		    var postData = new FormData();
+		    var blob = new Blob([this._xmlData], {type: "text/xml"});
+		    postData.append("file", blob, this._title);
+		    postData.append("f", "json");
+        var url = completeRestURL;
+        var async = true;
+        var request = new XMLHttpRequest();
+		    request.withCredentials = true;
+        request.onload = function () {
+          console.log("ONLOAD");
+          var status = request.status; // HTTP response status, e.g., 200 for "200 OK"
+          console.log(status);
+          var token = request.getResponseHeader("x-mstr-authtoken");
+		      console.log(token);
+        }
+
+        request.open(method, url, async);
+        request.setRequestHeader("Content-Type", "application/json");
+        request.setRequestHeader("Accept", "application/json");
+        request.setRequestHeader("Authorisation", "Basic " + btoa(username + ":" + password));
+        request.send(postData);
 
         return request;
       }

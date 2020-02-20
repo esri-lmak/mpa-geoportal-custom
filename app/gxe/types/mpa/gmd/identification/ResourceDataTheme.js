@@ -105,10 +105,16 @@ function (declare, lang, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, 
 				} else if (marineDataThemeLevel2 == i18nMpa.root.mpaMarineDataThemeLevel2Value.societal) {
 					level2List.options[0].label = i18nMpa.root.mpaMarineDataThemeLevel2Code.societal;
 					newOptions = i18nMpa.root.mpaMarineDataThemeLevel3Societal;
+				} else if (marineDataThemeLevel2 == i18nMpa.root.mpaMarineDataThemeLevel2Value.encChart) {
+					level2List.options[0].label = i18nMpa.root.mpaMarineDataThemeLevel2Code.encChart;
+					newOptions = i18nMpa.root.mpaMarineDataThemeLevel3None;
+				} else if (marineDataThemeLevel2 == i18nMpa.root.mpaMarineDataThemeLevel2Value.satelliteImagery) {
+					level2List.options[0].label = i18nMpa.root.mpaMarineDataThemeLevel2Code.satelliteImagery;
+					newOptions = i18nMpa.root.mpaMarineDataThemeLevel3None;
 				} else {
 					level2List.options[0].label = i18nMpa.root.mpaMarineDataThemeLevel2Code.none;
 					newOptions = i18nMpa.root.mpaMarineDataThemeLevel3None;
-				}		
+				}
 				
 				if ((level3List != null || level3List != undefined) &&
 					(marineDataThemeLevel3 != null || marineDataThemeLevel3 != undefined)) {			
@@ -283,10 +289,16 @@ function (declare, lang, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, 
 				} else if (marineDataThemeLevel2 == i18nMpa.root.mpaMarineDataThemeLevel2Value.societal) {
 					level2List.options[0].label = i18nMpa.root.mpaMarineDataThemeLevel2Code.societal;
 					newOptions = i18nMpa.root.mpaMarineDataThemeLevel3Societal;
+				} else if (marineDataThemeLevel2 == i18nMpa.root.mpaMarineDataThemeLevel2Value.encChart) {
+					level2List.options[0].label = i18nMpa.root.mpaMarineDataThemeLevel2Code.encChart;
+					newOptions = i18nMpa.root.mpaMarineDataThemeLevel3None;
+				} else if (marineDataThemeLevel2 == i18nMpa.root.mpaMarineDataThemeLevel2Value.satelliteImagery) {
+					level2List.options[0].label = i18nMpa.root.mpaMarineDataThemeLevel2Code.satelliteImagery;
+					newOptions = i18nMpa.root.mpaMarineDataThemeLevel3None;
 				} else {
 					level2List.options[0].label = i18nMpa.root.mpaMarineDataThemeLevel2Code.none;
 					newOptions = i18nMpa.root.mpaMarineDataThemeLevel3None;
-				}		
+				}
 				
 				if ((level3List != null || level3List != undefined) &&
 					(marineDataThemeLevel3 != null || marineDataThemeLevel3 != undefined)) {			
