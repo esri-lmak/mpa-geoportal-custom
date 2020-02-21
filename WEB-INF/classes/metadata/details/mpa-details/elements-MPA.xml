@@ -391,6 +391,7 @@
 	<name tagname="gmd:spatialRepresentationInfo">Spatial representation info</name>
 	<name tagname="gmd:spatialRepresentationType">Spatial representation type</name>
 	<name tagname="gmd:spatialResolution">Spatial resolution</name>
+	<name tagname="gmd:specialIdentifier">Special Identifier</name>
 	<name tagname="gmd:specification">Specification</name>
 	<name tagname="gmd:specification">Specification</name>
 	<name tagname="gmd:specificUsage">Specific usage</name>

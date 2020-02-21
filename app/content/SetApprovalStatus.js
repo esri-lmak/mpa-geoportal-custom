@@ -28,6 +28,7 @@ function(declare, topic, Deferred, dojoRequest, appTopics, AppClient, BulkEdit, 
   var itemId = null;
   var xmlString = null;
   var title = null;
+  var lastModified = null;
   var amendedTitle = null;
   var amendedXmlString = null;
 
@@ -70,6 +71,14 @@ function(declare, topic, Deferred, dojoRequest, appTopics, AppClient, BulkEdit, 
       },this.applyToNode);
 
       itemId = this.item._id;
+
+      var client = new AppClient();
+	    client.readMetadata(itemId).then(function(response) {
+        xmlString = response;
+	    }).otherwise(function(error) {
+	      console.error("Unable to retrieve metadata.");
+	      console.error(error);
+      });
     },
     
     makeRequestParams: function() {
@@ -83,7 +92,7 @@ function(declare, topic, Deferred, dojoRequest, appTopics, AppClient, BulkEdit, 
         return null;
       }
       
-      if (status == "approved") {
+      if (status == i18n.approvalStatus.approved) {
         this.duplicateRecord();
       }
 	  
@@ -96,29 +105,30 @@ function(declare, topic, Deferred, dojoRequest, appTopics, AppClient, BulkEdit, 
     // Duplicate temp record when set to approve
     duplicateRecord: function() {
       var dfd = new Deferred();
-      var client = new AppClient();
-	    client.readMetadata(itemId).then(function(response) {
-        xmlString = response;
-	    }).otherwise(function(error) {
-	      console.error("Unable to retrieve metadata.");
-	      console.error(error);
-      });
-	  
-	    setTimeout(function() {
-		    title = xmlString.split('<gmd:title>')[1]
-			    .split('</gmd:title>')[0]
-			    .trim()
-			    .split('<gco:CharacterString>')[1]
-			    .split('</gco:CharacterString>')[0];
-		    var today = new Date();
-		    var dd = today.getDate();
-		    var mm = today.getMonth() + 1; 
-		    var yyyy = today.getFullYear();
-		    today = dd + '/' + mm + '/' + yyyy;
-		    amendedTitle = title + '_' + today;
-		    amendedXmlString = xmlString.replace(title, amendedTitle);
-	    }, 20);
-      
+
+	    title = xmlString.split('<gmd:title>')[1]
+			  .split('</gmd:title>')[0]
+			  .trim()
+			  .split('<gco:CharacterString>')[1]
+			  .split('</gco:CharacterString>')[0];
+				
+      if (xmlString.includes("<gmd:metadataLastUpdatedDate>")) {
+        lastModified = xmlString.split('<gmd:metadataLastUpdatedDate>')[1]
+          .split('</gmd:metadataLastUpdatedDate>')[0]
+          .trim()
+          .split('<gco:Date>')[1]
+          .split('</gco:Date>')[0];
+      } else {
+        lastModified = xmlString.split('<gmd:dateStamp>')[1]
+          .split('</gmd:dateStamp>')[0]
+          .trim()
+          .split('<gco:Date>')[1]
+          .split('</gco:Date>')[0];
+      }
+
+		  amendedTitle = title + '_Archived_' + lastModified;
+		  amendedXmlString = xmlString.replace(title, amendedTitle);
+
 	    this._save(xmlString, this._returnHash());
       this._save(amendedXmlString, itemId).then(function (response) {
         if (response && response.status) {
@@ -167,7 +177,7 @@ function(declare, topic, Deferred, dojoRequest, appTopics, AppClient, BulkEdit, 
 	    abc = "abcdefghijklmnopqrstuvwxyz1234567890".split("");
       var token = ""; 
       for(i = 0;i < 32;i++) {
-        token += abc[Math.floor(Math.random()*abc.length)];
+        token += abc[Math.floor(Math.random() * abc.length)];
       }
       return token; //Will return a 32 bit "hash"
     }
