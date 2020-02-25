@@ -106,11 +106,13 @@ function(declare, topic, Deferred, dojoRequest, appTopics, AppClient, BulkEdit, 
     duplicateRecord: function() {
       var dfd = new Deferred();
 
-	    title = xmlString.split('<gmd:title>')[1]
-			  .split('</gmd:title>')[0]
-			  .trim()
-			  .split('<gco:CharacterString>')[1]
-			  .split('</gco:CharacterString>')[0];
+      if (xmlString.includes("<gmd:title>")) {
+	      title = xmlString.split('<gmd:title>')[1]
+			    .split('</gmd:title>')[0]
+			    .trim()
+			    .split('<gco:CharacterString>')[1]
+          .split('</gco:CharacterString>')[0];
+      }
 				
       if (xmlString.includes("<gmd:metadataLastUpdatedDate>")) {
         lastModified = xmlString.split('<gmd:metadataLastUpdatedDate>')[1]
@@ -126,7 +128,7 @@ function(declare, topic, Deferred, dojoRequest, appTopics, AppClient, BulkEdit, 
           .split('</gco:Date>')[0];
       }
 
-		  amendedTitle = title + '_Archived_' + lastModified;
+		  amendedTitle = title + i18n.metadataArchived + lastModified;
 		  amendedXmlString = xmlString.replace(title, amendedTitle);
 
 	    this._save(xmlString, this._returnHash());

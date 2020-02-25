@@ -87,9 +87,19 @@ define(["dojo/_base/declare",
         var client = new AppClient();
         client.readMetadataXML(this.itemId).then(function (response) {
           this._xmlData = response;
-          this._title = response.getElementsByTagName("gmd:title")[0];
-          console.log("Title: " + this._title);
-          console.log(this._xmlData);
+        }).otherwise(function (err) {
+          console.error("Unable to retrieve metadata.");
+          console.error(err);
+        });
+
+        client.readMetadata(this.itemId).then(function (response) {
+          if (response.includes("<gmd:title>")) {
+			      title = response.split('<gmd:title>')[1]
+			        .split('</gmd:title>')[0]
+			        .trim()
+			        .split('<gco:CharacterString>')[1]
+              .split('</gco:CharacterString>')[0];
+          }
         }).otherwise(function (err) {
           console.error("Unable to retrieve metadata.");
           console.error(err);

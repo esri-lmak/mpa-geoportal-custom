@@ -356,7 +356,9 @@ define({
       incomplete: "incomplete",
       posted: "posted",
       draft: "draft"
-    }
+    },
+
+    metadataArchived : "_Archived_"
 
   }
 });
