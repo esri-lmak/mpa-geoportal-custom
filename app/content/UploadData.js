@@ -105,24 +105,51 @@ define(["dojo/_base/declare",
           console.error(err);
         });
 
-        this._itemIdData = self._uploadFile();
-		    console.log(this._itemIdData);
+        var client = new AppClient();
+		    client.uploadFile(this._file,this._fileName).then(function(response) {
+		      response.json().then((data) => {
+            console.log(data);
+			      this._itemIdData = data.itemID;
+		      });
+		    }).otherwise(function(error){
+		      console.warn("UploadFile.error",error);
+        });
+		
+		    client.uploadMetadataFile(this._xmlData,this._title).then(function(response) {
+		      response.json().then((data) => {
+            console.log(data);
+			      this._itemIdMetadataData = data.itemID;
+		      });
+		    }).otherwise(function(error){
+		      console.warn("UploadMetadataFile.error",error);
+        });
 
-        this._itemIdMetadata = self._uploadMetadata();
-		    console.log(this._itemIdMetadata);
-
-        var response = self._uploadData();
-        if (response && response.status) {
-          // wait for real-time update
-          setTimeout(function(){
-            topic.publish(appTopics.ItemUploaded,{response:response});
-            dialog.hide();
-          },1500);
-        } else {
+        client.uploadData(this._userName,this._itemIdData,this._itemIdMetadata).then(function(response) {
+          if (response) {
+            // wait for real-time update
+            setTimeout(function(){
+              topic.publish(appTopics.ItemUploaded,{response:response});
+              dialog.hide();
+            },1500);
+          } else {
+            self._working = false;
+            dialog.okCancelBar.enableOk();
+            dialog.okCancelBar.showWorking(i18n.general.error,false);
+          }
+        }).otherwise(function(error){
+          console.warn("UploadData.error",error);
+          var msg = i18n.general.error;
+          var err = client.checkError(error);
+          if (err && err.message) {
+            msg = self.checkForErrorTranslation(err.message);
+          }
+          if (err && err.validationErrors) {
+            self._loadValidationErrors(err.validationErrors);
+          }
           self._working = false;
           dialog.okCancelBar.enableOk();
-          dialog.okCancelBar.showWorking(i18n.general.error,false);
-        }
+          dialog.okCancelBar.showError(msg,false);
+        });
       },
 
       _loadValidationErrors: function (validationErrors) {

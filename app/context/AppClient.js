@@ -1,8 +1,9 @@
 define(["dojo/_base/declare",
         "dojo/_base/lang",
         "dojo/Deferred",
-        "dojo/request"],
-function(declare, lang, Deferred, dojoRequest) {
+        "dojo/request",
+        "dojo/request/xhr"],
+function(declare, lang, Deferred, dojoRequest, xhr) {
 
   var oThisClass = declare(null, {
 
@@ -146,6 +147,61 @@ function(declare, lang, Deferred, dojoRequest) {
       var headers = {"Content-Type": "application/xml"};
       var info = {handleAs:"json",headers:headers,data:xml};
       return dojoRequest.put(url,info);
+    },
+
+    // Specific to MPA
+    uploadData: function (userName,itemIdData,itemIdMetadata) {
+      var baseRestURL = "https://mpa.esrisg.dev/arcgis/rest/services/Geoportal";
+      var APIPath = "/UploadScript/GPServer/UploadScript/submitJob";
+      var completeRestURL = baseRestURL + APIPath;
+
+      var url = completeRestURL;
+      url = this.appendAccessToken(url);
+
+      var postData = new FormData();
+      postData.append("f", "pjson");
+      postData.append("uploaded_by", userName);
+      postData.append("data_file", "{\"itemID\": \"" + itemIdData + "\"}");
+      postData.append("metadata_file", "{\"itemID\": \"" + itemIdMetadata + "\"}");
+      
+      var headers = {"Content-Type": "application/xml"};
+      var info = {handleAs:"xml",headers:headers,data:postData};
+      return xhr.post(url,info);
+    },
+
+    uploadFile: function (file,fileName) {
+      var baseRestURL = "https://mpa.esrisg.dev/arcgis/rest/services/Geoportal";
+      var APIPath = "/UploadScript/GPServer/uploads/upload";
+      var completeRestURL = baseRestURL + APIPath;
+
+      var url = completeRestURL;
+      url = this.appendAccessToken(url);
+
+      var postData = new FormData();
+      postData.append("file", file, fileName);
+      postData.append("f", "json");
+
+      var headers = {"Content-Type": "application/xml"};
+      var info = {handleAs:"xml",headers:headers,data:postData};
+      return xhr.post(url,info);
+    },
+
+    uploadMetadataFile: function (xmlData,title) {
+      var baseRestURL = "https://mpa.esrisg.dev/arcgis/rest/services/Geoportal";
+      var APIPath = "/UploadScript/GPServer/uploads/upload";
+      var completeRestURL = baseRestURL + APIPath;
+
+      var url = completeRestURL;
+      url = this.appendAccessToken(url);
+
+      var postData = new FormData();
+      var blob = new Blob([xmlData], {type: "text/xml"});
+      postData.append("file", blob, title);
+      postData.append("f", "json");
+
+      var headers = {"Content-Type": "application/xml"};
+      var info = {handleAs:"xml",headers:headers,data:postData};
+      return xhr.post(url,info);
     }
 
   });
