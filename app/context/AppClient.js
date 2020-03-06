@@ -164,8 +164,15 @@ function(declare, lang, Deferred, dojoRequest, xhr) {
       postData.append("data_file", "{\"itemID\": \"" + itemIdData + "\"}");
       postData.append("metadata_file", "{\"itemID\": \"" + itemIdMetadata + "\"}");
       
-      var headers = {"Content-Type": "application/xml"};
-      var info = {handleAs:"xml",headers:headers,data:postData};
+      var headers = {
+        "Content-Type": "multi-part/form-data"
+      };
+      var info = {
+        handleAs: "html",
+        headers: headers,
+        data: JSON.stringify(postData)
+      };
+
       return xhr.post(url,info);
     },
 
@@ -181,8 +188,15 @@ function(declare, lang, Deferred, dojoRequest, xhr) {
       postData.append("file", file, fileName);
       postData.append("f", "json");
 
-      var headers = {"Content-Type": "application/xml"};
-      var info = {handleAs:"xml",headers:headers,data:postData};
+      var headers = {
+        "Content-Type": "application/zip"
+      };
+      var info = {
+        handleAs: "html",
+        headers: headers,
+        data: postData
+      };
+
       return xhr.post(url,info);
     },
 
@@ -199,8 +213,15 @@ function(declare, lang, Deferred, dojoRequest, xhr) {
       postData.append("file", blob, title);
       postData.append("f", "json");
 
-      var headers = {"Content-Type": "application/xml"};
-      var info = {handleAs:"xml",headers:headers,data:postData};
+      var headers = {
+        "Content-Type": "application/xml"
+      };
+      var info = {
+        handleAs: "html",
+        headers: headers,
+        data: postData
+      };
+      
       return xhr.post(url,info);
     }
 

@@ -304,6 +304,7 @@ define({
         reviewed: "Reviewed",
         disapproved: "Disapproved",
         incomplete: "Incomplete",
+        archived: "Archived",
         posted: "Posted",
         draft: "Draft"
       },
@@ -326,7 +327,7 @@ define({
       },
       uploadData: {
         caption: "Upload Data",
-        instructions: "This data will update TITLE and archive the existing data to TITLE_lastModified.",
+        instructions: "An email will be sent to you on the outcome of your upload request.",
         button: "Upload"
       }
     },
@@ -355,10 +356,12 @@ define({
       disapproved: "disapproved",
       incomplete: "incomplete",
       posted: "posted",
-      draft: "draft"
+      draft: "draft",
+      archived: "archived"
     },
 
-    metadataArchived : "_Archived_"
+    metadataArchived : "_Archived_",
+    archivedSource: "SINK:Geoportal/metadata/archive/"
 
   }
 });

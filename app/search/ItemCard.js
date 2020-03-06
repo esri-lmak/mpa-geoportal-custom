@@ -13,43 +13,45 @@
  * limitations under the License.
  */
 define(["dojo/_base/declare",
-  "dojo/_base/lang",
-  "dojo/_base/array",
-  "dojo/string",
-  "dojo/topic",
-  "dojo/request/xhr",
-  "dojo/on",
-  "app/context/app-topics",
-  "dojo/dom-class",
-  "dojo/dom-construct",
-  "dijit/_WidgetBase",
-  "dijit/_TemplatedMixin",
-  "dijit/_WidgetsInTemplateMixin",
-  "dijit/Tooltip",
-  "dijit/TooltipDialog",
-  "dijit/popup",
-  "dojo/text!./templates/ItemCard.html",
-  "dojo/i18n!app/nls/resources",
-  "app/context/AppClient",
-  "app/etc/ServiceType",
-  "app/etc/util",
-  "app/common/ConfirmationDialog",
-  "app/content/ChangeOwner",
-  "app/content/DeleteItems",
-  "app/content/MetadataEditor",
-  "app/context/metadata-editor",
-  "app/content/SetAccess",
-  "app/content/SetApprovalStatus",
-  "app/content/SetField",
-  "app/content/UploadMetadata",
-  "app/content/UploadData",
-  "app/preview/PreviewUtil",
-  "app/preview/PreviewPane"], 
-function(declare, lang, array, string, topic, xhr, on, appTopics, domClass, domConstruct,
+        "dojo/_base/lang",
+        "dojo/_base/array",
+        "dojo/string",
+        "dojo/topic",
+        "dojo/request",
+        "dojo/request/xhr",
+        "dojo/on",
+        "app/context/app-topics",
+        "dojo/dom-class",
+        "dojo/dom-construct",
+        "dijit/_WidgetBase",
+        "dijit/_TemplatedMixin",
+        "dijit/_WidgetsInTemplateMixin",
+        "dijit/Tooltip",
+        "dijit/TooltipDialog",
+        "dijit/popup",
+        "dojo/text!./templates/ItemCard.html",
+        "dojo/i18n!app/nls/resources",
+        "app/context/AppClient",
+        "app/etc/ServiceType",
+        "app/etc/util",
+        "app/common/ConfirmationDialog",
+        "app/content/ChangeOwner",
+        "app/content/DeleteItems",
+        "app/content/MetadataEditor",
+        "app/context/metadata-editor",
+        "app/content/SetAccess",
+        "app/content/SetApprovalStatus",
+        "app/content/SetField",
+        "app/content/UploadMetadata",
+        "app/content/UploadData",
+        "app/preview/PreviewUtil",
+        "app/preview/PreviewPane",
+        "app/content/ApplyTo"], 
+function(declare, lang, array, string, topic, dojoRequest, xhr, on, appTopics, domClass, domConstruct,
   _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, Tooltip, TooltipDialog, popup, 
   template, i18n, AppClient, ServiceType, util, ConfirmationDialog, ChangeOwner, DeleteItems,
   MetadataEditor, gxeConfig, SetAccess, SetApprovalStatus, SetField, UploadMetadata,
-  UploadData, PreviewUtil, PreviewPane) {
+  UploadData, PreviewUtil, PreviewPane, ApplyTo) {
   
   var oThisClass = declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin], {
  
@@ -60,6 +62,11 @@ function(declare, lang, array, string, topic, xhr, on, appTopics, domClass, domC
     item: null,
     itemsNode: null,
     searchPane: null,
+
+    // Specific for MPA
+    metadataSource: null,
+    metadataApprovalStatus: null,
+    metadataXmlString: null,
     
     allowedServices: {
       "featureserver":"agsfeatureserver",
@@ -92,10 +99,43 @@ function(declare, lang, array, string, topic, xhr, on, appTopics, domClass, domC
         }
       }));
     },
+
+    applyLocally: function(item) {
+      topic.publish(appTopics.RefreshSearchResultPage,{
+        searchPane: self.searchPane
+      });
+    },
+    
+    init: function() {
+      this.applyTo = new ApplyTo({
+        item: this.item,
+        itemCard: self,
+      },this.applyToNode);
+    },
+    
+    makeRequestParams: function() {
+      var params = {
+        action: "setApprovalStatus",
+        urlParams: {}
+      };
+      
+      this._localValue = params.urlParams.approvalStatus = i18n.approvalStatus.archived;
+      this.applyTo.appendUrlParams(params);
+      return params;
+    },
     
     render: function(hit) {
       var item = this.item = hit._source;
-      item._id = hit._id; 
+      item._id = hit._id;
+
+      var client = new AppClient();
+      client.readMetadataXML(item._id).then(function (response) {
+        this.metadataXmlString = response;
+      }).otherwise(function (err) {
+        console.error("Unable to retrieve metadata.");
+        console.error(err);
+      });
+
       var links = this._uniqueLinks(item);
       util.setNodeText(this.titleNode,item.title);
       this._renderOwnerAndDate(item);
@@ -108,6 +148,7 @@ function(declare, lang, array, string, topic, xhr, on, appTopics, domClass, domC
       this._renderServiceStatus(item);
       this._renderUrlLinks(item);
       this._renderId(item);
+      this._renderUpdatedStatus(item);
     },
     
     _canEditMetadata: function(item,isOwner,isAdmin,isPublisher) {
@@ -700,21 +741,62 @@ function(declare, lang, array, string, topic, xhr, on, appTopics, domClass, domC
         }, actionsNode);
       }
     },
-      _renderId: function (item) {
+      
+    _renderId: function (item) {
       /* This node will allow jquery to
       grab identifiers, without having to resort to parsing URLS
-       */
-          var idNode = this.idNode;
-          var esId = item._id;
-          var fid = item.fileid;
+      */
+      var idNode = this.idNode;
+      var esId = item._id;
+      var fid = item.fileid;
 
-          dojo.attr(idNode,{ 'esId': esId } );
+      dojo.attr(idNode,{ 'esId': esId } );
 
-          if (fid) {
-              dojo.attr(idNode,{ 'fileid': fid } );
-          }
-
+      if (fid) {
+        dojo.attr(idNode,{ 'fileid': fid } );
       }
+    },
+
+    // Specific for MPA
+    // Update status to 'archived' when src_source_uri_s
+    // like SINK:Geoportal/metadata/archive/* 
+    // where * === organisation
+    _renderUpdatedStatus: function (item) {
+      this.metadataSource = item.src_source_uri_s;
+      this.metadataApprovalStatus = item.sys_approval_status_s;
+
+      if (this.metadataSource != undefined && this.metadataApprovalStatus != undefined) {
+        if (this.metadataSource.includes(i18n.archivedSource) 
+          && this.metadataApprovalStatus != i18n.approvalStatus.archived) {
+          // this.makeRequestParams();
+		      // this.applyLocally(item);
+          this._save(this.metadataXmlString, item._id);
+        }
+      }
+    },
+
+    _save: function (xmlString, itemId) {
+      var client = new AppClient();
+      var url = client.getRestUri() + "/metadata/item";
+      if (typeof itemId === "string" && itemId.length > 0) {
+        url += "/" + encodeURIComponent(itemId);
+      }
+      url = client.appendAccessToken(url);
+      var data = {
+        app_editor_s: "gxe",
+        sys_approval_status_s: "archived",
+        xml: xmlString
+      };
+      var headers = {
+        "Content-Type": "application/json"
+      };
+      var info = {
+        handleAs: "json",
+        headers: headers,
+        data: JSON.stringify(data)
+      };
+      return dojoRequest.put(url, info);
+    }
     
   });
   

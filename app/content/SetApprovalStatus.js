@@ -24,14 +24,6 @@ define(["dojo/_base/declare",
         "app/content/ApplyTo"],
 function(declare, topic, Deferred, dojoRequest, appTopics, AppClient, BulkEdit, template, i18n, ApplyTo) {
 
-  // Specific for MPA
-  var itemId = null;
-  var xmlString = null;
-  var title = null;
-  var lastModified = null;
-  var amendedTitle = null;
-  var amendedXmlString = null;
-
   var oThisClass = declare([BulkEdit], {
     
     i18n: i18n,
@@ -41,6 +33,14 @@ function(declare, topic, Deferred, dojoRequest, appTopics, AppClient, BulkEdit, 
     okLabel: i18n.content.updateButton,
     
     _localValue: null,
+
+    // Specific for MPA
+	  itemId: null,
+	  xmlString: null,
+	  metadataTitle: null,
+	  lastModified: null,
+	  amendedTitle: null,
+  	amendedXmlString: null,
 
     postCreate: function() {
       this.inherited(arguments);
@@ -92,7 +92,8 @@ function(declare, topic, Deferred, dojoRequest, appTopics, AppClient, BulkEdit, 
         return null;
       }
       
-      if (status == i18n.approvalStatus.approved) {
+      // Specific for MPA
+      if (status == i18n.approvalStatus.approved && !this.item.title.toLowerCase().includes("archived")) {
         this.duplicateRecord();
       }
 	  
@@ -107,7 +108,7 @@ function(declare, topic, Deferred, dojoRequest, appTopics, AppClient, BulkEdit, 
       var dfd = new Deferred();
 
       if (xmlString.includes("<gmd:title>")) {
-	      title = xmlString.split('<gmd:title>')[1]
+	      metadataTitle = xmlString.split('<gmd:title>')[1]
 			    .split('</gmd:title>')[0]
 			    .trim()
 			    .split('<gco:CharacterString>')[1]
@@ -128,8 +129,8 @@ function(declare, topic, Deferred, dojoRequest, appTopics, AppClient, BulkEdit, 
           .split('</gco:Date>')[0];
       }
 
-		  amendedTitle = title + i18n.metadataArchived + lastModified;
-		  amendedXmlString = xmlString.replace(title, amendedTitle);
+		  amendedTitle = metadataTitle + i18n.metadataArchived + lastModified;
+		  amendedXmlString = xmlString.replace(metadataTitle, amendedTitle);
 
 	    this._save(xmlString, this._returnHash());
       this._save(amendedXmlString, itemId).then(function (response) {
@@ -181,7 +182,7 @@ function(declare, topic, Deferred, dojoRequest, appTopics, AppClient, BulkEdit, 
       for(i = 0;i < 32;i++) {
         token += abc[Math.floor(Math.random() * abc.length)];
       }
-      return token; //Will return a 32 bit "hash"
+      return token; // Will return a 32 bit "hash"
     }
 
   });

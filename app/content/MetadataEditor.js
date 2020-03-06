@@ -13,23 +13,22 @@
  * limitations under the License.
  */
 define(["dojo/_base/declare",
-    "dojo/_base/lang",
-    "dojo/_base/array",
-    "dojo/Deferred",
-    "dojo/dom-construct",
-    "dojo/dom-style",
-    "dojo/topic",
-    "dojox/storage",
-    "app/context/app-topics",
-    "app/common/Templated",
-    "dojo/i18n!app/nls/resources",
-    "app/context/AppClient",
-    "app/context/metadata-editor",
-    "app/common/ModalBase",
-    "app/etc/util",
-    "dojo/request"
-  ],
-  function (declare, lang, array, Deferred, domConstruct, domStyle, topic, storage, appTopics,
+        "dojo/_base/lang",
+        "dojo/_base/array",
+        "dojo/Deferred",
+        "dojo/dom-construct",
+        "dojo/dom-style",
+        "dojo/topic",
+        "dojox/storage",
+        "app/context/app-topics",
+        "app/common/Templated",
+        "dojo/i18n!app/nls/resources",
+        "app/context/AppClient",
+        "app/context/metadata-editor",
+        "app/common/ModalBase",
+        "app/etc/util",
+        "dojo/request"],
+function (declare, lang, array, Deferred, domConstruct, domStyle, topic, storage, appTopics,
     Templated, i18n, AppClient, gxeConfig, ModalBase, util, dojoRequest) {
 
     var storageProvider = null;
@@ -38,6 +37,7 @@ define(["dojo/_base/declare",
       dojox.storage.manager.initialize();
       storageProvider = dojox.storage.manager.getProvider();
       storageProvider.initialize();
+      storageProvider.remove("itemId");
     });
 
     return declare([Templated], {
@@ -47,7 +47,6 @@ define(["dojo/_base/declare",
       itemId: null,
       approvalStatus: null,
       originalXml: null,
-      wasSaved: false,
 
       postCreate: function () {
         this.inherited(arguments);

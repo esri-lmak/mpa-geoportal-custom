@@ -32,14 +32,16 @@ function (declare, lang, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, 
 		storageProvider.initialize();
 		
 		var getObject = storageProvider.get("itemId");
-		var client = new AppClient();
-		client.readMetadataXML(getObject.itemId).then(function(response) {
-			marineDataThemeLevel2 = response.getElementsByTagName("gmd:marineDataThemeLevel2")[0].innerHTML;
-			marineDataThemeLevel3 = response.getElementsByTagName("gmd:marineDataThemeLevel3")[0].innerHTML;
-		}).otherwise(function(error) {
-			console.error("Unable to retrieve metadata.");
-			console.error(error);
-		});
+		if (getObject != null || getObject != undefined) {		
+			var client = new AppClient();
+			client.readMetadataXML(getObject.itemId).then(function(response) {
+				marineDataThemeLevel2 = response.getElementsByTagName("gmd:marineDataThemeLevel2")[0].innerHTML;
+				marineDataThemeLevel3 = response.getElementsByTagName("gmd:marineDataThemeLevel3")[0].innerHTML;
+			}).otherwise(function(error) {
+				console.error("Unable to retrieve metadata.");
+				console.error(error);
+			});
+		}
 	
 		setTimeout(function() {
 			var level2List = document.getElementById("level2List");
@@ -217,14 +219,16 @@ function (declare, lang, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, 
 			storageProvider.initialize();
 		
 			var getObject = storageProvider.get("itemId");
-			var client = new AppClient();
-			client.readMetadataXML(getObject.itemId).then(function(response) {
-				marineDataThemeLevel2 = response.getElementsByTagName("gmd:marineDataThemeLevel2")[0].innerHTML;
-				marineDataThemeLevel3 = response.getElementsByTagName("gmd:marineDataThemeLevel3")[0].innerHTML;
-			}).otherwise(function(error) {
-				console.error("Unable to retrieve metadata.");
-				console.error(error);
-			});
+			if (getObject != null || getObject != undefined) {		
+				var client = new AppClient();
+				client.readMetadataXML(getObject.itemId).then(function(response) {
+					marineDataThemeLevel2 = response.getElementsByTagName("gmd:marineDataThemeLevel2")[0].innerHTML;
+					marineDataThemeLevel3 = response.getElementsByTagName("gmd:marineDataThemeLevel3")[0].innerHTML;
+				}).otherwise(function(error) {
+					console.error("Unable to retrieve metadata.");
+					console.error(error);
+				});
+			}
 	
 			var level2List = document.getElementById("level2List");
 			var level3List = document.getElementById("level3List");
