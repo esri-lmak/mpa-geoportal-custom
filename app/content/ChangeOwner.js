@@ -13,15 +13,15 @@
  * limitations under the License.
  */
 define(["dojo/_base/declare",
-  "dojo/keys",
-  "dojo/on",
-  "dojo/topic",
-  "app/context/app-topics",
-  "app/content/BulkEdit",
-  "dojo/text!./templates/ChangeOwner.html",
-  "dojo/i18n!app/nls/resources",
-  "app/content/ApplyTo",
-  "app/context/AppClient"],
+        "dojo/keys",
+        "dojo/on",
+        "dojo/topic",
+        "app/context/app-topics",
+        "app/content/BulkEdit",
+        "dojo/text!./templates/ChangeOwner.html",
+        "dojo/i18n!app/nls/resources",
+        "app/content/ApplyTo",
+        "app/context/AppClient"],
 function(declare, keys, on, topic, appTopics, BulkEdit, template, i18n, 
   ApplyTo, AppClient) {
 
@@ -41,17 +41,17 @@ function(declare, keys, on, topic, appTopics, BulkEdit, template, i18n,
     
     applyLocally: function(item) {
       //item["sys_owner_s"] = this._localValue;
-      //topic.publish(appTopics.ItemOwnerChanged,{item:item});
-      topic.publish(appTopics.RefreshSearchResultPage,{
+      //topic.publish(appTopics.ItemOwnerChanged, {item: item});
+      topic.publish(appTopics.RefreshSearchResultPage, {
         searchPane: this.itemCard.searchPane
       });
     },
     
     init: function() {
       var self = this;
-      this.setNodeText(this.itemTitleNode,this.item.title);
-      this.setNodeText(this.currentOwnerNode,this.item.sys_owner_s);      
-      this.own(on(this.newOwnerNode,"keyup",function(evt) {
+      this.setNodeText(this.itemTitleNode, this.item.title);
+      this.setNodeText(this.currentOwnerNode, this.item.sys_owner_s);      
+      this.own(on(this.newOwnerNode, "keyup", function(evt) {
         if (evt.keyCode === keys.ENTER) self.execute();
       }));
       this.applyTo = new ApplyTo({
@@ -73,13 +73,17 @@ function(declare, keys, on, topic, appTopics, BulkEdit, template, i18n,
       }
       this._localValue = params.urlParams.newOwner = v;
       this.applyTo.appendUrlParams(params);
+
+      // Audit Trail
+      var client = new AppClient();
+      var _userName = AppContext.appUser.getUsername();
+      client.createAuditTrail(i18n.auditTrailType.changeOwner, "", "", "", _userName);
       return params;
     },
     
     modalShown: function() {
-      
       var client = new AppClient();
-      var url = "./elastic/"+AppContext.geoportal.metadataIndexName+"/item/_search";
+      var url = "./elastic/" + AppContext.geoportal.metadataIndexName + "/item/_search";
       url = client.appendAccessToken(url); // TODO append access_token?
       
       var usernames = new window.Bloodhound({
@@ -123,7 +127,7 @@ function(declare, keys, on, topic, appTopics, BulkEdit, template, i18n,
         }
       });
       
-      $("#"+this.id+"_newOwner").typeahead(
+      $("#" + this.id + "_newOwner").typeahead(
         {
           hint: true,
           highlight: true,

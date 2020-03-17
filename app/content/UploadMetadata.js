@@ -43,28 +43,32 @@ function(declare, lang, array, aspect, domConstruct, topic, appTopics, Templated
       this.inherited(arguments);
     },
     
-    _executeUpload: function(dialog,text,filename) {
+    _executeUpload: function(dialog, text, filename) {
       if (this._working) return;
       this._working = true;
       var self = this;
-      dialog.okCancelBar.showWorking(i18n.general.uploading,true);
+      dialog.okCancelBar.showWorking(i18n.general.uploading, true);
       domConstruct.empty(this.validationErrorsNode);
       
       var client = new AppClient();
-      client.uploadMetadata(text,this.itemId,filename).then(function(response){
+      client.uploadMetadata(text, this.itemId, filename).then(function(response) {
         if (response && response.status) {
           // wait for real-time update
-          setTimeout(function(){
-            topic.publish(appTopics.ItemUploaded,{response:response});
+          setTimeout(function() {
+            topic.publish(appTopics.ItemUploaded, {response: response});
             dialog.hide();
-          },1500);
+          }, 1500);
+
+          // Audit Trail
+          var _userName = AppContext.appUser.getUsername();
+          client.createAuditTrail(i18n.auditTrailType.uploadMetadata, "", "", "", _userName);
         } else {
           self._working = false;
           dialog.okCancelBar.enableOk();
-          dialog.okCancelBar.showWorking(i18n.general.error,false);
+          dialog.okCancelBar.showWorking(i18n.general.error, false);
         }
-      }).otherwise(function(error){
-        console.warn("UploadMetadata.error",error);
+      }).otherwise(function(error) {
+        console.warn("UploadMetadata.error", error);
         var msg = i18n.general.error;
         var err = client.checkError(error);
         if (err && err.message) {
@@ -75,7 +79,7 @@ function(declare, lang, array, aspect, domConstruct, topic, appTopics, Templated
         }
         self._working = false;
         dialog.okCancelBar.enableOk();
-        dialog.okCancelBar.showError(msg,false);
+        dialog.okCancelBar.showError(msg, false);
       });
      
     },
@@ -83,18 +87,18 @@ function(declare, lang, array, aspect, domConstruct, topic, appTopics, Templated
     _loadValidationErrors: function(validationErrors) {
       var self = this, parentNode = this.validationErrorsNode;
       domConstruct.empty(this.validationErrorsNode);
-      array.forEach(validationErrors,function(err){
+      array.forEach(validationErrors, function(err) {
         var details = "";
         if (err.details) details = lang.trim(err.details);
         if (typeof details === "string" && details.length > 0) {
           details = self.checkForErrorTranslation(details);
-          var nd = domConstruct.create("div",{},parentNode);
-          self.setNodeText(nd,details);
+          var nd = domConstruct.create("div", {}, parentNode);
+          self.setNodeText(nd, details);
         }
       });
     },
     
-    _loadXmlFile: function(evt,dialog) {
+    _loadXmlFile: function(evt, dialog) {
       this._text = null;
       dialog.okCancelBar.disableOk();
       dialog.okCancelBar.showWorking("");
@@ -105,7 +109,7 @@ function(declare, lang, array, aspect, domConstruct, topic, appTopics, Templated
       if (!file) return; 
       
       var reader = new FileReader();
-      this.own(aspect.after(reader,"onload",lang.hitch(this,function(e) {
+      this.own(aspect.after(reader, "onload", lang.hitch(this, function(e) {
         if (e && e.target && e.target.result) {
           var text = e.target.result; 
           this._filename = file.name;
@@ -117,25 +121,25 @@ function(declare, lang, array, aspect, domConstruct, topic, appTopics, Templated
         } else {
           // TODO message here?
         }
-      }),true));
+      }), true));
       reader.readAsText(file);
     },
  
     show: function() {
       var self = this, dialog = null;
       
-      var showErr = function(msg,error) {
+      var showErr = function(msg, error) {
         dialog.okCancelBar.enableOk();
-        dialog.okCancelBar.showWorking(msg,false);
+        dialog.okCancelBar.showWorking(msg, false);
         if (error) console.warn(error);
       };
       
       if (FileReader) {
-        var nd = domConstruct.create("div", {},this.fileContainerNode);
+        var nd = domConstruct.create("div", {}, this.fileContainerNode);
         this._inputFileNode = domConstruct.create("input", {
           "type": "file",
-          onchange: function(evt) {self._loadXmlFile(evt,dialog);}
-        },nd);
+          onchange: function(evt) {self._loadXmlFile(evt, dialog);}
+        }, nd);
       }
       
       dialog = new ModalDialog({
@@ -146,7 +150,7 @@ function(declare, lang, array, aspect, domConstruct, topic, appTopics, Templated
           self.destroyRecursive(false);
         }, 
         onOkClicked: function() {
-          self._executeUpload(dialog,self._text,self._filename);
+          self._executeUpload(dialog, self._text, self._filename);
         }
       });
       dialog.okCancelBar.disableOk();

@@ -28,7 +28,7 @@ function(declare, lang, Deferred, topic, appTopics, i18n, AppClient, SignIn,
       try {
         if (this.arcgisPortalUser !== null) p = this.arcgisPortalUser.portal;
         if (p && p.customBaseUrl && (p.customBaseUrl.length > 0) && p.urlKey && (p.urlKey.length > 0)) {
-          url = window.location.protocol+"//"+p.urlKey+"."+p.customBaseUrl;
+          url = window.location.protocol + "//" + p.urlKey + "." + p.customBaseUrl;
           return url;
         } else if (p && p.url) {
           return p.url;
@@ -51,7 +51,7 @@ function(declare, lang, Deferred, topic, appTopics, i18n, AppClient, SignIn,
         if (this.arcgisPortalUser) {
           var v = this.getArcGISPortalUrlForLink();
           if (v) {
-            return v+"/home/user.html?user="+encodeURIComponent(this.arcgisPortalUser.username);
+            return v + "/home/user.html?user=" + encodeURIComponent(this.arcgisPortalUser.username);
           } 
         }
       }
@@ -88,21 +88,21 @@ function(declare, lang, Deferred, topic, appTopics, i18n, AppClient, SignIn,
       var self = this, portalUrl = oauth.portalUrl;
       // arcgisUtils.arcgisUrl = portalUrl;  // PortalImplementation
       esriId._arcgisUrl = portalUrl;
-      esriId.getCredential(portalUrl,{oAuthPopupConfirmation:false}).then(function (){
+      esriId.getCredential(portalUrl, {oAuthPopupConfirmation:false}).then(function () {
         var portal = new arcgisPortal.Portal(portalUrl);
-        portal.signIn().then(function(portalUser){
-          //console.warn("portalUser",portalUser);
+        portal.signIn().then(function(portalUser) {
+          // console.warn("portalUser", portalUser);
           self.arcgisPortalUser = portalUser;
           var u = portalUser.username;
-          var p = "__rtkn__:"+portalUser.credential.token;
-          self.signIn(u,p).then(function(){
-          }).otherwise(function(error){
+          var p = "__rtkn__:" + portalUser.credential.token;
+          self.signIn(u,p).then(function() {
+          }).otherwise(function(error) {
             // TODO handle 
-            console.warn("Error occurred while signing in:",error);
+            console.warn("Error occurred while signing in:", error);
           });
-        }).otherwise(function(error){
+        }).otherwise(function(error) {
           // TODO handle 
-          console.warn("Error occurred while signing in:",error);
+          console.warn("Error occurred while signing in:", error);
         });
       });
     },
@@ -118,25 +118,33 @@ function(declare, lang, Deferred, topic, appTopics, i18n, AppClient, SignIn,
 
     signIn: function(u,p) {
       var self = this, dfd = new Deferred(), client = new AppClient();
-      client.generateToken(u,p).then(function(oauthToken){
+      client.generateToken(u,p).then(function(oauthToken) {
         if (oauthToken && oauthToken.access_token) {
-          client.pingGeoportal(oauthToken.access_token).then(function(info){
+          client.pingGeoportal(oauthToken.access_token).then(function(info) {
             if (info && info.user) {
               self.appToken = oauthToken;
               self.geoportalUser = info.user;
               topic.publish(appTopics.SignedIn,{geoportalUser:info.user});
               dfd.resolve();
+ 			  
+			        // Audit Trail
+			        var _userName = AppContext.appUser.getUsername();
+			        var ipAddress = null;
+			        $.getJSON('https://api.ipify.org?format=jsonp&callback=?', function(data) {
+			          ipAddress = data.ip;
+              });
+              client.createAuditTrail(i18n.auditTrailType.signIn, "", "", ipAddress, _userName);
             } else {
               dfd.reject(i18n.general.error);
             } 
-          }).otherwise(function(error){
+          }).otherwise(function(error) {
             console.warn(error);
             dfd.reject(i18n.general.error);
           });
         } else {
           dfd.reject(i18n.login.invalidCredentials);
         }
-      }).otherwise(function(error){
+      }).otherwise(function(error) {
         var msg = i18n.general.error;
         if (error) {
           if (error.status === 400) msg = i18n.login.invalidCredentials;
@@ -149,6 +157,13 @@ function(declare, lang, Deferred, topic, appTopics, i18n, AppClient, SignIn,
     
     signOut: function() {
       esriId.destroyCredentials();
+      // Audit Trail
+      var _userName = AppContext.appUser.getUsername();
+      var ipAddress = null;
+      $.getJSON('https://api.ipify.org?format=jsonp&callback=?', function(data) {
+        ipAddress = data.ip;
+      });
+      client.createAuditTrail(i18n.auditTrailType.signOut, "", "", ipAddress, _userName);
       window.location.reload();
     },
     
@@ -170,22 +185,22 @@ function(declare, lang, Deferred, topic, appTopics, i18n, AppClient, SignIn,
         });
         esriId.registerOAuthInfos([info]);
 
-        esriId.checkSignInStatus(portalUrl).then(function(){
+        esriId.checkSignInStatus(portalUrl).then(function() {
           var portal = new arcgisPortal.Portal(portalUrl);
-          portal.signIn().then(function(portalUser){
-            //console.warn("portalUser.....",portalUser);
+          portal.signIn().then(function(portalUser) {
+            // console.warn("portalUser.....", portalUser);
             self.arcgisPortalUser = portalUser;
             var u = portalUser.username;
-            var p = "__rtkn__:"+portalUser.credential.token;
-            self.signIn(u,p).then(function(){
+            var p = "__rtkn__:" + portalUser.credential.token;
+            self.signIn(u, p).then(function() {
               dfd.resolve();
-            }).otherwise(function(error){
+            }).otherwise(function(error) {
               dfd.resolve();
             });
-          }).otherwise(function(error){
+          }).otherwise(function(error) {
             dfd.resolve();
           });
-        }).otherwise(function(error){
+        }).otherwise(function(error) {
           dfd.resolve();
         });
         

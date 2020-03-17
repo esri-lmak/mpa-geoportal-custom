@@ -48,14 +48,14 @@ function(declare, topic, Deferred, dojoRequest, appTopics, AppClient, BulkEdit, 
     
     applyLocally: function(item) {
       // item["sys_approval_status_s"] = this._localValue;
-      // topic.publish(appTopics.ItemApprovalStatusChanged,{item:item});
-      topic.publish(appTopics.RefreshSearchResultPage,{
+      // topic.publish(appTopics.ItemApprovalStatusChanged, {item: item});
+      topic.publish(appTopics.RefreshSearchResultPage, {
         searchPane: this.itemCard.searchPane
       });
     },
     
     init: function() {
-      this.setNodeText(this.itemTitleNode,this.item.title);
+      this.setNodeText(this.itemTitleNode, this.item.title);
       if (!AppContext.appUser.isAdmin()) {
         $(this.statusSelect).find("option[value='approved']").remove();
         $(this.statusSelect).find("option[value='reviewed']").remove();
@@ -96,6 +96,11 @@ function(declare, topic, Deferred, dojoRequest, appTopics, AppClient, BulkEdit, 
       if (status == i18n.approvalStatus.approved && !this.item.title.toLowerCase().includes("archived")) {
         this.duplicateRecord();
       }
+
+      // Audit Trail
+      var _userName = AppContext.appUser.getUsername();
+      var client = new AppClient();
+      client.createAuditTrail(i18n.auditTrailType.setApprovalStatus, "", "", "", _userName);
 	  
       this._localValue = params.urlParams.approvalStatus = status;
       this.applyTo.appendUrlParams(params);
@@ -179,7 +184,7 @@ function(declare, topic, Deferred, dojoRequest, appTopics, AppClient, BulkEdit, 
 	  _returnHash: function (){
 	    abc = "abcdefghijklmnopqrstuvwxyz1234567890".split("");
       var token = ""; 
-      for(i = 0;i < 32;i++) {
+      for(i = 0; i < 32; i++) {
         token += abc[Math.floor(Math.random() * abc.length)];
       }
       return token; // Will return a 32 bit "hash"

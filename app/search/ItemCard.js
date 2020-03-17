@@ -67,6 +67,7 @@ function(declare, lang, array, string, topic, dojoRequest, xhr, on, appTopics, d
     metadataSource: null,
     metadataApprovalStatus: null,
     metadataXmlString: null,
+    metadataDataClassification: null,
     
     allowedServices: {
       "featureserver":"agsfeatureserver",
@@ -83,25 +84,30 @@ function(declare, lang, array, string, topic, dojoRequest, xhr, on, appTopics, d
     postCreate: function() {
       this.inherited(arguments);
       var self = this;
-      this.own(topic.subscribe(appTopics.ItemOwnerChanged,function(params){
+      this.own(topic.subscribe(appTopics.ItemOwnerChanged,function(params) {
         if (self.item && self.item === params.item) {
           self._renderOwnerAndDate(self.item);
+          self._renderDataClassification(self.item);
         }
       }));
-      this.own(topic.subscribe(appTopics.ItemApprovalStatusChanged,function(params){
+
+      this.own(topic.subscribe(appTopics.ItemApprovalStatusChanged,function(params) {
         if (self.item && self.item === params.item) {
           self._renderOwnerAndDate(self.item);
+          self._renderDataClassification(self.item);
         }
       }));
-      this.own(topic.subscribe(appTopics.ItemAccessChanged,function(params){
+
+      this.own(topic.subscribe(appTopics.ItemAccessChanged,function(params) {
         if (self.item && self.item === params.item) {
           self._renderOwnerAndDate(self.item);
+          self._renderDataClassification(self.item);
         }
       }));
     },
 
     applyLocally: function(item) {
-      topic.publish(appTopics.RefreshSearchResultPage,{
+      topic.publish(appTopics.RefreshSearchResultPage, {
         searchPane: self.searchPane
       });
     },
@@ -137,21 +143,22 @@ function(declare, lang, array, string, topic, dojoRequest, xhr, on, appTopics, d
       });
 
       var links = this._uniqueLinks(item);
-      util.setNodeText(this.titleNode,item.title);
+      util.setNodeText(this.titleNode, item.title);
       this._renderOwnerAndDate(item);
-      util.setNodeText(this.descriptionNode,item.description);
+      util.setNodeText(this.descriptionNode, item.description);
+      this._renderDataClassification(item);
       this._renderThumbnail(item);
-      this._renderItemLinks(hit._id,item);
-      this._renderLinksDropdown(item,links);
-      this._renderOptionsDropdown(hit._id,item);
-      this._renderAddToMap(item,links);
+      this._renderItemLinks(hit._id, item);
+      this._renderLinksDropdown(item, links);
+      this._renderOptionsDropdown(hit._id, item);
+      this._renderAddToMap(item, links);
       this._renderServiceStatus(item);
       this._renderUrlLinks(item);
       this._renderId(item);
       this._renderUpdatedStatus(item);
     },
     
-    _canEditMetadata: function(item,isOwner,isAdmin,isPublisher) {
+    _canEditMetadata: function(item,isOwner, isAdmin, isPublisher) {
       var v;
       if ((isOwner && isPublisher) || isAdmin) {
         v = item.sys_metadatatype_s;
@@ -178,43 +185,42 @@ function(declare, lang, array, string, topic, dojoRequest, xhr, on, appTopics, d
       return false;
     },
     
-    _mitigateDropdownClip: function(dd,ddul) {
+    _mitigateDropdownClip: function(dd, ddul) {
       // Bootstrap dropdown menus clipped by scrollable container
       var self = this;
       var reposition = function() {
-        //console.warn($(dd).offset());
+        // console.warn($(dd).offset());
         var t = $(dd).offset().top + 15 - $(window).scrollTop();
         var l = $(dd).offset().left;
-        $(ddul).css('top',t);
-        $(ddul).css('left',l);
+        $(ddul).css('top', t);
+        $(ddul).css('left', l);
         
         var position = dd.getBoundingClientRect().top;
         var buttonHeight = dd.getBoundingClientRect().height;
         var menuHeight = $(ddul).outerHeight();
         var winHeight = $(window).height();
         if (position > menuHeight && winHeight - position < buttonHeight + menuHeight) {
-          //console.warn("dropup","position:",position,"t",t,"buttonHeight",buttonHeight,"menuHeight",menuHeight);
+          // console.warn("dropup","position:",position,"t",t,"buttonHeight",buttonHeight,"menuHeight",menuHeight);
           t = t - menuHeight - buttonHeight - 4;
-          $(ddul).css('top',t);
+          $(ddul).css('top', t);
         } 
       };
-      $(ddul).css("position","fixed");
+      $(ddul).css("position", "fixed");
       $(dd).on('click', function() {reposition();});
-      //$(window).scroll(function() {reposition();});
-      //$(this.itemsNode).scroll(function() {reposition();});
-      //$(window).resize(function() {reposition();});
+      // $(window).scroll(function() {reposition();});
+      // $(this.itemsNode).scroll(function() {reposition();});
+      // $(window).resize(function() {reposition();});
     },
     
     _mouseenter: function(e) {
-      topic.publish(appTopics.OnMouseEnterResultItem,{item:this.item});
+      topic.publish(appTopics.OnMouseEnterResultItem,{item: this.item});
     },
 
     _mouseleave: function(e) {
-      topic.publish(appTopics.OnMouseLeaveResultItem,{item:this.item});
+      topic.publish(appTopics.OnMouseLeaveResultItem,{item: this.item});
     },
     
-    _renderPreview: function(item, actionsNode, serviceType) {
-      
+    _renderPreview: function(item, actionsNode, serviceType) {     
       // declare preview pane
       var previewPane;
       
@@ -254,12 +260,12 @@ function(declare, lang, array, string, topic, dojoRequest, xhr, on, appTopics, d
       this.own(tooltipDialog);
       
       // create clickable link to launch preview dialog
-      var previewNode = domConstruct.create("a",{
+      var previewNode = domConstruct.create("a", {
         href: "javascript:void(0)",
         title: string.substitute(i18n.item.actions.titleFormat, {action: i18n.item.actions.preview, title: item.title}),
         "aria-label": string.substitute(i18n.item.actions.titleFormat, {action: i18n.item.actions.preview, title: item.title}),
         innerHTML: i18n.item.actions.preview
-      },actionsNode);
+      }, actionsNode);
       
       // install 'onclick' event handler to show tooltip dialog
       this.own(on(previewNode, "click", function() {
@@ -270,16 +276,16 @@ function(declare, lang, array, string, topic, dojoRequest, xhr, on, appTopics, d
       }));
     },
     
-    _renderAddToMap: function(item,links) {
+    _renderAddToMap: function(item, links) {
       if (links.length === 0) return;
       var endsWith = function(v,sfx) {return (v.indexOf(sfx,(v.length-sfx.length)) !== -1);};
       var actionsNode = this.actionsNode;
-      array.some(links, lang.hitch(this, function(u){
+      array.some(links, lang.hitch(this, function(u) {
         var serviceType = new ServiceType();
         serviceType.checkUrl(u);
-        //console.warn("serviceType",serviceType.isSet(),serviceType);
+        // console.warn("serviceType", serviceType.isSet(), serviceType);
         if (serviceType.isSet()) {
-          domConstruct.create("a",{
+          domConstruct.create("a", {
             href: "javascript:void(0)",
             innerHTML: i18n.item.actions.addToMap,
             title: string.substitute(i18n.item.actions.titleFormat, {action: i18n.item.actions.addToMap, title: item.title}),
@@ -287,7 +293,7 @@ function(declare, lang, array, string, topic, dojoRequest, xhr, on, appTopics, d
             onclick: function() {
               topic.publish(appTopics.AddToMapClicked,serviceType);
             }
-          },actionsNode);
+          }, actionsNode);
           
           // create clickable 'Preview' link if allowes
           if (PreviewUtil.canPreview(serviceType)) {
@@ -299,31 +305,34 @@ function(declare, lang, array, string, topic, dojoRequest, xhr, on, appTopics, d
       }));
     },
     
-    _renderItemLinks: function(itemId,item) {
+    _renderItemLinks: function(itemId, item) {
       if (AppContext.appConfig.searchResults.showLinks) {
         var actionsNode = this.actionsNode;
-        var uri = "./rest/metadata/item/"+encodeURIComponent(itemId);
-        var htmlNode = domConstruct.create("a",{
-          href: uri+"/html",
+        var uri = "./rest/metadata/item/" + encodeURIComponent(itemId);
+        var htmlNode = domConstruct.create("a", {
+          href: uri + "/html",
           target: "_blank",
           title: string.substitute(i18n.item.actions.titleFormat, {action: i18n.item.actions.html, title: item.title}),
           "aria-label": string.substitute(i18n.item.actions.titleFormat, {action: i18n.item.actions.html, title: item.title}),
           innerHTML: i18n.item.actions.html
-        },actionsNode);
-        var xmlNode = domConstruct.create("a",{
-          href: uri+"/xml",
+        }, actionsNode);
+
+        var xmlNode = domConstruct.create("a", {
+          href: uri + "/xml",
           target: "_blank",
           title: string.substitute(i18n.item.actions.titleFormat, {action: i18n.item.actions.xml, title: item.title}),
           "aria-label": string.substitute(i18n.item.actions.titleFormat, {action: i18n.item.actions.xml, title: item.title}),
           innerHTML: i18n.item.actions.xml
-        },actionsNode);
-        var jsonNode = domConstruct.create("a",{
-          href: uri+"?pretty=true",
+        }, actionsNode);
+
+        var jsonNode = domConstruct.create("a", {
+          href: uri + "?pretty=true",
           target: "_blank",
           title: string.substitute(i18n.item.actions.titleFormat, {action: i18n.item.actions.json, title: item.title}),
           "aria-label": string.substitute(i18n.item.actions.titleFormat, {action: i18n.item.actions.json, title: item.title}),
           innerHTML: i18n.item.actions.json
-        },actionsNode);
+        }, actionsNode);
+
         if (AppContext.geoportal.supportsApprovalStatus || 
             AppContext.geoportal.supportsGroupBasedAccess) {
           var client = new AppClient();
@@ -331,6 +340,7 @@ function(declare, lang, array, string, topic, dojoRequest, xhr, on, appTopics, d
           xmlNode.href = client.appendAccessToken(xmlNode.href);
           jsonNode.href = client.appendAccessToken(jsonNode.href);
         }
+
         var v = item.sys_metadatatype_s;
         if (typeof v === "string" && v === "json") {
           htmlNode.style.visibility = "hidden";
@@ -339,13 +349,14 @@ function(declare, lang, array, string, topic, dojoRequest, xhr, on, appTopics, d
       }
     },
     
-    _renderLinksDropdown: function(item,links) {
+    _renderLinksDropdown: function(item, links) {
       if (links.length === 0) return;
-      var dd = domConstruct.create("div",{
+      var dd = domConstruct.create("div", {
         "class": "dropdown",
         "style": "display:inline-block;"
-      },this.actionsNode);
-      var ddbtn = domConstruct.create("a",{
+      }, this.actionsNode);
+
+      var ddbtn = domConstruct.create("a", {
         "class": "dropdown-toggle",
         "href": "#",
         "data-toggle": "dropdown",
@@ -354,28 +365,31 @@ function(declare, lang, array, string, topic, dojoRequest, xhr, on, appTopics, d
         title: string.substitute(i18n.item.actions.titleFormat, {action: i18n.item.actions.links, title: item.title}),
         "aria-label": string.substitute(i18n.item.actions.titleFormat, {action: i18n.item.actions.links, title: item.title}),
         innerHTML: i18n.item.actions.links
-      },dd);
-      domConstruct.create("span",{
+      }, dd);
+
+      domConstruct.create("span", {
         "class": "caret"
-      },ddbtn);
-      var ddul = domConstruct.create("ul",{
+      }, ddbtn);
+
+      var ddul = domConstruct.create("ul", {
         "class": "dropdown-menu",
-      },dd);
-      array.forEach(links, function(u){
-        var ddli = domConstruct.create("li",{},ddul);
-        domConstruct.create("a",{
+      }, dd);
+
+      array.forEach(links, function(u) {
+        var ddli = domConstruct.create("li", {}, ddul);
+        domConstruct.create("a", {
           "class": "small",
           href: u,
           target: "_blank",
           title: string.substitute(i18n.item.actions.titleFormat, {action: u, title: item.title}),
           "aria-label": string.substitute(i18n.item.actions.titleFormat, {action: u, title: item.title}),
           innerHTML: u
-        },ddli);
+        }, ddli);
       });
-      this._mitigateDropdownClip(dd,ddul);
+      this._mitigateDropdownClip(dd, ddul);
     },
     
-    _renderOptionsDropdown: function(itemId,item) {
+    _renderOptionsDropdown: function(itemId, item) {
       var self = this;
       var isOwner = this._isOwner(item);
       var isAdmin = AppContext.appUser.isAdmin();
@@ -384,7 +398,7 @@ function(declare, lang, array, string, topic, dojoRequest, xhr, on, appTopics, d
       var supportsGroupBasedAccess = AppContext.geoportal.supportsGroupBasedAccess;
       var links = [];
       
-      if (this._canEditMetadata(item,isOwner,isAdmin,isPublisher)) {
+      if (this._canEditMetadata(item, isOwner, isAdmin, isPublisher)) {
         var text = null;
 
         if (item.sys_approval_status_s != i18n.approvalStatus.approved) {
@@ -393,12 +407,12 @@ function(declare, lang, array, string, topic, dojoRequest, xhr, on, appTopics, d
           text = i18n.item.actions.options.viewMetadata;
         }
 
-        links.push(domConstruct.create("a",{
+        links.push(domConstruct.create("a", {
           "class": "small",
           href: "javascript:void(0)",
           innerHTML: text,
           onclick: function() {
-            var editor = new MetadataEditor({itemId:itemId, approvalStatus:item.sys_approval_status_s});
+            var editor = new MetadataEditor({itemId: itemId, approvalStatus: item.sys_approval_status_s});
             editor.show();
           }
         }));
@@ -407,56 +421,56 @@ function(declare, lang, array, string, topic, dojoRequest, xhr, on, appTopics, d
       var canManage = ((isOwner && isPublisher) || isAdmin);
       
       if (canManage) {
-        links.push(domConstruct.create("a",{
+        links.push(domConstruct.create("a", {
           "class": "small",
           href: "javascript:void(0)",
           innerHTML: i18n.item.actions.options.uploadMetadata,
           onclick: function() {
-            (new UploadMetadata({itemId:itemId})).show();
+            (new UploadMetadata({itemId: itemId})).show();
           }
         }));
 
-        links.push(domConstruct.create("a",{
+        links.push(domConstruct.create("a", {
           "class": "small",
           href: "javascript:void(0)",
           innerHTML: i18n.item.actions.options.uploadData,
           onclick: function() {
-            (new UploadData({itemId:itemId})).show();
+            (new UploadData({itemId: itemId})).show();
           }
         }));
       }
       
       if (isAdmin) {
-        links.push(domConstruct.create("a",{
+        links.push(domConstruct.create("a", {
           "class": "small",
           href: "javascript:void(0)",
           innerHTML: i18n.content.changeOwner.caption,
           onclick: function() {
-            var dialog = new ChangeOwner({item:item,itemCard:self});
+            var dialog = new ChangeOwner({item: item, itemCard: self});
             dialog.show();
           }
         }));
       }
       
       if (supportsApprovalStatus && canManage) {
-        links.push(domConstruct.create("a",{
+        links.push(domConstruct.create("a", {
           "class": "small",
           href: "javascript:void(0)",
           innerHTML: i18n.content.setApprovalStatus.caption,
           onclick: function() {
-            var dialog = new SetApprovalStatus({item:item,itemCard:self});
+            var dialog = new SetApprovalStatus({item: item, itemCard: self});
             dialog.show();
           }
         }));
       }
       
       if (supportsGroupBasedAccess && canManage) {
-        links.push(domConstruct.create("a",{
+        links.push(domConstruct.create("a", {
           "class": "small",
           href: "javascript:void(0)",
           innerHTML: i18n.content.setAccess.caption,
           onclick: function() {
-            var dialog = new SetAccess({item:item,itemCard:self});
+            var dialog = new SetAccess({item: item, itemCard: self});
             dialog.show();
           }
         }));
@@ -465,24 +479,24 @@ function(declare, lang, array, string, topic, dojoRequest, xhr, on, appTopics, d
       if (canManage && AppContext.appConfig.edit && AppContext.appConfig.edit.setField && 
           AppContext.appConfig.edit.setField.allow && 
           (isAdmin || !AppContext.appConfig.edit.setField.adminOnly)) {
-        links.push(domConstruct.create("a",{
+        links.push(domConstruct.create("a", {
           "class": "small",
           href: "javascript:void(0)",
           innerHTML: i18n.content.setField.caption,
           onclick: function() {
-            var dialog = new SetField({item:item,itemCard:self});
+            var dialog = new SetField({item: item, itemCard: self});
             dialog.show();
           }
         }));        
       }
       
       if (canManage) {
-        links.push(domConstruct.create("a",{
+        links.push(domConstruct.create("a", {
           "class": "small",
           href: "javascript:void(0)",
           innerHTML: i18n.content.deleteItems.caption,
           onclick: function() {
-            var dialog = new DeleteItems({item:item,itemCard:self});
+            var dialog = new DeleteItems({item: item, itemCard: self});
             dialog.show();
           }
         }));
@@ -524,29 +538,34 @@ function(declare, lang, array, string, topic, dojoRequest, xhr, on, appTopics, d
 
       if (links.length === 0) return;
       
-      var dd = domConstruct.create("div",{
+      var dd = domConstruct.create("div", {
         "class": "dropdown",
         "style": "display:inline-block;"
-      },this.actionsNode);
-      var ddbtn = domConstruct.create("a",{
+      }, this.actionsNode);
+
+      var ddbtn = domConstruct.create("a", {
         "class": "dropdown-toggle",
         "href": "#",
         "data-toggle": "dropdown",
         "aria-haspopup": true,
         "aria-expanded": true,
         innerHTML: i18n.item.actions.options.caption
-      },dd);
-      domConstruct.create("span",{
+      }, dd);
+
+      domConstruct.create("span", {
         "class": "caret"
-      },ddbtn);
-      var ddul = domConstruct.create("ul",{
+      }, ddbtn);
+
+      var ddul = domConstruct.create("ul", {
         "class": "dropdown-menu",
-      },dd);
-      array.forEach(links,function(link){
-        var ddli = domConstruct.create("li",{},ddul);
+      }, dd);
+
+      array.forEach(links,function(link) {
+        var ddli = domConstruct.create("li", {}, ddul);
         ddli.appendChild(link);
       });
-      this._mitigateDropdownClip(dd,ddul);
+
+      this._mitigateDropdownClip(dd, ddul);
     },
     
     _renderOwnerAndDate: function(item) {
@@ -555,7 +574,7 @@ function(declare, lang, array, string, topic, dojoRequest, xhr, on, appTopics, d
       var idx, text = "", v;
       if (AppContext.appConfig.searchResults.showDate && typeof date === "string" && date.length > 0) {
         idx = date.indexOf("T");
-        if (idx > 0) date =date.substring(0,idx);
+        if (idx > 0) date = date.substring(0, idx);
         text = date;
       }
       if (AppContext.appConfig.searchResults.showOwner && typeof owner === "string" && owner.length > 0) {
@@ -588,21 +607,40 @@ function(declare, lang, array, string, topic, dojoRequest, xhr, on, appTopics, d
       }
       
       if (text.length > 0) {
-        util.setNodeText(this.ownerAndDateNode,text);
+        util.setNodeText(this.ownerAndDateNode, text);
       }
+    },
+
+    _renderDataClassification: function(item) {
+      var client = new AppClient();
+	    var dataClassificationNode = this.dataClassificationNode;
+      client.readMetadataXML(item._id).then(function (response) {
+        this.metadataXmlString = response;
+      }).otherwise(function (err) {
+        console.error("Unable to retrieve metadata.");
+        console.error(err);
+      });
+	  
+      setTimeout(function() {
+        this.metadataDataClassification = this.metadataXmlString.getElementsByTagName("gmd:MD_ClassificationCode")[0].textContent.trim();
+        this.metadataDataClassification = this.metadataDataClassification.charAt(0).toUpperCase() + this.metadataDataClassification.substring(1);
+		    if (this.metadataDataClassification.length > 0) {
+		      util.setNodeText(dataClassificationNode, this.metadataDataClassification);
+		    }
+      }, 150);
     },
     
     _renderThumbnail: function(item) {
       var show = AppContext.appConfig.searchResults.showThumbnails;
       var thumbnailNode = this.thumbnailNode;
       if (show && typeof item.thumbnail_s === "string" && item.thumbnail_s.indexOf("http") === 0) {
-        setTimeout(function(){
+        setTimeout(function() {
           thumbnailNode.src = util.checkMixedContent(item.thumbnail_s);
-        },1);
+        }, 1);
       } else {
         thumbnailNode.style.display = "none";
       }
-      //thumbnailNode.src = "http://placehold.it/80x60";
+      // thumbnailNode.src = "http://placehold.it/80x60";
     },
     
     _uniqueLinks: function(item) {
@@ -610,7 +648,7 @@ function(declare, lang, array, string, topic, dojoRequest, xhr, on, appTopics, d
       if (typeof item.links_s === "string") {
         links = [item.links_s];
       } else if (lang.isArray(item.links_s)) {
-        array.forEach(item.links_s, function(u){
+        array.forEach(item.links_s, function(u) {
           if (links.indexOf(u) === -1) links.push(u);
         });
       }
@@ -620,48 +658,48 @@ function(declare, lang, array, string, topic, dojoRequest, xhr, on, appTopics, d
     _renderServiceStatus: function(item) {
       var type;
       var authKey = AppContext.appConfig.statusChecker.authKey;
-      if (authKey && string.trim(authKey).length>0) {
+      if (authKey && string.trim(authKey).length > 0) {
         if (item && item.resources_nst) {
           if (item.resources_nst.length) {
-            for (var i=0; i<item.resources_nst.length; i++) {
+            for (var i = 0; i < item.resources_nst.length; i++) {
               type = this._translateService(item.resources_nst[i].url_type_s);
               if (type) {
-                this._checkService(item._id,type);
+                this._checkService(item._id, type);
                 break;
               }
             }
           } else {
             type = this._translateService(item.resources_nst.url_type_s);
             if (type) {
-              this._checkService(item._id,type);
+              this._checkService(item._id, type);
             }
           }
         }
       }
     },
     
-    _checkService: function(id,type) {
+    _checkService: function(id, type) {
       console.log("Service check for: ", id, type);
-      xhr.get("viewer/proxy.jsp?"+AppContext.appConfig.statusChecker.apiUrl,{
+      xhr.get("viewer/proxy.jsp?" + AppContext.appConfig.statusChecker.apiUrl, {
         query: {
           auth: AppContext.appConfig.statusChecker.authKey,
           type: type,
           id: id
         },
         handleAs: "json"
-      }).then(lang.hitch({self: this, id: id, type: type},this._drawStatusIcon));
+      }).then(lang.hitch({self: this, id: id, type: type}, this._drawStatusIcon));
     },
     
     _drawStatusIcon: function(response) {
       if (response.error) {
         console.error(response.error);
-      } else if (response.data!=null && response.data.constructor==Array && response.data.length>0) {
+      } else if (response.data != null && response.data.constructor == Array && response.data.length > 0) {
         var score = response.data[0].summary.scoredTest.currentScore;
-        this.self._setServiceCheckerIcon(score,this.id,this.type);
+        this.self._setServiceCheckerIcon(score, this.id, this.type);
       }    
     },
     
-    _setServiceCheckerIcon: function(score,id,type) {
+    _setServiceCheckerIcon: function(score, id, type) {
       console.log("SCORE", score);
       var imgSrc;
       var info;
@@ -681,24 +719,24 @@ function(declare, lang, array, string, topic, dojoRequest, xhr, on, appTopics, d
         info = i18n.item.statusChecker.unknown;
       }
       if (!info) {
-        info = string.substitute(i18n.item.statusChecker.status,{score: score});
+        info = string.substitute(i18n.item.statusChecker.status, {score: score});
       }
       
-      var link = domConstruct.create("a",{
-        href: AppContext.appConfig.statusChecker.infoUrl+"?auth="+AppContext.appConfig.statusChecker.authKey+"&uId="+id+"&serviceType="+type, 
+      var link = domConstruct.create("a", {
+        href: AppContext.appConfig.statusChecker.infoUrl + "?auth=" + AppContext.appConfig.statusChecker.authKey + "&uId=" + id + "&serviceType=" + type, 
         target: "_blank",
         alt: info,
         "class": "g-item-status"
       });
-      domConstruct.place(link,this.titleNode,"first");
+      domConstruct.place(link, ivorithis.titleNode, "first");
       
-      var iconPlace = domConstruct.create("img",{
-        src: "images/serviceChecker"+imgSrc, 
+      var iconPlace = domConstruct.create("img", {
+        src: "images/serviceChecker" + imgSrc, 
         alt: info, 
         height: 16, 
         width: 16
       });
-      domConstruct.place(iconPlace,link);
+      domConstruct.place(iconPlace, link);
       
       var tooltip = new Tooltip({
         connectId: link,
@@ -733,7 +771,7 @@ function(declare, lang, array, string, topic, dojoRequest, xhr, on, appTopics, d
       var actionsNode = this.actionsNode;
       
       if (href && href.length > 0) {
-        var link = domConstruct.create("a",{
+        var link = domConstruct.create("a", {
           href: href, 
           target: "_blank",
           "class": "g-item-status",
@@ -750,15 +788,15 @@ function(declare, lang, array, string, topic, dojoRequest, xhr, on, appTopics, d
       var esId = item._id;
       var fid = item.fileid;
 
-      dojo.attr(idNode,{ 'esId': esId } );
+      dojo.attr(idNode, { 'esId': esId } );
 
       if (fid) {
-        dojo.attr(idNode,{ 'fileid': fid } );
+        dojo.attr(idNode, { 'fileid': fid } );
       }
     },
 
     // Specific for MPA
-    // Update status to 'archived' when src_source_uri_s
+    // Update approval status to 'archived' when src_source_uri_s
     // like SINK:Geoportal/metadata/archive/* 
     // where * === organisation
     _renderUpdatedStatus: function (item) {

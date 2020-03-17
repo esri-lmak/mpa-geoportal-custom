@@ -260,6 +260,10 @@ function (declare, lang, array, Deferred, domConstruct, domStyle, topic, storage
           headers: headers,
           data: JSON.stringify(data)
         };
+
+        // Audit Trail
+        var _userName = AppContext.appUser.getUsername();
+        client.createAuditTrail(i18n.auditTrailType.createMetadata, "", "", "", _userName);
         return dojoRequest.put(url, info);
       },
 

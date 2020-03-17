@@ -273,12 +273,14 @@ and will apply to all search facets */
 
 .g-item-card .g-item-description, 
 .g-item-card .g-item-actions, 
-.g-item-card .g-item-owner-and-date {
+.g-item-card .g-item-owner-and-date,
+.g-item-card .g-item-data-classification {
 	margin-left: 20px;
 }
 
 .g-item-card .g-item-description, 
-.g-item-card .g-item-owner-and-date {
+.g-item-card .g-item-owner-and-date,
+.g-item-card .g-item-data-classification {
   padding: 2px;
   font-size: 10px;
   width: 85%;

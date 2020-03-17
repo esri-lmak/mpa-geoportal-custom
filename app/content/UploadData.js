@@ -68,33 +68,36 @@ function (declare, lang, array, aspect, domConstruct, topic, appTopics, Template
       });
 
       var client = new AppClient();
-		  client.uploadFile(this._file,this._fileName).then(function(response) {
-		    this._itemIdData = response;
-		  }).otherwise(function(error){
-		    console.warn("UploadFile.error",error);
+		  client.uploadFile(this._file, this._fileName).then(function(response) {
+        this._itemIdData = response.results[0];
+		  }).otherwise(function(error) {
+		    console.warn("UploadFile.error", error);
       });
 		
-		  client.uploadMetadataFile(this._xmlData,this._title).then(function(response) {
-		    this._itemIdMetadata = response;
-		  }).otherwise(function(error){
-		    console.warn("UploadMetadataFile.error",error);
+		  client.uploadMetadataFile(this._xmlData, this._title).then(function(response) {
+		    this._itemIdMetadata = response.results[0];
+		  }).otherwise(function(error) {
+		    console.warn("UploadMetadataFile.error", error);
       });
 
       setTimeout(function() {
-        client.uploadData(this._userName,this._itemIdData,this._itemIdMetadata).then(function(response) {
+        client.uploadData(this._userName, this._itemIdData, this._itemIdMetadata).then(function(response) {
           if (response) {
             // wait for real-time update
             setTimeout(function() {
-              topic.publish(appTopics.ItemUploaded,{response:response});
+              topic.publish(appTopics.ItemUploaded, {response: response});
               dialog.hide();
-            },1500);
+            }, 1500);
+
+            // Audit Trail
+            client.createAuditTrail(i18n.auditTrailType.uploadData, "", "", "", this._userName);
           } else {
             self._working = false;
             dialog.okCancelBar.enableOk();
-            dialog.okCancelBar.showWorking(i18n.general.error,false);
+            dialog.okCancelBar.showWorking(i18n.general.error, false);
           }
-        }).otherwise(function(error){
-          console.warn("UploadData.error",error);
+        }).otherwise(function(error) {
+          console.warn("UploadData.error", error);
           var msg = i18n.general.error;
           var err = client.checkError(error);
           if (err && err.message) {
@@ -105,9 +108,9 @@ function (declare, lang, array, aspect, domConstruct, topic, appTopics, Template
           }
           self._working = false;
           dialog.okCancelBar.enableOk();
-          dialog.okCancelBar.showError(msg,false);
+          dialog.okCancelBar.showError(msg, false);
         });
-      },500);
+      }, 500);
     },
 
     _loadValidationErrors: function (validationErrors) {

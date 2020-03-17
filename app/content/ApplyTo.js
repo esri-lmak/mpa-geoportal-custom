@@ -13,11 +13,11 @@
  * limitations under the License.
  */
 define(["dojo/_base/declare",
-  "dojo/_base/lang",
-  "dojo/number",
-  "app/common/Templated",
-  "dojo/text!./templates/ApplyTo.html",
-  "dojo/i18n!app/nls/resources"],
+        "dojo/_base/lang",
+        "dojo/number",
+        "app/common/Templated",
+        "dojo/text!./templates/ApplyTo.html",
+        "dojo/i18n!app/nls/resources"],
 function(declare, lang, djNumber, Templated, template, i18n) {
 
   var oThisClass = declare([Templated], {
@@ -58,7 +58,7 @@ function(declare, lang, djNumber, Templated, template, i18n) {
       } else if (this.queryNode.checked) {
         params.postData = this._forQuery;
         params.dataContentType = "application/json";
-        //params.urlParams.query = this._forQuery;
+        // params.urlParams.query = this._forQuery;
         params.confirmationText = this.queryLabelNode.innerHTML;
         params.isBulkUpdate = true;
       }
@@ -95,7 +95,7 @@ function(declare, lang, djNumber, Templated, template, i18n) {
       
       if (isAdmin && cfg.allowByOwner && 
           typeof owner === "string" && owner.length > 0) {
-        ownerPattern = ownerPattern.replace("{name}",owner);
+        ownerPattern = ownerPattern.replace("{name}", owner);
         this.ownerLabelNode.innerHTML = ownerPattern;
         this._forOwner = owner;
         nOptions++;
@@ -106,7 +106,7 @@ function(declare, lang, djNumber, Templated, template, i18n) {
       if (cfg.allowBySourceUri && 
           typeof sourceUri === "string" && sourceUri.length > 0 && 
           typeof sourceName === "string" && sourceName.length > 0) {
-        sourceUriPattern = sourceUriPattern.replace("{name}",sourceName);
+        sourceUriPattern = sourceUriPattern.replace("{name}", sourceName);
         this.sourceUriLabelNode.innerHTML = sourceUriPattern;
         this._forSourceUri = sourceUri;
         nOptions++;
@@ -115,7 +115,7 @@ function(declare, lang, djNumber, Templated, template, i18n) {
       }
       
       if (cfg.allowByTaskRef && typeof taskRef === "string" && taskRef.length > 0) {
-        taskRefPattern = taskRefPattern.replace("{name}",taskRef);
+        taskRefPattern = taskRefPattern.replace("{name}", taskRef);
         this.taskRefLabelNode.innerHTML = taskRefPattern;
         this._forTaskRef = taskRef;
         nOptions++;
@@ -125,7 +125,7 @@ function(declare, lang, djNumber, Templated, template, i18n) {
       
       if (cfg.allowByQuery && (isAdmin || wasMyContent) &&
           typeof activeQuery === "string" && activeQuery.length > 0 && numSelected > 1) {
-        queryPattern = queryPattern.replace("{count}",djNumber.format(numSelected,{}));
+        queryPattern = queryPattern.replace("{count}", djNumber.format(numSelected, {}));
         this.queryLabelNode.innerHTML = queryPattern;
         this._forQuery = activeQuery;
         nOptions++;

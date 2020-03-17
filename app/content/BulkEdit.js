@@ -13,13 +13,13 @@
  * limitations under the License.
  */
 define(["dojo/_base/declare",
-  "dojo/topic",
-  "app/context/app-topics",
-  "app/common/Templated",
-  "dojo/i18n!app/nls/resources",
-  "app/common/ConfirmationDialog",
-  "app/common/ModalDialog",
-  "app/context/AppClient"],
+      "dojo/topic",
+      "app/context/app-topics",
+      "app/common/Templated",
+      "dojo/i18n!app/nls/resources",
+      "app/common/ConfirmationDialog",
+      "app/common/ModalDialog",
+      "app/context/AppClient"],
 function(declare, topic, appTopics, Templated, i18n, 
   ConfirmationDialog, ModalDialog, AppClient) {
 
@@ -41,7 +41,7 @@ function(declare, topic, appTopics, Templated, i18n,
     },
     
     applyLocally: function(item) {
-      topic.publish(appTopics.RefreshSearchResultPage,{
+      topic.publish(appTopics.RefreshSearchResultPage, {
         searchPane: this.itemCard.searchPane
       });
     },
@@ -50,38 +50,42 @@ function(declare, topic, appTopics, Templated, i18n,
       if (this._working) return;
       var self = this;
       this._working = true;
-      this.dialog.okCancelBar.showWorking(i18n.general.working,true);
-      //console.log("execute.params", params);
+      this.dialog.okCancelBar.showWorking(i18n.general.working, true);
+      // console.log("execute.params", params);
       var client = new AppClient();
-      var dfd = client.bulkEdit(params.action,params.urlParams,
-        params.postData,params.dataContentType);
-      dfd.then(function(response){
-        //console.log("execute.response",response);
+      var dfd = client.bulkEdit(params.action, params.urlParams,
+        params.postData, params.dataContentType);
+      dfd.then(function(response) {
+        // console.log("execute.response", response);
         // wait for real-time update
-        setTimeout(function(){
+        setTimeout(function() {
           if (params.isBulkUpdate) {
-            topic.publish(appTopics.BulkUpdate,{});
+            topic.publish(appTopics.BulkUpdate, {});
           } else {
             self.applyLocally(self.item);
           }
           self.dialog.hide();
-        },1500);
-      }).otherwise(function(error){
+        }, 1500);
+
+        // Audit Trail
+        var _userName = AppContext.appUser.getUsername();
+        client.createAuditTrail(i18n.auditTrailType.updateMetadata, "", "", "", _userName);
+      }).otherwise(function(error) {
         self._working = false;
         var msg = i18n.general.error;
         var err = client.checkError(error);
         if (err && err.message) {
           msg = self.checkForErrorTranslation(err.message);
         }
-        self.handleError(msg,error);
+        self.handleError(msg, error);
       });
     },
     
-    handleError: function(msg,error) {
+    handleError: function(msg, error) {
       if (error) console.warn(error);
       if (!this.dialog) return;
       this.dialog.okCancelBar.enableOk();
-      this.dialog.okCancelBar.showError(msg,false);
+      this.dialog.okCancelBar.showError(msg, false);
     },
     
     init: function() {
@@ -115,7 +119,7 @@ function(declare, topic, appTopics, Templated, i18n,
               hideOnOk: true,
               status: "danger"
             });
-            cd.show().then(function(ok){
+            cd.show().then(function(ok) {
               if (ok) self.execute(params);
             });
           } else if (params) {
@@ -123,7 +127,7 @@ function(declare, topic, appTopics, Templated, i18n,
           }
         }
       });
-      $(this.dialog.domNode).on('shown.bs.modal',function() {
+      $(this.dialog.domNode).on('shown.bs.modal', function() {
         self.modalShown();
       });
       this.dialog.show();

@@ -13,15 +13,15 @@
  * limitations under the License.
  */
 define(["dojo/_base/declare",
-  "dojo/_base/lang",
-  "dojo/_base/array",
-  "dojo/dom-class",
-  "dojo/topic",
-  "app/context/app-topics",
-  "app/content/BulkEdit",
-  "dojo/text!./templates/SetField.html",
-  "dojo/i18n!app/nls/resources",
-  "app/content/ApplyTo"],
+        "dojo/_base/lang",
+        "dojo/_base/array",
+        "dojo/dom-class",
+        "dojo/topic",
+        "app/context/app-topics",
+        "app/content/BulkEdit",
+        "dojo/text!./templates/SetField.html",
+        "dojo/i18n!app/nls/resources",
+        "app/content/ApplyTo"],
 function(declare, lang, array, domClass, topic, appTopics, BulkEdit, 
   template, i18n, ApplyTo) {
 
@@ -35,22 +35,22 @@ function(declare, lang, array, domClass, topic, appTopics, BulkEdit,
 
     postCreate: function() {
       this.inherited(arguments);
-      //this.advancedPromptNode.innerHTML = i18n.content.setField.advanced.prompt;
+      // this.advancedPromptNode.innerHTML = i18n.content.setField.advanced.prompt;
     },
     
     init: function() {
-      this.setNodeText(this.itemTitleNode,this.item.title);
+      this.setNodeText(this.itemTitleNode, this.item.title);
       this.applyTo = new ApplyTo({
         item: this.item,
         itemCard: this.itemCard,
-      },this.applyToNode);
+      }, this.applyToNode);
       
       var value, tags = this.item["user_tags_s"];
       if (typeof tags === "string") {
         value = tags;
       } else if (lang.isArray(tags)) {
         value = "";
-        array.forEach(tags,function(v){
+        array.forEach(tags, function(v) {
           if (value.length > 0) value += ", ";
           value += v;
         });
@@ -65,12 +65,12 @@ function(declare, lang, array, domClass, topic, appTopics, BulkEdit,
       };
       var field, value, values;
       
-      if (domClass.contains(this.tagsPanel,"active")) {
+      if (domClass.contains(this.tagsPanel, "active")) {
         field = "user_tags_s";
         value = this.tagsValueInput.value;
         if (value.indexOf("[") !== 0) {
           values = [];
-          array.forEach(value.split(","),function(v){
+          array.forEach(value.split(","),function(v) {
             v = v.trim();
             if (v.length > 0) values.push(v);
           });

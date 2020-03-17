@@ -361,7 +361,19 @@ define({
     },
 
     metadataArchived : "_Archived_",
-    archivedSource: "SINK:Geoportal/metadata/archive/"
+    archivedSource: "SINK:Geoportal/metadata/archive/",
+
+    auditTrailType: {
+      createMetadata: 1,
+      updateMetadate: 2,
+      uploadMetadata: 3,
+      uploadData: 4,
+      changeOwner: 5,
+      setApprovalStatus: 6,
+      deleteMetadata: 7,
+      signIn: 8,
+      signOut: 9
+    }
 
   }
 });

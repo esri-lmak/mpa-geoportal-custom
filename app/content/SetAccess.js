@@ -13,15 +13,15 @@
  * limitations under the License.
  */
 define(["dojo/_base/declare",
-  "dojo/_base/lang",
-  "dojo/_base/array",
-  "dojo/dom-construct",
-  "dojo/topic",
-  "app/context/app-topics",
-  "app/content/BulkEdit",
-  "dojo/text!./templates/SetAccess.html",
-  "dojo/i18n!app/nls/resources",
-  "app/content/ApplyTo"],
+        "dojo/_base/lang",
+        "dojo/_base/array",
+        "dojo/dom-construct",
+        "dojo/topic",
+        "app/context/app-topics",
+        "app/content/BulkEdit",
+        "dojo/text!./templates/SetAccess.html",
+        "dojo/i18n!app/nls/resources",
+        "app/content/ApplyTo"],
 function(declare, lang, array, domConstruct, topic, appTopics, BulkEdit, 
   template, i18n, ApplyTo) {
 
@@ -43,37 +43,37 @@ function(declare, lang, array, domConstruct, topic, appTopics, BulkEdit,
     },
     
     applyLocally: function(item) {
-      //item["sys_access_s"] = this._localAccess;
-      //item["sys_access_groups_s"] = this._localGroups;
-      //topic.publish(appTopics.ItemAccessChanged,{item:item});
-      topic.publish(appTopics.RefreshSearchResultPage,{
+      // item["sys_access_s"] = this._localAccess;
+      // item["sys_access_groups_s"] = this._localGroups;
+      // topic.publish(appTopics.ItemAccessChanged, {item: item});
+      topic.publish(appTopics.RefreshSearchResultPage, {
         searchPane: this.itemCard.searchPane
       });
     },
     
     addGroup: function(group,checked) {
       var self = this;
-      var li = domConstruct.create("li",{
-      },this.groupsNode,"last");
-      var lbl = domConstruct.create("label",{
+      var li = domConstruct.create("li", {
+      }, this.groupsNode, "last");
+      var lbl = domConstruct.create("label", {
         className: "checkbox-inline"
-      },li,"last");
-      var chk = domConstruct.create("input",{
+      }, li, "last");
+      var chk = domConstruct.create("input", {
         type: "checkbox",
         value: group.id,
         onchange: function() {
           self.updateCount();
         }
-      },lbl,"last");
+      }, lbl, "last");
       if (checked) chk.checked = true;
-      var span = domConstruct.create("span",{
+      var span = domConstruct.create("span", {
         innerHTML: group.name
-      },lbl,"last");
+      }, lbl, "last");
       this._checkboxes.push(chk);
     },
     
     clear: function() {
-      array.forEach(this._checkboxes,function(chk){
+      array.forEach(this._checkboxes,function(chk) {
         if (chk.checked) chk.checked = false;
       });
       this.updateCount();
@@ -81,7 +81,7 @@ function(declare, lang, array, domConstruct, topic, appTopics, BulkEdit,
     
     init: function() {
       var self = this;
-      this.setNodeText(this.itemTitleNode,this.item.title);
+      this.setNodeText(this.itemTitleNode, this.item.title);
       
       var v = this.item["sys_access_s"];
       if (v === "private") this.privateNode.checked = true;
@@ -91,7 +91,7 @@ function(declare, lang, array, domConstruct, topic, appTopics, BulkEdit,
       var groups = AppContext.appUser.getGroups();
       if (lang.isArray(groups)) {
         groups = groups.slice(0); // shallow clone
-        groups.sort(function(groupA,groupB){ 
+        groups.sort(function(groupA, groupB) { 
           try {
             var a = groupA.name.toLowerCase();
             var b = groupB.name.toLowerCase();
@@ -101,10 +101,10 @@ function(declare, lang, array, domConstruct, topic, appTopics, BulkEdit,
           return -1;
         });
       }
-      array.forEach(groups,function(group){
+      array.forEach(groups,function(group) {
         var checked = false;
         if (lang.isArray(itemGroups)) {
-          checked = array.some(itemGroups,function(groupId){
+          checked = array.some(itemGroups,function(groupId) {
             return (group.id === groupId);
           });
         } else if (group.id === itemGroups) {
@@ -128,7 +128,7 @@ function(declare, lang, array, domConstruct, topic, appTopics, BulkEdit,
       };
     
       var selectedGroups = [];
-      array.forEach(this._checkboxes,function(chk){
+      array.forEach(this._checkboxes,function(chk) {
         if (chk.checked) selectedGroups.push(chk.value);
       });
       if (selectedGroups.length > 0) {
@@ -146,13 +146,13 @@ function(declare, lang, array, domConstruct, topic, appTopics, BulkEdit,
     
     updateCount: function() {
       var n = 0, hasGroups = false, msg = "";
-      array.forEach(this._checkboxes,function(chk){
+      array.forEach(this._checkboxes,function(chk) {
         hasGroups = true;
         if (chk.checked) n++;
       });
       if (hasGroups) {
         var pattern = i18n.content.setAccess.countPattern;
-        msg = pattern.replace("{count}",n);
+        msg = pattern.replace("{count}", n);
       }
       this.countNode.innerHTML = msg;
     }

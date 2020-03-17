@@ -13,13 +13,14 @@
  * limitations under the License.
  */
 define(["dojo/_base/declare",
-  "dojo/topic",
-  "app/context/app-topics",
-  "app/content/BulkEdit",
-  "dojo/text!./templates/DeleteItems.html",
-  "dojo/i18n!app/nls/resources",
-  "app/content/ApplyTo"],
-function(declare, topic, appTopics, BulkEdit, template, i18n, ApplyTo) {
+        "dojo/topic",
+        "app/context/app-topics",
+        "app/context/AppClient",
+        "app/content/BulkEdit",
+        "dojo/text!./templates/DeleteItems.html",
+        "dojo/i18n!app/nls/resources",
+        "app/content/ApplyTo"],
+function(declare, topic, appTopics, AppClient, BulkEdit, template, i18n, ApplyTo) {
 
   var oThisClass = declare([BulkEdit], {
     
@@ -36,23 +37,23 @@ function(declare, topic, appTopics, BulkEdit, template, i18n, ApplyTo) {
     applyLocally: function(item) {
       /*
       this.itemCard.domNode.style.display = "none";
-      topic.publish(appTopics.ItemDeleted,{
+      topic.publish(appTopics.ItemDeleted, {
         itemId: this.item._id,
         searchPane: this.itemCard.searchPane
       });
       */
-      topic.publish(appTopics.RefreshSearchResultPage,{
+      topic.publish(appTopics.RefreshSearchResultPage, {
         searchPane: this.itemCard.searchPane
       });
     },
     
     init: function() {
-      this.setNodeText(this.itemTitleNode,this.item.title);
+      this.setNodeText(this.itemTitleNode, this.item.title);
       this.applyTo = new ApplyTo({
         forDelete: true,
         item: this.item,
         itemCard: this.itemCard,
-      },this.applyToNode);
+      }, this.applyToNode);
     },
     
     makeRequestParams: function() {
@@ -61,6 +62,11 @@ function(declare, topic, appTopics, BulkEdit, template, i18n, ApplyTo) {
         urlParams: {}
       };
       this.applyTo.appendUrlParams(params);
+
+      // Audit Trail
+      var _userName = AppContext.appUser.getUsername();
+      var client = new AppClient();
+      client.createAuditTrail(i18n.auditTrailType.deleteMetadata, "", "", "", _userName);
       return params;
     }
 
