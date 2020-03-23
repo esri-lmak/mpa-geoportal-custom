@@ -9,8 +9,8 @@
       "enabled": true
     },
     {
-      "name": "ArcGIS Online",
-      "url": "https://www.arcgis.com",
+      "name": "ArcGIS Enterprise for MPA",
+      "url": "https://mpa.esrisg.dev/portal",
       "type": "portal",
       "profile": null,
       "requiredFilter": null,

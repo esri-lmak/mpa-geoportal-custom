@@ -3,13 +3,15 @@ define(["dojo/_base/declare",
         "dojo/Deferred",
         "dojo/request",
         "dojo/request/xhr",
-        "esri/tasks/Geoprocessor"],
-function(declare, lang, Deferred, dojoRequest, xhr, Geoprocessor) {
+        "esri/tasks/Geoprocessor",
+        "esri/request",
+        "dojo/dom-construct"],
+function(declare, lang, Deferred, dojoRequest, xhr, Geoprocessor, esriRequest, domConstruct) {
 
   var oThisClass = declare(null, {
 
     constructor: function(args) {
-      lang.mixin(this,args);
+      lang.mixin(this, args);
     },
     
     appendAccessToken: function(url) {
@@ -127,10 +129,10 @@ function(declare, lang, Deferred, dojoRequest, xhr, Geoprocessor) {
     },
 
     readMetadataJson: function(itemId) {
-      var url = this.getRestUri() + "/metadata/item";
+      var url = this.getRestUri()+ "/metadata/item";
       url += "/" + encodeURIComponent(itemId);
       url = this.appendAccessToken(url);
-      var info = {handleAs:"json"};
+      var info = {handleAs: "json"};
       return dojoRequest.get(url, info);
     },
     
@@ -154,10 +156,7 @@ function(declare, lang, Deferred, dojoRequest, xhr, Geoprocessor) {
     uploadData: function (userName, itemIdData, itemIdMetadata) {
       var baseRestURL = "https://mpa.esrisg.dev/arcgis/rest/services/Geoportal";
       var APIPath = "/UploadScript/GPServer/UploadScript/submitJob";
-      var completeRestURL = baseRestURL + APIPath;
-
-      var url = completeRestURL;
-      url = this.appendAccessToken(url);
+      var url = baseRestURL + APIPath;
 
       var postData = new FormData();
       postData.append("f", "pjson");
@@ -165,28 +164,17 @@ function(declare, lang, Deferred, dojoRequest, xhr, Geoprocessor) {
       postData.append("data_file", "{\"itemID\": \"" + itemIdData + "\"}");
       postData.append("metadata_file", "{\"itemID\": \"" + itemIdMetadata + "\"}");
       
-      var headers = {
-        "Content-Type": "multi-part/form-data"
-      };
-      var info = {
-        handleAs: "html",
-        headers: headers,
-        data: JSON.stringify(postData)
-      };
-
-      return xhr.post(url,info);
+      return esriRequest({url: url, method: "post", handleAs: "json", form: postData});
     },
 
     uploadDataGP: function(userName, itemIdData, itemIdMetadata) {
       var baseRestURL = "https://mpa.esrisg.dev/arcgis/rest/services/Geoportal";
       var APIPath = "/UploadScript/GPServer/UploadScript/submitJob";
-      var completeRestURL = baseRestURL + APIPath;
-
-      var url = completeRestURL;
+      var url = baseRestURL + APIPath;
       var gp = new Geoprocessor(url);
 
       var postData = new FormData();
-      postData.append("f", "pjson");
+      postData.append("f", "json");
       postData.append("uploaded_by", userName);
       postData.append("data_file", "{\"itemID\": \"" + itemIdData + "\"}");
       postData.append("metadata_file", "{\"itemID\": \"" + itemIdMetadata + "\"}");
@@ -195,110 +183,39 @@ function(declare, lang, Deferred, dojoRequest, xhr, Geoprocessor) {
         "Content-Type": "multi-part/form-data"
       };
       var info = {
-        handleAs: "html",
+        handleAs: "json",
         headers: headers,
         data: JSON.stringify(postData)
       };
 
-      return gp.submitJob(info, completeCallback, statusCallback, errorCallback);
+      return gp.submitJob(info);
     },
 
     uploadFile: function (file, fileName) {
       var baseRestURL = "https://mpa.esrisg.dev/arcgis/rest/services/Geoportal";
       var APIPath = "/UploadScript/GPServer/uploads/upload";
-      var completeRestURL = baseRestURL + APIPath;
-
-      var url = completeRestURL;
-      url = this.appendAccessToken(url);
-
+      var url = baseRestURL + APIPath;
+      
       var postData = new FormData();
       postData.append("file", file, fileName);
       postData.append("f", "json");
 
-      var headers = {
-        "Content-Type": "application/zip"
-      };
-      var info = {
-        handleAs: "html",
-        headers: headers,
-        data: postData
-      };
-
-      return xhr.post(url, info);
-    },
-
-    uploadFileGP: function(file, fileName) {
-      var baseRestURL = "https://mpa.esrisg.dev/arcgis/rest/services/Geoportal";
-      var APIPath = "/UploadScript/GPServer/uploads/upload";
-      var completeRestURL = baseRestURL + APIPath;
-
-      var url = completeRestURL;
-      var gp = new Geoprocessor(url);
-
-      var postData = new FormData();
-      postData.append("file", file, fileName);
-      postData.append("f", "json");
-
-      var headers = {
-        "Content-Type": "application/zip"
-      };
-      var info = {
-        handleAs: "html",
-        headers: headers,
-        data: postData
-      };
-
-      return gp.submitJob(info, completeCallback, statusCallback, errorCallback);
+      return esriRequest({url: url, method: "post", handleAs: "json", form: postData});
     },
 
     uploadMetadataFile: function (xmlData, title) {
       var baseRestURL = "https://mpa.esrisg.dev/arcgis/rest/services/Geoportal";
       var APIPath = "/UploadScript/GPServer/uploads/upload";
-      var completeRestURL = baseRestURL + APIPath;
+      var url = baseRestURL + APIPath;
 
-      var url = completeRestURL;
-      url = this.appendAccessToken(url);
+      var formNode = domConstruct.create("form", {"method": "post","enctype": "multipart/form-data"});
+      var formData = new FormData(formNode);
+      var blob = new Blob([xmlData], {type: "application/xml"});
+      var file = new File([blob], title, {type: "application/xml", title: title, lastModifiedDate: Date.now()});
+      formData.append("file", file, title);
+      formData.append("f", "json");
 
-      var postData = new FormData();
-      var blob = new Blob([xmlData], {type: "text/xml"});
-      postData.append("file", blob, title);
-      postData.append("f", "json");
-
-      var headers = {
-        "Content-Type": "application/xml"
-      };
-      var info = {
-        handleAs: "html",
-        headers: headers,
-        data: postData
-      };
-      
-      return xhr.post(url, info);
-    },
-
-    uploadMetadataFileGP: function(xmlData, title) {
-      var baseRestURL = "https://mpa.esrisg.dev/arcgis/rest/services/Geoportal";
-      var APIPath = "/UploadScript/GPServer/uploads/upload";
-      var completeRestURL = baseRestURL + APIPath;
-
-      var url = completeRestURL;
-      var gp = new Geoprocessor(url);
-      
-      var postData = new FormData();
-      var blob = new Blob([xmlData], {type: "text/xml"});
-      postData.append("file", blob, title);
-      postData.append("f", "json");
-
-      var headers = {
-        "Content-Type": "application/xml"
-      };
-      var info = {
-        handleAs: "html",
-        headers: headers,
-        data: postData
-      };
-
-      return gp.submitJob(info, completeCallback, statusCallback, errorCallback);
+      return esriRequest({url: url, method: "post", handleAs: "json", form: formData});
     },
 
     completeCallback: function(jobInfo) {
@@ -319,13 +236,25 @@ function(declare, lang, Deferred, dojoRequest, xhr, Geoprocessor) {
       console.error("Error: " + error);
     },
 
-    createAuditTrail: function (auditTrailTypeId, actionToId, remark, notes, createdBy) {
+    createRequest: function (requestor, itemId, status) {
+      var baseRestURL = "https://mpa.esrisg.dev/arcgis/rest/services/Geoportal";
+      var APIPath = "/ConfidentialScript/GPServer/ConfidentialScript/submitJob";
+      var url = baseRestURL + APIPath;
+      
+      var postData = new FormData();
+      postData.append("requestor", requestor);
+      postData.append("identifier", itemId);
+      postData.append("status", status);
+      postData.append("f", "json");
+
+      return esriRequest({url: url, method: "post", handleAs: "json", form: postData});
+    },
+	
+	  createAuditTrail: function (auditTrailTypeId, actionToId, remark, notes, createdBy) {
       var baseRestURL = "http://127.0.0.1:5000";
       var APIPath = "/create";
-      var completeRestURL = baseRestURL + APIPath;
-
-      var url = completeRestURL;
-      url = this.appendAccessToken(url);
+      var url = baseRestURL + APIPath;
+      // url = this.appendAccessToken(url);
 
       var postData = new FormData();
       postData.append("auditTrailTypeId", auditTrailTypeId);

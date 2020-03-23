@@ -34,5 +34,8 @@ define([],function(){var obj={
   /* params - {geoportalUser:obj} */
   SignedIn: "app/SignedIn",
 
+  /* params - {response:obj} */
+  RequestSubmitted: "app/RequestSubmitted"
+
 // .......................................................................................
 };return obj;});

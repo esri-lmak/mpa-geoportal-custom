@@ -45,7 +45,7 @@ function (declare, lang, array, aspect, domConstruct, topic, appTopics, Template
       var self = this;
       dialog.okCancelBar.showWorking(i18n.general.uploading, true);
       domConstruct.empty(this.validationErrorsNode);
-
+    
       var client = new AppClient();
       client.readMetadataXML(this.itemId).then(function (response) {
         this._xmlData = response;
@@ -67,30 +67,33 @@ function (declare, lang, array, aspect, domConstruct, topic, appTopics, Template
         console.error(err);
       });
 
-      var client = new AppClient();
 		  client.uploadFile(this._file, this._fileName).then(function(response) {
-        this._itemIdData = response.results[0];
+		    this._itemIdData = response.item.itemID;
 		  }).otherwise(function(error) {
 		    console.warn("UploadFile.error", error);
       });
-		
-		  client.uploadMetadataFile(this._xmlData, this._title).then(function(response) {
-		    this._itemIdMetadata = response.results[0];
-		  }).otherwise(function(error) {
-		    console.warn("UploadMetadataFile.error", error);
-      });
 
+      setTimeout(function() {
+        client.uploadMetadataFile(this._xmlData, this._title).then(function(response) {
+          this._itemIdMetadata = response.item.itemID;
+		    }).otherwise(function(error) {
+          console.warn("UploadMetadataFile.error", error);
+        });
+      }, 50);  
+    
       setTimeout(function() {
         client.uploadData(this._userName, this._itemIdData, this._itemIdMetadata).then(function(response) {
           if (response) {
             // wait for real-time update
             setTimeout(function() {
-              topic.publish(appTopics.ItemUploaded, {response: response});
+              topic.publish(appTopics.ItemUploaded,{response: response});
               dialog.hide();
             }, 1500);
 
             // Audit Trail
+            /*
             client.createAuditTrail(i18n.auditTrailType.uploadData, "", "", "", this._userName);
+            */
           } else {
             self._working = false;
             dialog.okCancelBar.enableOk();
@@ -110,7 +113,7 @@ function (declare, lang, array, aspect, domConstruct, topic, appTopics, Template
           dialog.okCancelBar.enableOk();
           dialog.okCancelBar.showError(msg, false);
         });
-      }, 500);
+      }, 200);
     },
 
     _loadValidationErrors: function (validationErrors) {
@@ -190,111 +193,6 @@ function (declare, lang, array, aspect, domConstruct, topic, appTopics, Template
       });
       dialog.okCancelBar.disableOk();
       dialog.show();
-    },
-
-    _uploadData: function () {
-      var baseRestURL = "https://mpa.esrisg.dev/arcgis/rest/services/Geoportal";
-      var username = "siteadmin";
-      var password = "zaq123..";
-
-      var APIPath = "/UploadScript/GPServer/UploadScript/submitJob";
-      var completeRestURL = baseRestURL + APIPath;
-      console.log("REST API URL: " + completeRestURL);
-
-      var method = "POST";
-		  var postData = new FormData();
-		  postData.append("f", "pjson");
-		  postData.append("uploaded_by", this._userName);
-		  postData.append("data_file", "{\"itemID\": \"" + this._itemIdData + "\"}");
-		  postData.append("metadata_file", "{\"itemID\": \"" + this._itemIdMetadata + "\"}");
-      var url = completeRestURL;
-      var async = true;
-      var request = new XMLHttpRequest();
-		  request.withCredentials = true;
-      request.onload = function () {
-        console.log("ONLOAD");
-        var status = request.status; // HTTP response status, e.g., 200 for "200 OK"
-        console.log(status);
-        var token = request.getResponseHeader("x-mstr-authtoken");
-		    console.log(token);
-      }
-
-      request.open(method, url, async);
-      request.setRequestHeader("Content-Type", "application/json");
-      request.setRequestHeader("Accept", "application/json");
-      request.setRequestHeader("Authorisation", "Basic " + btoa(username + ":" + password));
-      request.send(postData);
-
-      return request;
-    },
-
-    _uploadFile: function () {
-      var baseRestURL = "https://mpa.esrisg.dev/arcgis/rest/services/Geoportal";
-      var username = "siteadmin";
-      var password = "zaq123..";
-
-      var APIPath = "/UploadScript/GPServer/uploads/upload";
-      var completeRestURL = baseRestURL + APIPath;
-      console.log("REST API URL: " + completeRestURL);
-
-      var method = "POST";
-		  var postData = new FormData();
-		  postData.append("file", this._file, this._fileName);
-		  postData.append("f", "json");
-      var url = completeRestURL;
-      var async = true;
-      var request = new XMLHttpRequest();
-		  request.withCredentials = true;
-      request.onload = function () {
-        console.log("ONLOAD");
-        var status = request.status; // HTTP response status, e.g., 200 for "200 OK"
-        console.log(status);
-        var token = request.getResponseHeader("x-mstr-authtoken");
-		    console.log(token);
-      }
-
-      request.open(method, url, async);
-      request.setRequestHeader("Content-Type", "application/json");
-      request.setRequestHeader("Accept", "application/json");
-      request.setRequestHeader("Authorisation", "Basic " + btoa(username + ":" + password));
-      request.send(postData);
-
-      return request;
-    },
-
-    _uploadMetadata: function () {
-      var baseRestURL = "https://mpa.esrisg.dev/arcgis/rest/services/Geoportal";
-      var username = "siteadmin";
-      var password = "zaq123..";
-
-      var APIPath = "/UploadScript/GPServer/uploads/upload";
-      var completeRestURL = baseRestURL + APIPath;
-      console.log("REST API URL: " + completeRestURL);
-
-      var method = "POST";
-		  var postData = new FormData();
-		  var blob = new Blob([this._xmlData], {type: "text/xml"});
-		  postData.append("file", blob, this._title);
-		  postData.append("f", "json");
-      var url = completeRestURL;
-      var async = true;
-      var request = new XMLHttpRequest();
-		  request.withCredentials = true;
-      request.onload = function () {
-        console.log("ONLOAD");
-        var status = request.status; // HTTP response status, e.g., 200 for "200 OK"
-        console.log(status);
-        var token = request.getResponseHeader("x-mstr-authtoken");
-		    console.log(token);
-      }
-
-      request.open(method, url, async);
-      request.setRequestHeader("Content-Type", "application/json");
-      request.setRequestHeader("Accept", "application/json");
-      request.setRequestHeader("Authorisation", "Basic " + btoa(username + ":" + password));
-      request.send(postData);
-
-      return request;
     }
 
   });

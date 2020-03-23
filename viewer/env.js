@@ -104,7 +104,7 @@ var
 
   ////////uncomment the following line when downloading the app
 
-  apiUrl = 'https://js.arcgis.com/3.25';
+  apiUrl = 'https://mpa.esrisg.dev/arcgis_js_api/library/3.25/3.25/';
 
   //////////////////////////////////////////////////////////////
   allCookies = getAllCookies();
@@ -117,7 +117,7 @@ var
       }
       apiUrl = queryObject.apiurl;
     } else if (isXT) {
-      apiUrl = 'https://js.arcgis.com/' + apiVersion;
+      apiUrl = 'https://mpa.esrisg.dev/arcgis_js_api/library/3.25/' + apiVersion;
     } else {
       var portalUrl = getPortalUrlFromLocation();
       if (portalUrl.indexOf('arcgis.com') > -1) {

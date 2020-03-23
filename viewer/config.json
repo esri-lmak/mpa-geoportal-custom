@@ -18,14 +18,14 @@
       "useLogo": false
     }
   },
-  "portalUrl": "http://www.arcgis.com",
+  "portalUrl": "https://mpa.esrisg.dev/portal",
   "appId": "",
   "authorizedCrossOriginDomains": [],
   "title": "viewer2",
   "subtitle": "with Web AppBuilder for ArcGIS",
   "keepAppState": true,
   "logo": "images/app-logo.png",
-  "geometryService": "https://utility.arcgisonline.com/arcgis/rest/services/Geometry/GeometryServer",
+  "geometryService": "https://mpa.esrisg.dev/arcgis/rest/services/Utilities/Geometry/GeometryServer",
   "links": [],
   "widgetOnScreen": {
     "widgets": [
@@ -237,20 +237,10 @@
       "right": 0,
       "bottom": 0
     },
-    "itemId": "6e03e8c26aad4b9c92a87c1063ddb0e3",
-    "mapOptions": {
-      "extent": {
-        "xmin": -18000000,
-        "ymin": -12000000,
-        "xmax": 18000000,
-        "ymax": 16000000,
-        "spatialReference": {
-          "wkid": 102100
-        }
-      }
-    },
+    "itemId": "3407510178e94656a3b14c062bef3348",
+    "mapOptions": {    },
     "id": "map",
-    "portalUrl": "http://www.arcgis.com"
+    "portalUrl": "https://mpa.esrisg.dev/portal"
   },
   "widgetPool": {
     "panel": {

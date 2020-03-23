@@ -27,6 +27,7 @@ function(array, Deferred, util, agsUtils, InfoTemplate, PopupTemplate) {
       //console.warn("map",this.map);
       if (map && layer) {
         layer.xtnAddData = true; // TODO?
+        layer.xtnReferenceId = referenceId; // TODO?//hacked by sntang
         if (item) {
           layer.xtnItemId = item.id; // TODO?
           layer.xtnReferenceId = referenceId; // TODO?

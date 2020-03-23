@@ -27,6 +27,7 @@ define({
       deleting: "Deleting...",
       updating: "Updating...",
       uploading: "Uploading...",
+      submittingRequest: "Submitting Request...",
       working: "...",
     },
     
@@ -45,7 +46,8 @@ define({
         createAccount: "Create Account",
         createMetadata: "Create Metadata",
         myProfile: "My Profile",
-        uploadMetadata: "Upload Metadata"
+        uploadMetadata: "Upload Metadata",
+        pendingRequests: "Pending Requests"
       }
     },
     
@@ -241,13 +243,14 @@ define({
         xml: "XML",
         json: "JSON",
         links: "Links",
+        submitRequest: "Request",
         addToMap: "Add to Map",
         preview: "Preview",
         titleFormat: "${action} - ${title}",
         options: {
           caption: "Options",
           editMetadata: "Edit Metadata",
-          viewMetadata: "View Metadata",
+		      viewMetadata: "View Metadata",
           uploadMetadata: "Upload Metadata",
           uploadData: "Upload Data"
         },
@@ -304,7 +307,7 @@ define({
         reviewed: "Reviewed",
         disapproved: "Disapproved",
         incomplete: "Incomplete",
-        archived: "Archived",
+		    archived: "Archived",
         posted: "Posted",
         draft: "Draft"
       },
@@ -329,6 +332,16 @@ define({
         caption: "Upload Data",
         instructions: "An email will be sent to you on the outcome of your upload request.",
         button: "Upload"
+      },
+      submitRequest: {
+        caption: "Submit Request",
+        instructions: "The request will be submitted for approval.",
+        button: "Submit"
+      },
+      approveRequest: {
+        caption: "Approve Request",
+        instructions: "The request will be approved.",
+        button: "Approve"
       }
     },
     
@@ -348,7 +361,7 @@ define({
       "org.xml.sax.SAXParseException; lineNumber: 1; columnNumber: 1; Content is not allowed in prolog.": "Not an XML file.",
       "javax.json.stream.JsonParsingException: Invalid JSON": "Invalid JSON"
     },
-
+	
     approvalStatus: {
       none: "none",
       approved: "approved",
@@ -359,10 +372,10 @@ define({
       draft: "draft",
       archived: "archived"
     },
-
-    metadataArchived : "_Archived_",
+	
+	  metadataArchived : "_Archived_",
     archivedSource: "SINK:Geoportal/metadata/archive/",
-
+  
     auditTrailType: {
       createMetadata: 1,
       updateMetadate: 2,
@@ -374,6 +387,6 @@ define({
       signIn: 8,
       signOut: 9
     }
-
+	
   }
 });

@@ -7,7 +7,7 @@ define([],function(){var obj={
   
   edit: {
     setField: {
-      allow: true,
+      allow: false,
       adminOnly: true
     }
   },
@@ -25,11 +25,11 @@ define([],function(){var obj={
   },
   
   searchMap: {
-    basemap: "streets",
+    basemap: "https://mpa.esrisg.dev/arcgis/rest/services/Hosted/World_Imagery/MapServer",
     autoResize: true, 
     wrapAround180: true,
-    center: [-98, 40], 
-    zoom: 3
+    center: [103.81, 1.3], 
+    zoom: 10
   },
   
   searchResults: {
@@ -41,8 +41,8 @@ define([],function(){var obj={
     showApprovalStatus: true,
     defaultSort: "title.sort:asc",
     showLinks: true,
-    showCustomLinks: true,
-    showOpenSearchLinks: true
+    showCustomLinks: false,
+    showOpenSearchLinks: false
   },
   
   statusChecker: {

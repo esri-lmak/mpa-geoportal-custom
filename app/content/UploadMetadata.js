@@ -60,8 +60,10 @@ function(declare, lang, array, aspect, domConstruct, topic, appTopics, Templated
           }, 1500);
 
           // Audit Trail
+          /*
           var _userName = AppContext.appUser.getUsername();
           client.createAuditTrail(i18n.auditTrailType.uploadMetadata, "", "", "", _userName);
+          */
         } else {
           self._working = false;
           dialog.okCancelBar.enableOk();

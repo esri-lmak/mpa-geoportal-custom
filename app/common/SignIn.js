@@ -40,12 +40,12 @@ function(declare, lang, on, keys, Templated, template, i18n, ModalDialog) {
       var u = this.und.value;
       var p = this.pnd.value;
       if (u !== null && u.length > 0 && p !== null && p.length > 0) {
-        this.dialog.okCancelBar.showWorking(i18n.general.working,true);
-        AppContext.appUser.signIn(u,p).then(function(){
+        this.dialog.okCancelBar.showWorking(i18n.general.working, true);
+        AppContext.appUser.signIn(u, p).then(function() {
           self.dialog.hide();
         }).otherwise(function(error){
           if (typeof error === "string") self.handleError(error);
-          else self.handleError(i18n.general.error,error);
+          else self.handleError(i18n.general.error, error);
         });
       } else {
         self.handleError(i18n.login.incomplete);

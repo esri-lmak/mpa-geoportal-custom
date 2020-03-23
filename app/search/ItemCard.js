@@ -13,45 +13,46 @@
  * limitations under the License.
  */
 define(["dojo/_base/declare",
-        "dojo/_base/lang",
-        "dojo/_base/array",
-        "dojo/string",
-        "dojo/topic",
-        "dojo/request",
-        "dojo/request/xhr",
-        "dojo/on",
-        "app/context/app-topics",
-        "dojo/dom-class",
-        "dojo/dom-construct",
-        "dijit/_WidgetBase",
-        "dijit/_TemplatedMixin",
-        "dijit/_WidgetsInTemplateMixin",
-        "dijit/Tooltip",
-        "dijit/TooltipDialog",
-        "dijit/popup",
-        "dojo/text!./templates/ItemCard.html",
-        "dojo/i18n!app/nls/resources",
-        "app/context/AppClient",
-        "app/etc/ServiceType",
-        "app/etc/util",
-        "app/common/ConfirmationDialog",
-        "app/content/ChangeOwner",
-        "app/content/DeleteItems",
-        "app/content/MetadataEditor",
-        "app/context/metadata-editor",
-        "app/content/SetAccess",
-        "app/content/SetApprovalStatus",
-        "app/content/SetField",
-        "app/content/UploadMetadata",
+		    "dojo/_base/lang",
+		    "dojo/_base/array",
+		    "dojo/string",
+		    "dojo/topic",
+		    "dojo/request",
+		    "dojo/request/xhr",
+		    "dojo/on",
+		    "app/context/app-topics",
+		    "dojo/dom-class",
+		    "dojo/dom-construct",
+		    "dijit/_WidgetBase",
+		    "dijit/_TemplatedMixin",
+		    "dijit/_WidgetsInTemplateMixin",
+		    "dijit/Tooltip",
+		    "dijit/TooltipDialog",
+		    "dijit/popup",
+		    "dojo/text!./templates/ItemCard.html",
+		    "dojo/i18n!app/nls/resources",
+		    "app/context/AppClient",
+		    "app/etc/ServiceType",
+		    "app/etc/util",
+		    "app/common/ConfirmationDialog",
+		    "app/content/ChangeOwner",
+		    "app/content/DeleteItems",
+		    "app/content/MetadataEditor",
+		    "app/context/metadata-editor",
+		    "app/content/SetAccess",
+		    "app/content/SetApprovalStatus",
+		    "app/content/SetField",
+		    "app/content/UploadMetadata",
         "app/content/UploadData",
-        "app/preview/PreviewUtil",
-        "app/preview/PreviewPane",
-        "app/content/ApplyTo"], 
+        "app/content/SubmitRequest",
+		    "app/preview/PreviewUtil",
+		    "app/preview/PreviewPane",
+		    "app/content/ApplyTo"], 
 function(declare, lang, array, string, topic, dojoRequest, xhr, on, appTopics, domClass, domConstruct,
   _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, Tooltip, TooltipDialog, popup, 
   template, i18n, AppClient, ServiceType, util, ConfirmationDialog, ChangeOwner, DeleteItems,
   MetadataEditor, gxeConfig, SetAccess, SetApprovalStatus, SetField, UploadMetadata,
-  UploadData, PreviewUtil, PreviewPane, ApplyTo) {
+  UploadData, SubmitRequest, PreviewUtil, PreviewPane, ApplyTo) {
   
   var oThisClass = declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin], {
  
@@ -66,7 +67,7 @@ function(declare, lang, array, string, topic, dojoRequest, xhr, on, appTopics, d
     // Specific for MPA
     metadataSource: null,
     metadataApprovalStatus: null,
-    metadataXmlString: null,
+	  metadataXmlString: null,
     metadataDataClassification: null,
     
     allowedServices: {
@@ -87,26 +88,26 @@ function(declare, lang, array, string, topic, dojoRequest, xhr, on, appTopics, d
       this.own(topic.subscribe(appTopics.ItemOwnerChanged,function(params) {
         if (self.item && self.item === params.item) {
           self._renderOwnerAndDate(self.item);
-          self._renderDataClassification(self.item);
+		      // self._renderDataClassification(self.item);
         }
       }));
-
+	  
       this.own(topic.subscribe(appTopics.ItemApprovalStatusChanged,function(params) {
         if (self.item && self.item === params.item) {
           self._renderOwnerAndDate(self.item);
-          self._renderDataClassification(self.item);
+		      // self._renderDataClassification(self.item);
         }
       }));
-
+	  
       this.own(topic.subscribe(appTopics.ItemAccessChanged,function(params) {
         if (self.item && self.item === params.item) {
           self._renderOwnerAndDate(self.item);
-          self._renderDataClassification(self.item);
+		      // self._renderDataClassification(self.item);
         }
       }));
     },
-
-    applyLocally: function(item) {
+	
+	  applyLocally: function(item) {
       topic.publish(appTopics.RefreshSearchResultPage, {
         searchPane: self.searchPane
       });
@@ -135,30 +136,44 @@ function(declare, lang, array, string, topic, dojoRequest, xhr, on, appTopics, d
       item._id = hit._id;
 
       var client = new AppClient();
+	    var dataClassificationNode = this.dataClassificationNode;
       client.readMetadataXML(item._id).then(function (response) {
         this.metadataXmlString = response;
+        this.metadataDataClassification = this.metadataXmlString.getElementsByTagName("gmd:MD_ClassificationCode")[0].textContent.trim();
+        this.metadataDataClassification = this.metadataDataClassification.charAt(0).toUpperCase() + this.metadataDataClassification.substring(1);
+        util.setNodeText(dataClassificationNode, this.metadataDataClassification);
+        if (!AppContext.appUser.isAdmin() && this.metadataDataClassification == "Confidential") {
+          this.isConfidential = true;
+        }
       }).otherwise(function (err) {
         console.error("Unable to retrieve metadata.");
         console.error(err);
       });
-
+	  	  
       var links = this._uniqueLinks(item);
       util.setNodeText(this.titleNode, item.title);
       this._renderOwnerAndDate(item);
       util.setNodeText(this.descriptionNode, item.description);
-      this._renderDataClassification(item);
+	    // this._renderDataClassification(this.metadataDataClassification);
       this._renderThumbnail(item);
       this._renderItemLinks(hit._id, item);
       this._renderLinksDropdown(item, links);
       this._renderOptionsDropdown(hit._id, item);
+      // Specific to MPA - Request or Add To Map
+      // If not admin not required to request
+      // If confidential requires request to be able to add to map
+      // If restricted no request required and able to add to map
       this._renderAddToMap(item, links);
+      if (!AppContext.appUser.isAdmin()) {
+        this._renderRequest(item, links);
+      }
       this._renderServiceStatus(item);
       this._renderUrlLinks(item);
       this._renderId(item);
       this._renderUpdatedStatus(item);
     },
     
-    _canEditMetadata: function(item,isOwner, isAdmin, isPublisher) {
+    _canEditMetadata: function(item, isOwner, isAdmin, isPublisher) {
       var v;
       if ((isOwner && isPublisher) || isAdmin) {
         v = item.sys_metadatatype_s;
@@ -207,9 +222,9 @@ function(declare, lang, array, string, topic, dojoRequest, xhr, on, appTopics, d
       };
       $(ddul).css("position", "fixed");
       $(dd).on('click', function() {reposition();});
-      // $(window).scroll(function() {reposition();});
-      // $(this.itemsNode).scroll(function() {reposition();});
-      // $(window).resize(function() {reposition();});
+      //$(window).scroll(function() {reposition();});
+      //$(this.itemsNode).scroll(function() {reposition();});
+      //$(window).resize(function() {reposition();});
     },
     
     _mouseenter: function(e) {
@@ -220,7 +235,7 @@ function(declare, lang, array, string, topic, dojoRequest, xhr, on, appTopics, d
       topic.publish(appTopics.OnMouseLeaveResultItem,{item: this.item});
     },
     
-    _renderPreview: function(item, actionsNode, serviceType) {     
+    _renderPreview: function(item, actionsNode, serviceType) {   
       // declare preview pane
       var previewPane;
       
@@ -275,23 +290,58 @@ function(declare, lang, array, string, topic, dojoRequest, xhr, on, appTopics, d
         });
       }));
     },
-    
-    _renderAddToMap: function(item, links) {
+
+    _renderRequest: function(item, links) {
       if (links.length === 0) return;
-      var endsWith = function(v,sfx) {return (v.indexOf(sfx,(v.length-sfx.length)) !== -1);};
+      var endsWith = function(v, sfx) {return (v.indexOf(sfx, (v.length - sfx.length)) !== -1);};
       var actionsNode = this.actionsNode;
       array.some(links, lang.hitch(this, function(u) {
         var serviceType = new ServiceType();
         serviceType.checkUrl(u);
         // console.warn("serviceType", serviceType.isSet(), serviceType);
-        if (serviceType.isSet()) {
+
+        // If URL present, File ID present and Confidential classification
+        // TO DO check whether request is pending
+        setTimeout(function() {
+          if (serviceType.isSet() && item.fileid != "-" && this.metadataDataClassification == "Confidential") {
+            // Remove Add to Map and Preview 
+            actionsNode.removeChild(actionsNode.lastChild);
+            actionsNode.removeChild(actionsNode.lastChild);
+
+            domConstruct.create("a", {
+              href: "javascript:void(0)",
+              innerHTML: i18n.item.actions.submitRequest,
+              title: string.substitute(i18n.item.actions.titleFormat, {action: i18n.item.actions.submitRequest, title: item.title}),
+              "aria-label": string.substitute(i18n.item.actions.titleFormat, {action: i18n.item.actions.submitRequest, title: item.title}),
+              onclick: function() {
+                (new SubmitRequest({item: item, itemId: item._id})).show();
+              }
+            }, actionsNode);
+            
+            return true;
+          }
+        }, 100);
+      }));
+    },
+    
+    _renderAddToMap: function(item, links) {
+      if (links.length === 0) return;
+      var endsWith = function(v, sfx) {return (v.indexOf(sfx, (v.length - sfx.length)) !== -1);};
+      var actionsNode = this.actionsNode;
+      array.some(links, lang.hitch(this, function(u) {
+        var serviceType = new ServiceType();
+        serviceType.checkUrl(u);
+        // console.warn("serviceType", serviceType.isSet(), serviceType);
+        
+        // TO DO check whether request is approved
+        if (serviceType.isSet() && !(!AppContext.appUser.isAdmin() && this.isConfidential)) {
           domConstruct.create("a", {
             href: "javascript:void(0)",
             innerHTML: i18n.item.actions.addToMap,
             title: string.substitute(i18n.item.actions.titleFormat, {action: i18n.item.actions.addToMap, title: item.title}),
             "aria-label": string.substitute(i18n.item.actions.titleFormat, {action: i18n.item.actions.addToMap, title: item.title}),
             onclick: function() {
-              topic.publish(appTopics.AddToMapClicked,serviceType);
+              topic.publish(appTopics.AddToMapClicked, serviceType);
             }
           }, actionsNode);
           
@@ -310,13 +360,13 @@ function(declare, lang, array, string, topic, dojoRequest, xhr, on, appTopics, d
         var actionsNode = this.actionsNode;
         var uri = "./rest/metadata/item/" + encodeURIComponent(itemId);
         var htmlNode = domConstruct.create("a", {
-          href: uri + "/html",
+          href: uri+"/html",
           target: "_blank",
           title: string.substitute(i18n.item.actions.titleFormat, {action: i18n.item.actions.html, title: item.title}),
           "aria-label": string.substitute(i18n.item.actions.titleFormat, {action: i18n.item.actions.html, title: item.title}),
           innerHTML: i18n.item.actions.html
         }, actionsNode);
-
+		
         var xmlNode = domConstruct.create("a", {
           href: uri + "/xml",
           target: "_blank",
@@ -324,7 +374,7 @@ function(declare, lang, array, string, topic, dojoRequest, xhr, on, appTopics, d
           "aria-label": string.substitute(i18n.item.actions.titleFormat, {action: i18n.item.actions.xml, title: item.title}),
           innerHTML: i18n.item.actions.xml
         }, actionsNode);
-
+		
         var jsonNode = domConstruct.create("a", {
           href: uri + "?pretty=true",
           target: "_blank",
@@ -332,7 +382,7 @@ function(declare, lang, array, string, topic, dojoRequest, xhr, on, appTopics, d
           "aria-label": string.substitute(i18n.item.actions.titleFormat, {action: i18n.item.actions.json, title: item.title}),
           innerHTML: i18n.item.actions.json
         }, actionsNode);
-
+		
         if (AppContext.geoportal.supportsApprovalStatus || 
             AppContext.geoportal.supportsGroupBasedAccess) {
           var client = new AppClient();
@@ -340,7 +390,7 @@ function(declare, lang, array, string, topic, dojoRequest, xhr, on, appTopics, d
           xmlNode.href = client.appendAccessToken(xmlNode.href);
           jsonNode.href = client.appendAccessToken(jsonNode.href);
         }
-
+		
         var v = item.sys_metadatatype_s;
         if (typeof v === "string" && v === "json") {
           htmlNode.style.visibility = "hidden";
@@ -354,8 +404,8 @@ function(declare, lang, array, string, topic, dojoRequest, xhr, on, appTopics, d
       var dd = domConstruct.create("div", {
         "class": "dropdown",
         "style": "display:inline-block;"
-      }, this.actionsNode);
-
+      },this.actionsNode);
+	  
       var ddbtn = domConstruct.create("a", {
         "class": "dropdown-toggle",
         "href": "#",
@@ -366,15 +416,15 @@ function(declare, lang, array, string, topic, dojoRequest, xhr, on, appTopics, d
         "aria-label": string.substitute(i18n.item.actions.titleFormat, {action: i18n.item.actions.links, title: item.title}),
         innerHTML: i18n.item.actions.links
       }, dd);
-
+	  
       domConstruct.create("span", {
         "class": "caret"
       }, ddbtn);
-
+	  
       var ddul = domConstruct.create("ul", {
         "class": "dropdown-menu",
       }, dd);
-
+	  
       array.forEach(links, function(u) {
         var ddli = domConstruct.create("li", {}, ddul);
         domConstruct.create("a", {
@@ -541,8 +591,8 @@ function(declare, lang, array, string, topic, dojoRequest, xhr, on, appTopics, d
       var dd = domConstruct.create("div", {
         "class": "dropdown",
         "style": "display:inline-block;"
-      }, this.actionsNode);
-
+      },this.actionsNode);
+	  
       var ddbtn = domConstruct.create("a", {
         "class": "dropdown-toggle",
         "href": "#",
@@ -551,20 +601,20 @@ function(declare, lang, array, string, topic, dojoRequest, xhr, on, appTopics, d
         "aria-expanded": true,
         innerHTML: i18n.item.actions.options.caption
       }, dd);
-
+	  
       domConstruct.create("span", {
         "class": "caret"
-      }, ddbtn);
-
-      var ddul = domConstruct.create("ul", {
+      },ddbtn);
+	  
+      var ddul = domConstruct.create("ul",{
         "class": "dropdown-menu",
-      }, dd);
-
+      },dd);
+	  
       array.forEach(links,function(link) {
         var ddli = domConstruct.create("li", {}, ddul);
         ddli.appendChild(link);
       });
-
+	  
       this._mitigateDropdownClip(dd, ddul);
     },
     
@@ -574,7 +624,7 @@ function(declare, lang, array, string, topic, dojoRequest, xhr, on, appTopics, d
       var idx, text = "", v;
       if (AppContext.appConfig.searchResults.showDate && typeof date === "string" && date.length > 0) {
         idx = date.indexOf("T");
-        if (idx > 0) date = date.substring(0, idx);
+        if (idx > 0) date = date.substring(0,idx);
         text = date;
       }
       if (AppContext.appConfig.searchResults.showOwner && typeof owner === "string" && owner.length > 0) {
@@ -610,25 +660,14 @@ function(declare, lang, array, string, topic, dojoRequest, xhr, on, appTopics, d
         util.setNodeText(this.ownerAndDateNode, text);
       }
     },
-
-    _renderDataClassification: function(item) {
-      var client = new AppClient();
-	    var dataClassificationNode = this.dataClassificationNode;
-      client.readMetadataXML(item._id).then(function (response) {
-        this.metadataXmlString = response;
-      }).otherwise(function (err) {
-        console.error("Unable to retrieve metadata.");
-        console.error(err);
-      });
-	  
-      setTimeout(function() {
-        this.metadataDataClassification = this.metadataXmlString.getElementsByTagName("gmd:MD_ClassificationCode")[0].textContent.trim();
-        this.metadataDataClassification = this.metadataDataClassification.charAt(0).toUpperCase() + this.metadataDataClassification.substring(1);
-		    if (this.metadataDataClassification.length > 0) {
-		      util.setNodeText(dataClassificationNode, this.metadataDataClassification);
-		    }
-      }, 150);
+	
+    /* 	  
+    _renderDataClassification: function(classification) {
+      console.log(classification);
+      var dataClassificationNode = this.dataClassificationNode;
+      util.setNodeText(dataClassificationNode, classification);
     },
+    */
     
     _renderThumbnail: function(item) {
       var show = AppContext.appConfig.searchResults.showThumbnails;
@@ -722,13 +761,13 @@ function(declare, lang, array, string, topic, dojoRequest, xhr, on, appTopics, d
         info = string.substitute(i18n.item.statusChecker.status, {score: score});
       }
       
-      var link = domConstruct.create("a", {
+      var link = domConstruct.create("a",{
         href: AppContext.appConfig.statusChecker.infoUrl + "?auth=" + AppContext.appConfig.statusChecker.authKey + "&uId=" + id + "&serviceType=" + type, 
         target: "_blank",
         alt: info,
         "class": "g-item-status"
       });
-      domConstruct.place(link, ivorithis.titleNode, "first");
+      domConstruct.place(link, this.titleNode, "first");
       
       var iconPlace = domConstruct.create("img", {
         src: "images/serviceChecker" + imgSrc, 
@@ -800,6 +839,7 @@ function(declare, lang, array, string, topic, dojoRequest, xhr, on, appTopics, d
     // like SINK:Geoportal/metadata/archive/* 
     // where * === organisation
     _renderUpdatedStatus: function (item) {
+      var client = new AppClient();
       this.metadataSource = item.src_source_uri_s;
       this.metadataApprovalStatus = item.sys_approval_status_s;
 
@@ -814,7 +854,7 @@ function(declare, lang, array, string, topic, dojoRequest, xhr, on, appTopics, d
     },
 
     _save: function (xmlString, itemId) {
-      var client = new AppClient();
+	    var client = new AppClient();
       var url = client.getRestUri() + "/metadata/item";
       if (typeof itemId === "string" && itemId.length > 0) {
         url += "/" + encodeURIComponent(itemId);
@@ -835,7 +875,7 @@ function(declare, lang, array, string, topic, dojoRequest, xhr, on, appTopics, d
       };
       return dojoRequest.put(url, info);
     }
-    
+	
   });
   
   return oThisClass;

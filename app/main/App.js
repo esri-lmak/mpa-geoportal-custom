@@ -127,21 +127,27 @@ function(declare, lang, topic, appTopics, Templated, template, i18n, util, Searc
       };
       var v;
       if (AppContext.appUser.isSignedIn()) {
-        v = i18n.nav.welcomePattern.replace("{name}",AppContext.appUser.getUsername());
-        util.setNodeText(this.usernameNode,v);
+        v = i18n.nav.welcomePattern.replace("{name}", AppContext.appUser.getUsername());
+        util.setNodeText(this.usernameNode, v);
         this.usernameNode.style.display = "";
         this.signInNode.style.display = "none";
         this.signOutNode.style.display = "";
-        updateHref(this.createAccountNode,this.createAccountLink,null);
-        updateHref(this.myProfileNode,this.myProfileLink,AppContext.appUser.getMyProfileUrl());
+        updateHref(this.createAccountNode, this.createAccountLink, null);
+        updateHref(this.myProfileNode, this.myProfileLink, AppContext.appUser.getMyProfileUrl());
+        // Specific to MPA - Pending Requests
+        if (AppContext.appUser.isAdmin()) {
+          updateHref(this.pendingRequestsNode, this.pendingRequestsLink, "/geoportal/pending-requests.html")
+        }
       } else {
         this.usernameNode.innerHTML = "";
         this.usernameNode.style.display = "none";
         this.createAccountNode.style.display = "none";
         this.signInNode.style.display = "";
         this.signOutNode.style.display = "none";
-        updateHref(this.createAccountNode,this.createAccountLink,this.getCreateAccountUrl());
-        updateHref(this.myProfileNode,this.myProfileLink,null);
+        updateHref(this.createAccountNode, this.createAccountLink, this.getCreateAccountUrl());
+        updateHref(this.myProfileNode, this.myProfileLink,null);
+        // Specific to MPA - Pending Requests
+        this.pendingRequestsNode.style.display = "none";
       }
       
       var isAdmin = AppContext.appUser.isAdmin();
