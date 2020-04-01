@@ -242,7 +242,10 @@ define({
         html: "HTML",
         xml: "XML",
         json: "JSON",
-        links: "Links",
+        // Specific to MPA 
+        // Change Links to WFS
+        // links: "Links",
+        links: "WFS",
         submitRequest: "Request",
         addToMap: "Add to Map",
         preview: "Preview",
@@ -252,7 +255,8 @@ define({
           editMetadata: "Edit Metadata",
 		      viewMetadata: "View Metadata",
           uploadMetadata: "Upload Metadata",
-          uploadData: "Upload Data"
+          uploadData: "Upload Data",
+          uploadDataMetadata: "Upload Data & Metadata"
         },
         urlLinks: {
           thumbnail: "Thumbnail",
@@ -330,6 +334,11 @@ define({
       },
       uploadData: {
         caption: "Upload Data",
+        instructions: "An email will be sent to you on the outcome of your upload request.",
+        button: "Upload"
+      },
+      uploadDataMetadata: {
+        caption: "Upload Data & Metadata",
         instructions: "An email will be sent to you on the outcome of your upload request.",
         button: "Upload"
       },

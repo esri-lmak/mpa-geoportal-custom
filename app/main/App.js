@@ -95,6 +95,7 @@ function(declare, lang, topic, appTopics, Templated, template, i18n, util, Searc
     },
     
     signInClicked: function() {
+      window.sessionStorage.setItem("geoportalSignout", "False");
       AppContext.appUser.showSignIn();
     },
     
@@ -137,6 +138,8 @@ function(declare, lang, topic, appTopics, Templated, template, i18n, util, Searc
         // Specific to MPA - Pending Requests
         if (AppContext.appUser.isAdmin()) {
           updateHref(this.pendingRequestsNode, this.pendingRequestsLink, "/geoportal/pending-requests.html")
+        } else {
+          this.pendingRequestsNode.style.display = "none";
         }
       } else {
         this.usernameNode.innerHTML = "";

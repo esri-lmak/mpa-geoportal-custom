@@ -325,6 +325,13 @@ and will apply to all search facets */
 	overflow-y: auto;
 }
 
+.g-metadata-validation-errors {
+  margin-top: 12px;
+  margin-bottom: 12px;
+  max-height: 300px;
+	overflow-y: auto;
+}
+
 .g-mapframe-container {
   position: absolute;
   top: 50px; /* TODO ?? */

@@ -52,16 +52,16 @@ function(declare, lang, on, keys, Templated, template, i18n, ModalDialog) {
       }
     },
  
-    handleError: function(msg,error) {
+    handleError: function(msg, error) {
       if (error) console.warn(error);
       if (!this.dialog) return;
       this.dialog.okCancelBar.enableOk();
-      this.dialog.okCancelBar.showError(msg,false);
+      this.dialog.okCancelBar.showError(msg, false);
     },
     
     init: function() {
       var self = this;
-      this.own(on(this.pnd,"keyup",function(evt) {
+      this.own(on(this.pnd, "keyup", function(evt) {
         if (evt.keyCode === keys.ENTER) self.execute();
       }));
     },
@@ -83,7 +83,7 @@ function(declare, lang, on, keys, Templated, template, i18n, ModalDialog) {
           self.execute();
         }
       });
-      $(this.dialog.domNode).on('shown.bs.modal',function() {
+      $(this.dialog.domNode).on('shown.bs.modal', function() {
         self.modalShown();
       });
       this.dialog.show();

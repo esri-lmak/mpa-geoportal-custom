@@ -173,8 +173,27 @@
 
               <div data-dojo-type="esri/dijit/metadata/form/Element" data-dojo-props="target:'gmd:DQ_ValueStructure',minOccurs:0,
                 label:'${i18nMpa.qualitySection.valueTab.valueStructure}'">
-                <div data-dojo-type="esri/dijit/metadata/form/iso/GcoElement"
-                  data-dojo-props="target:'gco:CharacterString'">
+                <div data-dojo-type="esri/dijit/metadata/form/InputSelectOne">
+                  <div data-dojo-type="esri/dijit/metadata/form/Options">
+                    <div data-dojo-type="esri/dijit/metadata/form/Option"
+                      data-dojo-props="label:'${i18nMpa.valueStructure.bag}',value:'bag'">
+                    </div>
+                    <div data-dojo-type="esri/dijit/metadata/form/Option"
+                      data-dojo-props="label:'${i18nMpa.valueStructure.set}',value:'set'">
+                    </div>
+                    <div data-dojo-type="esri/dijit/metadata/form/Option"
+                      data-dojo-props="label:'${i18nMpa.valueStructure.sequence}',value:'sequence'">
+                    </div>
+                    <div data-dojo-type="esri/dijit/metadata/form/Option"
+                      data-dojo-props="label:'${i18nMpa.valueStructure.table}',value:'table'">
+                    </div>
+                    <div data-dojo-type="esri/dijit/metadata/form/Option"
+                      data-dojo-props="label:'${i18nMpa.valueStructure.matrix}',value:'matrix'">
+                    </div>
+                    <div data-dojo-type="esri/dijit/metadata/form/Option"
+                      data-dojo-props="label:'${i18nMpa.valueStructure.coverage}',value:'coverage'">
+                    </div>
+                  </div>
                 </div>
               </div>
 
@@ -307,8 +326,8 @@
                 </div>
               </div>
 
-              <div data-dojo-type="esri/dijit/metadata/form/Element" data-dojo-props="target:'gmd:DQ_DateUnit',minOccurs:0,
-                label:'${i18nMpa.qualitySection.evaluationMethodTab.dateUnit}'">
+              <div data-dojo-type="esri/dijit/metadata/form/Element" data-dojo-props="target:'gmd:DQ_ValueUnit',minOccurs:0,
+                label:'${i18nMpa.qualitySection.evaluationMethodTab.valueUnit}'">
                 <div data-dojo-type="esri/dijit/metadata/form/iso/GcoElement"
                   data-dojo-props="target:'gco:CharacterString'">
                 </div>

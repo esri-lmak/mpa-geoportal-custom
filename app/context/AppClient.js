@@ -249,6 +249,26 @@ function(declare, lang, Deferred, dojoRequest, xhr, Geoprocessor, esriRequest, d
 
       return esriRequest({url: url, method: "post", handleAs: "json", form: postData});
     },
+
+    getRequestByFileId: function (fileId) {
+      var queryTask = new QueryTask("https://mpa.esrisg.dev/arcgis/rest/services/Hosted/ConfidentialTable/FeatureServer/0");
+      var query = new Query();
+      query.returnGeometry = false;
+      query.outFields = ["*"];
+      query.where = "file_id = '" + fileId + "'";
+
+      return queryTask.execute(query);
+    },
+
+    getRequestByFileIdAndRequestor: function (fileId, requestor) {
+      var queryTask = new QueryTask("https://mpa.esrisg.dev/arcgis/rest/services/Hosted/ConfidentialTable/FeatureServer/0");
+      var query = new Query();
+      query.returnGeometry = false;
+      query.outFields = ["*"];
+      query.where = "file_id = '" + fileId + "' AND requestor = '" + requestor + "'";
+
+      return queryTask.execute(query);
+    },
 	
 	  createAuditTrail: function (auditTrailTypeId, actionToId, remark, notes, createdBy) {
       var baseRestURL = "http://127.0.0.1:5000";

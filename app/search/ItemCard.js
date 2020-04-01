@@ -44,6 +44,7 @@ define(["dojo/_base/declare",
 		    "app/content/SetField",
 		    "app/content/UploadMetadata",
         "app/content/UploadData",
+        "app/content/UploadDataMetadata",
         "app/content/SubmitRequest",
 		    "app/preview/PreviewUtil",
 		    "app/preview/PreviewPane",
@@ -52,7 +53,7 @@ function(declare, lang, array, string, topic, dojoRequest, xhr, on, appTopics, d
   _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, Tooltip, TooltipDialog, popup, 
   template, i18n, AppClient, ServiceType, util, ConfirmationDialog, ChangeOwner, DeleteItems,
   MetadataEditor, gxeConfig, SetAccess, SetApprovalStatus, SetField, UploadMetadata,
-  UploadData, SubmitRequest, PreviewUtil, PreviewPane, ApplyTo) {
+  UploadData, UploadDataMetadata, SubmitRequest, PreviewUtil, PreviewPane, ApplyTo) {
   
   var oThisClass = declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin], {
  
@@ -69,6 +70,8 @@ function(declare, lang, array, string, topic, dojoRequest, xhr, on, appTopics, d
     metadataApprovalStatus: null,
 	  metadataXmlString: null,
     metadataDataClassification: null,
+    userName: null,
+    requestStatus: null,
     
     allowedServices: {
       "featureserver":"agsfeatureserver",
@@ -135,6 +138,7 @@ function(declare, lang, array, string, topic, dojoRequest, xhr, on, appTopics, d
       var item = this.item = hit._source;
       item._id = hit._id;
 
+      this.userName = AppContext.appUser.getUsername();
       var client = new AppClient();
 	    var dataClassificationNode = this.dataClassificationNode;
       client.readMetadataXML(item._id).then(function (response) {
@@ -142,14 +146,24 @@ function(declare, lang, array, string, topic, dojoRequest, xhr, on, appTopics, d
         this.metadataDataClassification = this.metadataXmlString.getElementsByTagName("gmd:MD_ClassificationCode")[0].textContent.trim();
         this.metadataDataClassification = this.metadataDataClassification.charAt(0).toUpperCase() + this.metadataDataClassification.substring(1);
         util.setNodeText(dataClassificationNode, this.metadataDataClassification);
-        if (!AppContext.appUser.isAdmin() && this.metadataDataClassification == "Confidential") {
-          this.isConfidential = true;
-        }
       }).otherwise(function (err) {
         console.error("Unable to retrieve metadata.");
         console.error(err);
       });
-	  	  
+
+      if (item.fileid != "-") {
+        client.getRequestByFileIdAndRequestor(item.fileid, this.userName).then(function (response) {
+          if (response.features.length > 0) {
+            this.requestStatus = response.features[0].attributes.status;
+          }
+        }).otherwise(function (err) {
+          console.error("Unable to retrieve request.");
+          console.error(err);
+        });
+      } else {
+        this.requestStatus = null;
+      }
+
       var links = this._uniqueLinks(item);
       util.setNodeText(this.titleNode, item.title);
       this._renderOwnerAndDate(item);
@@ -163,10 +177,10 @@ function(declare, lang, array, string, topic, dojoRequest, xhr, on, appTopics, d
       // If not admin not required to request
       // If confidential requires request to be able to add to map
       // If restricted no request required and able to add to map
-      this._renderAddToMap(item, links);
       if (!AppContext.appUser.isAdmin()) {
         this._renderRequest(item, links);
       }
+      this._renderAddToMap(item, links);
       this._renderServiceStatus(item);
       this._renderUrlLinks(item);
       this._renderId(item);
@@ -303,21 +317,32 @@ function(declare, lang, array, string, topic, dojoRequest, xhr, on, appTopics, d
         // If URL present, File ID present and Confidential classification
         // TO DO check whether request is pending
         setTimeout(function() {
+          console.log(this.requestStatus);
           if (serviceType.isSet() && item.fileid != "-" && this.metadataDataClassification == "Confidential") {
-            // Remove Add to Map and Preview 
-            actionsNode.removeChild(actionsNode.lastChild);
-            actionsNode.removeChild(actionsNode.lastChild);
+            if (this.requestStatus == "pending") {
+              // Remove Add to Map and Preview 
+              actionsNode.removeChild(actionsNode.lastChild);
+              actionsNode.removeChild(actionsNode.lastChild);
+            } else if (this.requestStatus == "approved") {
+              // Do nothing
+            } else {
+              // Null no record
+              // Remove Add to Map and Preview 
+              actionsNode.removeChild(actionsNode.lastChild);
+              actionsNode.removeChild(actionsNode.lastChild);
 
-            domConstruct.create("a", {
-              href: "javascript:void(0)",
-              innerHTML: i18n.item.actions.submitRequest,
-              title: string.substitute(i18n.item.actions.titleFormat, {action: i18n.item.actions.submitRequest, title: item.title}),
-              "aria-label": string.substitute(i18n.item.actions.titleFormat, {action: i18n.item.actions.submitRequest, title: item.title}),
-              onclick: function() {
-                (new SubmitRequest({item: item, itemId: item._id})).show();
-              }
-            }, actionsNode);
-            
+              // Add Request button
+              domConstruct.create("a", {
+                href: "javascript:void(0)",
+                innerHTML: i18n.item.actions.submitRequest,
+                title: string.substitute(i18n.item.actions.titleFormat, {action: i18n.item.actions.submitRequest, title: item.title}),
+                "aria-label": string.substitute(i18n.item.actions.titleFormat, {action: i18n.item.actions.submitRequest, title: item.title}),
+                onclick: function() {
+                  (new SubmitRequest({item: item, itemId: item._id})).show();
+                }
+              }, actionsNode);
+            }
+
             return true;
           }
         }, 100);
@@ -332,9 +357,9 @@ function(declare, lang, array, string, topic, dojoRequest, xhr, on, appTopics, d
         var serviceType = new ServiceType();
         serviceType.checkUrl(u);
         // console.warn("serviceType", serviceType.isSet(), serviceType);
-        
+
         // TO DO check whether request is approved
-        if (serviceType.isSet() && !(!AppContext.appUser.isAdmin() && this.isConfidential)) {
+        if (serviceType.isSet()) {
           domConstruct.create("a", {
             href: "javascript:void(0)",
             innerHTML: i18n.item.actions.addToMap,
@@ -488,6 +513,15 @@ function(declare, lang, array, string, topic, dojoRequest, xhr, on, appTopics, d
             (new UploadData({itemId: itemId})).show();
           }
         }));
+
+        links.push(domConstruct.create("a", {
+          "class": "small",
+          href: "javascript:void(0)",
+          innerHTML: i18n.item.actions.options.uploadDataMetadata,
+          onclick: function() {
+            (new UploadDataMetadata({itemId: itemId})).show();
+          }
+        }));
       }
       
       if (isAdmin) {
@@ -619,17 +653,34 @@ function(declare, lang, array, string, topic, dojoRequest, xhr, on, appTopics, d
     },
     
     _renderOwnerAndDate: function(item) {
-      var owner = item.sys_owner_s;
+      // Specific to MPA
+      // Display organisation instead of owner
+      // var owner = item.sys_owner_s;
+      var organisation = item.apiso_OrganizationName_txt;
       var date = item.sys_modified_dt;
+      var title = item.title;
       var idx, text = "", v;
       if (AppContext.appConfig.searchResults.showDate && typeof date === "string" && date.length > 0) {
         idx = date.indexOf("T");
         if (idx > 0) date = date.substring(0,idx);
         text = date;
       }
+      /* 
       if (AppContext.appConfig.searchResults.showOwner && typeof owner === "string" && owner.length > 0) {
         if (text.length > 0) text += " ";
         text += owner;
+      } 
+      */
+      if (AppContext.appConfig.searchResults.showOrganisation && typeof organisation === "string" && organisation.length > 0) {
+        if (text.length > 0) text += " ";
+        text += organisation;
+      }
+
+      var isDeprecated = false;
+      if (title.includes("Archived")) {
+        isDeprecated = true;
+        if (text.length > 0) text += " - ";
+        text += "Deprecated";
       }
       
       if (AppContext.appUser.isAdmin() || this._isOwner(item)) {
@@ -644,7 +695,7 @@ function(declare, lang, array, string, topic, dojoRequest, xhr, on, appTopics, d
           }
         }
         if (AppContext.appConfig.searchResults.showApprovalStatus && 
-            AppContext.geoportal.supportsApprovalStatus) {
+            AppContext.geoportal.supportsApprovalStatus && isDeprecated != true) {
           v = item.sys_approval_status_s;
           if (typeof v === "string" && v.length > 0) {
             v = i18n.content.setApprovalStatus[v];
@@ -839,7 +890,6 @@ function(declare, lang, array, string, topic, dojoRequest, xhr, on, appTopics, d
     // like SINK:Geoportal/metadata/archive/* 
     // where * === organisation
     _renderUpdatedStatus: function (item) {
-      var client = new AppClient();
       this.metadataSource = item.src_source_uri_s;
       this.metadataApprovalStatus = item.sys_approval_status_s;
 

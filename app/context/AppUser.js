@@ -29,8 +29,12 @@ function(declare, lang, Deferred, topic, appTopics, i18n, AppClient, SignIn,
         if (this.arcgisPortalUser !== null) p = this.arcgisPortalUser.portal;
         if (p && p.customBaseUrl && (p.customBaseUrl.length > 0) && p.urlKey && (p.urlKey.length > 0)) {
           url = window.location.protocol + "//" + p.urlKey + "." + p.customBaseUrl;
+          console.log(url);
+          // debugger; 
           return url;
         } else if (p && p.url) {
+          console.log(p.url);
+          // debugger; 
           return p.url;
         }
       } catch(ex) {
@@ -46,6 +50,7 @@ function(declare, lang, Deferred, topic, appTopics, i18n, AppClient, SignIn,
     },
     
     getMyProfileUrl: function() {
+      console.log("getMyProfileUrl");
       if (AppContext.geoportal && AppContext.geoportal.arcgisOAuth && 
           AppContext.geoportal.arcgisOAuth.showMyProfileLink) {
         if (this.arcgisPortalUser) {
@@ -95,7 +100,7 @@ function(declare, lang, Deferred, topic, appTopics, i18n, AppClient, SignIn,
           self.arcgisPortalUser = portalUser;
           var u = portalUser.username;
           var p = "__rtkn__:" + portalUser.credential.token;
-          self.signIn(u,p).then(function() {
+          self.signIn(u, p).then(function() {
           }).otherwise(function(error) {
             // TODO handle 
             console.warn("Error occurred while signing in:", error);
@@ -116,9 +121,9 @@ function(declare, lang, Deferred, topic, appTopics, i18n, AppClient, SignIn,
       }
     },
 
-    signIn: function(u,p) {
+    signIn: function(u, p) {
       var self = this, dfd = new Deferred(), client = new AppClient();
-      client.generateToken(u,p).then(function(oauthToken) {
+      client.generateToken(u, p).then(function(oauthToken) {
         if (oauthToken && oauthToken.access_token) {
           client.pingGeoportal(oauthToken.access_token).then(function(info) {
             if (info && info.user) {
@@ -126,14 +131,16 @@ function(declare, lang, Deferred, topic, appTopics, i18n, AppClient, SignIn,
               self.geoportalUser = info.user;
               topic.publish(appTopics.SignedIn,{geoportalUser:info.user});
               dfd.resolve();
- 			  
-			        // Audit Trail
+
+              // Audit Trail
+              /*
 			        var _userName = AppContext.appUser.getUsername();
 			        var ipAddress = null;
 			        $.getJSON('https://api.ipify.org?format=jsonp&callback=?', function(data) {
 			          ipAddress = data.ip;
               });
               client.createAuditTrail(i18n.auditTrailType.signIn, "", "", ipAddress, _userName);
+              */
             } else {
               dfd.reject(i18n.general.error);
             } 
@@ -157,28 +164,38 @@ function(declare, lang, Deferred, topic, appTopics, i18n, AppClient, SignIn,
     
     signOut: function() {
       esriId.destroyCredentials();
-      // Audit Trail
+      // var itemName = "esriJSAPIOAuth";
+      // window.sessionStorage.removeItem(itemName);
+
+      // Specific to MPA
+      // Set Session as signout true
+      window.sessionStorage.setItem("geoportalSignout", "True");
+
+      /*
+      var client = new AppClient();
       var _userName = AppContext.appUser.getUsername();
-      var ipAddress = null;
-      $.getJSON('https://api.ipify.org?format=jsonp&callback=?', function(data) {
-        ipAddress = data.ip;
+			var ipAddress = null;
+			$.getJSON('https://api.ipify.org?format=jsonp&callback=?', function(data) {
+			  ipAddress = data.ip;
       });
       client.createAuditTrail(i18n.auditTrailType.signOut, "", "", ipAddress, _userName);
+      */
+
       window.location.reload();
     },
     
     whenAppStarted: function() {
+      var geoportalSignout = window.sessionStorage.geoportalSignout;
       var self = this, dfd = new Deferred(), ctx = window.AppContext, oauth;
-      if (ctx.geoportal) oauth = ctx.geoportal.arcgisOAuth; 
-      
-      if (oauth && oauth.appId) {
+      if (ctx.geoportal) oauth = ctx.geoportal.arcgisOAuth;
+      if (oauth && oauth.appId && geoportalSignout == "False") {
         var portalUrl = oauth.portalUrl;
         arcgisUtils.arcgisUrl = portalUrl;  // PortalImplementation
         var info = new OAuthInfo({
           appId: oauth.appId,
           // Uncomment this line to prevent the user's signed in state from being shared
           // with other apps on the same domain with the same authNamespace value.
-          //authNamespace: "portal_oauth_inline",
+          authNamespace: "portal_oauth_inline",
           portalUrl: portalUrl,
           expiration: oauth.expirationMinutes,
           popup: true
@@ -207,6 +224,8 @@ function(declare, lang, Deferred, topic, appTopics, i18n, AppClient, SignIn,
       } else {
         dfd.resolve();
       }
+
+      window.sessionStorage.setItem("geoportalSignout", "False");
       return dfd;
     }
 

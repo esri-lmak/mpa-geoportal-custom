@@ -1,0 +1,22 @@
+<div>
+    <div>
+      <p>${i18n.content.uploadDataMetadata.instructions}</p>
+    </div>
+    <div class="form-group form-group-sm">
+        <div>
+            <label for="uploadMetadata" class="control-label">Upload Metadata (.xlsx, .xls)</label>
+        </div>
+        <div data-dojo-attach-point="metadataFileContainerNode"></div>
+    </div>
+
+    <div class="g-metadata-validation-errors text-danger" data-dojo-attach-point="validationMetadataErrorsNode"></div>
+
+    <div class="form-group form-group-sm">
+        <div>
+            <label for="uploadData" class="control-label">Upload Data (.zip)</label>
+        </div>
+        <div data-dojo-attach-point="dataFileContainerNode"></div>
+    </div>
+    
+    <div class="g-validation-errors text-danger" data-dojo-attach-point="validationErrorsNode"></div>
+</div>

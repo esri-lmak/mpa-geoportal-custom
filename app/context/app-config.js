@@ -35,7 +35,10 @@ define([],function(){var obj={
   searchResults: {
     numPerPage: 10,
     showDate: true,
+    // Specific to MPA
+    // Show organisation instead of owner
     showOwner: true,
+    showOrganisation: true,
     showThumbnails: true,
     showAccess: true,
     showApprovalStatus: true,

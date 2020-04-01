@@ -21,7 +21,7 @@ define({
             identifier: "Identifier",
             identifierTab : {
                 fileIdentifier: "File Identifier",
-                specialIdentifier: "Special Identifier",
+				specialIdentifier: "Special Identifier",
                 language: "Metadata Language",
                 hierachyLevel: "Hierachy Level",
                 hierechyLevelName: "Hierachy Level Name"
@@ -133,7 +133,7 @@ define({
                 description: "Evaluation Method Description",
                 procedure: "Evaluation Method Procedure",
                 date: "Date",
-                dateUnit: "Date Unit",
+                valueUnit: "Value Unit",
                 value: "Value"
             },
             lineage: "Lineage"
@@ -186,7 +186,7 @@ define({
             management: "Management",
             societal: "Societal"
         },
-        mpaMarineDataThemeLevel2Value: {
+		mpaMarineDataThemeLevel2Value: {
             none: "none",
             encChart: "encChart",
             satelliteImagery: "satelliteImagery",
@@ -202,7 +202,7 @@ define({
             management: "management",
             societal: "societal"
         },
-        mpaMarineDataThemeLevel2: [
+		mpaMarineDataThemeLevel2: [
             { label: "-", value: "none" },
             { label: "ENC Chart", value: "encChart" },
             { label: "Satellite Imagery", value: "satelliteImagery" },
@@ -451,6 +451,14 @@ define({
             integer: "Integer",
             real: "Real"
         },
+        valueStructure: {
+            bag: "Bag",
+            set: "Set",
+            sequence: "Sequence",
+            table: "Table",
+            matrix: "Matrix",
+            coverage: "Coverage"
+        },
         evaluationMethodType: {
             directInternal: "Direct Internal",
             directExternal: "Direct External",
@@ -460,8 +468,16 @@ define({
             svy21: "SYV21",
             wgs84: "WGS84"
         },
-
-        validation: {
+        role: {
+            dataSteward: "Data Steward",
+            dataCustodian: "Data Custodian",
+            dataProvider: "Data Provider",
+            dataCollector: "Data Collector",
+            owner: "Owner",
+            pointOfContact: "Point of Contact"
+        },
+		
+		validation: {
             pattern: "{label} - {message}",
             patternWithHint: "{label} - {message} {hint}",
             ok: "OK",
@@ -470,7 +486,7 @@ define({
             integer: "The value must be an integer.",
             number: "The value must be an number.",
             other: "Invalid value.",
-            url: "Invalid URL"
+			url: "Invalid URL"
         },
 
         language: {
