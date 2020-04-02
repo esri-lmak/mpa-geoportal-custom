@@ -110,6 +110,16 @@ function(declare, lang, array, aspect, domConstruct, topic, appTopics, Templated
       if (files && (files.length === 1)) file = files[0];
       if (!file) return; 
       
+      // Specific to MPA
+      // Check file type
+      var validFileTypes = ".xml";
+      var fileType = file.name;
+      fileType = fileType.substring(fileType.lastIndexOf('.'));
+      if (validFileTypes.indexOf(fileType) < 0) {
+        alert("Invalid file type selected.");
+        return;
+      }
+
       var reader = new FileReader();
       this.own(aspect.after(reader, "onload", lang.hitch(this, function(e) {
         if (e && e.target && e.target.result) {

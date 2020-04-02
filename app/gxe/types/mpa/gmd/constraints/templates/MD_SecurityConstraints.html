@@ -3,52 +3,67 @@
     <div data-dojo-type="esri/dijit/metadata/form/iso/AbstractObject"
         data-dojo-props="target:'gmd:MD_SecurityConstraints',minOccurs:0">
 
-        <div data-dojo-type="esri/dijit/metadata/form/Element" data-dojo-props="target:'gmd:MD_ClassificationCode',minOccurs:1,
-            label:'${i18nMpa.identificationSection.constraintsTab.classification}'">
-            <div data-dojo-type="esri/dijit/metadata/form/InputSelectOne">
-                <div data-dojo-type="esri/dijit/metadata/form/Options">
-                    <div data-dojo-type="esri/dijit/metadata/form/Option"
-                        data-dojo-props="label:'${i18nMpa.securityClassification.confidential}',value:'confidential'">
-                    </div>
-                    <div data-dojo-type="esri/dijit/metadata/form/Option"
-                        data-dojo-props="label:'${i18nMpa.securityClassification.restricted}',value:'restricted'">
-                    </div>
-                    <div data-dojo-type="esri/dijit/metadata/form/Option"
-                        data-dojo-props="label:'${i18nMpa.securityClassification.officialOpen}',value:'officialOpen'">
-                    </div>
-                    <div data-dojo-type="esri/dijit/metadata/form/Option"
-                        data-dojo-props="label:'${i18nMpa.securityClassification.officialClosed}',value:'officialClosed'">
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div data-dojo-type="esri/dijit/metadata/form/Element" data-dojo-props="target:'gmd:MD_SensitivityClassification',minOccurs:0,
-            label:'${i18nMpa.identificationSection.constraintsTab.securityClassification}'">
-            <div data-dojo-type="esri/dijit/metadata/form/InputSelectOne">
-                <div data-dojo-type="esri/dijit/metadata/form/Options">
-                    <div data-dojo-type="esri/dijit/metadata/form/Option"
-                        data-dojo-props="label:'${i18nMpa.sensitivityClassification.sensitiveHigh}',value:'sensitiveHigh'">
-                    </div>
-                    <div data-dojo-type="esri/dijit/metadata/form/Option"
-                        data-dojo-props="label:'${i18nMpa.sensitivityClassification.sensitiveNormal}',value:'sensitiveNormal'">
-                    </div>
-                    <div data-dojo-type="esri/dijit/metadata/form/Option"
-                        data-dojo-props="label:'${i18nMpa.sensitivityClassification.nonSensitive}',value:'nonSensitive'">
+        <div data-dojo-type="esri/dijit/metadata/form/iso/CodeListElement" data-dojo-props="target:'gmd:MD_ClassificationCode',minOccurs:1,
+            label:'${i18nMpa.identificationSection.constraintsTab.classification}', showHeader:true">
+            <div data-dojo-type="esri/dijit/metadata/form/iso/CodeSpaceAttribute"></div>
+            <div data-dojo-type="esri/dijit/metadata/form/iso/CodeListAttribute"
+                data-dojo-props="value:'${codeListPrefix}gmd:MD_ClassificationCode'"></div>
+            <div data-dojo-type="esri/dijit/metadata/form/iso/CodeListValueAttribute">
+                <div data-dojo-type="esri/dijit/metadata/form/InputSelectOne">
+                    <div data-dojo-type="esri/dijit/metadata/form/Options">
+                        <div data-dojo-type="esri/dijit/metadata/form/Option"
+                            data-dojo-props="label:'${i18nMpa.securityClassification.confidential}',value:'confidential'">
+                        </div>
+                        <div data-dojo-type="esri/dijit/metadata/form/Option"
+                            data-dojo-props="label:'${i18nMpa.securityClassification.restricted}',value:'restricted'">
+                        </div>
+                        <div data-dojo-type="esri/dijit/metadata/form/Option"
+                            data-dojo-props="label:'${i18nMpa.securityClassification.officialOpen}',value:'officialOpen'">
+                        </div>
+                        <div data-dojo-type="esri/dijit/metadata/form/Option"
+                            data-dojo-props="label:'${i18nMpa.securityClassification.officialClosed}',value:'officialClosed'">
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div data-dojo-type="esri/dijit/metadata/form/Element" data-dojo-props="target:'gmd:MD_InformationMarker',minOccurs:0,
-            label:'${i18nMpa.identificationSection.constraintsTab.informationMarker}'">
-            <div data-dojo-type="esri/dijit/metadata/form/InputSelectOne">
-                <div data-dojo-type="esri/dijit/metadata/form/Options">
-                    <div data-dojo-type="esri/dijit/metadata/form/Option"
-                        data-dojo-props="label:'${i18nMpa.informationMarker.officialClosed}',value:'officialClosed'">
+        <div data-dojo-type="esri/dijit/metadata/form/iso/CodeListElement" data-dojo-props="target:'gmd:MD_SensitivityClassification',minOccurs:0,
+            label:'${i18nMpa.identificationSection.constraintsTab.securityClassification}', showHeader:true">
+            <div data-dojo-type="esri/dijit/metadata/form/iso/CodeSpaceAttribute"></div>
+            <div data-dojo-type="esri/dijit/metadata/form/iso/CodeListAttribute"
+                data-dojo-props="value:'${codeListPrefix}gmd:MD_SensitivityClassification'"></div>
+            <div data-dojo-type="esri/dijit/metadata/form/iso/CodeListValueAttribute">
+                <div data-dojo-type="esri/dijit/metadata/form/InputSelectOne">
+                    <div data-dojo-type="esri/dijit/metadata/form/Options">
+                        <div data-dojo-type="esri/dijit/metadata/form/Option"
+                            data-dojo-props="label:'${i18nMpa.sensitivityClassification.sensitiveHigh}',value:'1'">
+                        </div>
+                        <div data-dojo-type="esri/dijit/metadata/form/Option"
+                            data-dojo-props="label:'${i18nMpa.sensitivityClassification.sensitiveNormal}',value:'2'">
+                        </div>
+                        <div data-dojo-type="esri/dijit/metadata/form/Option"
+                            data-dojo-props="label:'${i18nMpa.sensitivityClassification.nonSensitive}',value:'3'">
+                        </div>
                     </div>
-                    <div data-dojo-type="esri/dijit/metadata/form/Option"
-                        data-dojo-props="label:'${i18nMpa.informationMarker.officialOpen}',value:'officialOpen'">
+                </div>
+            </div>
+        </div>
+
+        <div data-dojo-type="esri/dijit/metadata/form/iso/CodeListElement" data-dojo-props="target:'gmd:MD_InformationMarker',minOccurs:0,
+            label:'${i18nMpa.identificationSection.constraintsTab.informationMarker}', showHeader:true">
+            <div data-dojo-type="esri/dijit/metadata/form/iso/CodeSpaceAttribute"></div>
+            <div data-dojo-type="esri/dijit/metadata/form/iso/CodeListAttribute"
+                data-dojo-props="value:'${codeListPrefix}gmd:MD_InformationMarker'"></div>
+            <div data-dojo-type="esri/dijit/metadata/form/iso/CodeListValueAttribute">
+                <div data-dojo-type="esri/dijit/metadata/form/InputSelectOne">
+                    <div data-dojo-type="esri/dijit/metadata/form/Options">
+                        <div data-dojo-type="esri/dijit/metadata/form/Option"
+                            data-dojo-props="label:'${i18nMpa.informationMarker.officialClosed}',value:'1'">
+                        </div>
+                        <div data-dojo-type="esri/dijit/metadata/form/Option"
+                            data-dojo-props="label:'${i18nMpa.informationMarker.officialOpen}',value:'2'">
+                        </div>
                     </div>
                 </div>
             </div>

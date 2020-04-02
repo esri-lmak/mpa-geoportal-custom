@@ -30,7 +30,6 @@ function (declare, lang, array, aspect, domConstruct, topic, appTopics, Template
     _metadataFile: null,
     _metadataFileName: null,
     _metadataText: null,
-    _metadataValidation: null,
 
     _inputDataFileNode: null,
     _dataFile: null,

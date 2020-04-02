@@ -30,56 +30,62 @@
               <div data-dojo-type="esri/dijit/metadata/form/InputDate"></div>
             </div>
           </div>
-          <div data-dojo-type="esri/dijit/metadata/form/iso/CodeListReference"
-            data-dojo-props="target:'gmd:dateType',label:'${i18nMpa.identificationSection.citationTab.dateType}'">
-            <div data-dojo-type="esri/dijit/metadata/form/InputSelectOne" data-dojo-props="">
-              <div data-dojo-type="esri/dijit/metadata/form/Option"
-                data-dojo-props="label:'${i18nMpa.dateType.creation}',value:'creation',selected:true">
-              </div>
-              <div data-dojo-type="esri/dijit/metadata/form/Option"
-                data-dojo-props="label:'${i18nMpa.dateType.publication}',value:'publication'">
-              </div>
-              <div data-dojo-type="esri/dijit/metadata/form/Option"
-                data-dojo-props="label:'${i18nMpa.dateType.revision}',value:'revision'">
-              </div>
-              <div data-dojo-type="esri/dijit/metadata/form/Option"
-                data-dojo-props="label:'${i18nMpa.dateType.expiry}',value:'expiry'">
-              </div>
-              <div data-dojo-type="esri/dijit/metadata/form/Option"
-                data-dojo-props="label:'${i18nMpa.dateType.lastRevision}',value:'lastRevision'">
-              </div>
-              <div data-dojo-type="esri/dijit/metadata/form/Option"
-                data-dojo-props="label:'${i18nMpa.dateType.nextUpdate}',value:'nextUpdate'">
-              </div>
-              <div data-dojo-type="esri/dijit/metadata/form/Option"
-                data-dojo-props="label:'${i18nMpa.dateType.unavailable}',value:'unavailable'">
-              </div>
-              <div data-dojo-type="esri/dijit/metadata/form/Option"
-                data-dojo-props="label:'${i18nMpa.dateType.inForce}',value:'inForce'">
-              </div>
-              <div data-dojo-type="esri/dijit/metadata/form/Option"
-                data-dojo-props="label:'${i18nMpa.dateType.adopted}',value:'adopted'">
-              </div>
-              <div data-dojo-type="esri/dijit/metadata/form/Option"
-                data-dojo-props="label:'${i18nMpa.dateType.deprecated}',value:'deprecated'">
-              </div>
-              <div data-dojo-type="esri/dijit/metadata/form/Option"
-                data-dojo-props="label:'${i18nMpa.dateType.superseded}',value:'superseded'">
-              </div>
-              <div data-dojo-type="esri/dijit/metadata/form/Option"
-                data-dojo-props="label:'${i18nMpa.dateType.validityBegins}',value:'validityBegins'">
-              </div>
-              <div data-dojo-type="esri/dijit/metadata/form/Option"
-                data-dojo-props="label:'${i18nMpa.dateType.validityExpires}',value:'validityExpires'">
-              </div>
-              <div data-dojo-type="esri/dijit/metadata/form/Option"
-                data-dojo-props="label:'${i18nMpa.dateType.released}',value:'released'">
-              </div>
-              <div data-dojo-type="esri/dijit/metadata/form/Option"
-                data-dojo-props="label:'${i18nMpa.dateType.distribution}',value:'distribution'">
-              </div>
-              <div data-dojo-type="esri/dijit/metadata/form/Option"
-                data-dojo-props="label:'${i18nMpa.dateType.extraction}',value:'extraction'">
+
+          <div data-dojo-type="esri/dijit/metadata/form/iso/CodeListElement"
+            data-dojo-props="target:'gmd:dateType',label:'${i18nMpa.identificationSection.citationTab.dateType}', showHeader:true">
+            <div data-dojo-type="esri/dijit/metadata/form/iso/CodeSpaceAttribute"></div>
+            <div data-dojo-type="esri/dijit/metadata/form/iso/CodeListAttribute"
+              data-dojo-props="value:'${codeListPrefix}gmd:dateType'"></div>
+            <div data-dojo-type="esri/dijit/metadata/form/iso/CodeListValueAttribute">
+              <div data-dojo-type="esri/dijit/metadata/form/InputSelectOne" data-dojo-props="">
+                <div data-dojo-type="esri/dijit/metadata/form/Option"
+                  data-dojo-props="label:'${i18nMpa.dateType.creation}',value:'1',selected:true">
+                </div>
+                <div data-dojo-type="esri/dijit/metadata/form/Option"
+                  data-dojo-props="label:'${i18nMpa.dateType.publication}',value:'2'">
+                </div>
+                <div data-dojo-type="esri/dijit/metadata/form/Option"
+                  data-dojo-props="label:'${i18nMpa.dateType.revision}',value:'3'">
+                </div>
+                <div data-dojo-type="esri/dijit/metadata/form/Option"
+                  data-dojo-props="label:'${i18nMpa.dateType.expiry}',value:'4'">
+                </div>
+                <div data-dojo-type="esri/dijit/metadata/form/Option"
+                  data-dojo-props="label:'${i18nMpa.dateType.lastRevision}',value:'5'">
+                </div>
+                <div data-dojo-type="esri/dijit/metadata/form/Option"
+                  data-dojo-props="label:'${i18nMpa.dateType.nextUpdate}',value:'6'">
+                </div>
+                <div data-dojo-type="esri/dijit/metadata/form/Option"
+                  data-dojo-props="label:'${i18nMpa.dateType.unavailable}',value:'7'">
+                </div>
+                <div data-dojo-type="esri/dijit/metadata/form/Option"
+                  data-dojo-props="label:'${i18nMpa.dateType.inForce}',value:'8'">
+                </div>
+                <div data-dojo-type="esri/dijit/metadata/form/Option"
+                  data-dojo-props="label:'${i18nMpa.dateType.adopted}',value:'9'">
+                </div>
+                <div data-dojo-type="esri/dijit/metadata/form/Option"
+                  data-dojo-props="label:'${i18nMpa.dateType.deprecated}',value:'10'">
+                </div>
+                <div data-dojo-type="esri/dijit/metadata/form/Option"
+                  data-dojo-props="label:'${i18nMpa.dateType.superseded}',value:'11'">
+                </div>
+                <div data-dojo-type="esri/dijit/metadata/form/Option"
+                  data-dojo-props="label:'${i18nMpa.dateType.validityBegins}',value:'12'">
+                </div>
+                <div data-dojo-type="esri/dijit/metadata/form/Option"
+                  data-dojo-props="label:'${i18nMpa.dateType.validityExpires}',value:'13'">
+                </div>
+                <div data-dojo-type="esri/dijit/metadata/form/Option"
+                  data-dojo-props="label:'${i18nMpa.dateType.released}',value:'14'">
+                </div>
+                <div data-dojo-type="esri/dijit/metadata/form/Option"
+                  data-dojo-props="label:'${i18nMpa.dateType.distribution}',value:'15'">
+                </div>
+                <div data-dojo-type="esri/dijit/metadata/form/Option"
+                  data-dojo-props="label:'${i18nMpa.dateType.extraction}',value:'16'">
+                </div>
               </div>
             </div>
           </div>
@@ -92,20 +98,25 @@
         </div>
       </div>
 
-      <div data-dojo-type="esri/dijit/metadata/form/Element" data-dojo-props="target:'gmd:citationLanguage',
-        label:'${i18nMpa.identificationSection.citationTab.language}'">
-        <div data-dojo-type="esri/dijit/metadata/form/InputSelectOne" data-dojo-props="">
-          <div data-dojo-type="esri/dijit/metadata/form/Option"
-            data-dojo-props="label:'${i18nMpa.citationLanguage.english}',value:'english',selected:true">
-          </div>
-          <div data-dojo-type="esri/dijit/metadata/form/Option"
-            data-dojo-props="label:'${i18nMpa.citationLanguage.chinese}',value:'chinese'">
-          </div>
-          <div data-dojo-type="esri/dijit/metadata/form/Option"
-            data-dojo-props="label:'${i18nMpa.citationLanguage.malay}',value:'malay'">
-          </div>
-          <div data-dojo-type="esri/dijit/metadata/form/Option"
-            data-dojo-props="label:'${i18nMpa.citationLanguage.tamil}',value:'tamil'">
+      <div data-dojo-type="esri/dijit/metadata/form/iso/CodeListElement" data-dojo-props="target:'gmd:citationLanguage',
+        label:'${i18nMpa.identificationSection.citationTab.language}', showHeader:true">
+        <div data-dojo-type="esri/dijit/metadata/form/iso/CodeSpaceAttribute"></div>
+        <div data-dojo-type="esri/dijit/metadata/form/iso/CodeListAttribute"
+          data-dojo-props="value:'${codeListPrefix}gmd:citationLanguage'"></div>
+        <div data-dojo-type="esri/dijit/metadata/form/iso/CodeListValueAttribute">
+          <div data-dojo-type="esri/dijit/metadata/form/InputSelectOne" data-dojo-props="">
+            <div data-dojo-type="esri/dijit/metadata/form/Option"
+              data-dojo-props="label:'${i18nMpa.citationLanguage.english}',value:'english',selected:true">
+            </div>
+            <div data-dojo-type="esri/dijit/metadata/form/Option"
+              data-dojo-props="label:'${i18nMpa.citationLanguage.chinese}',value:'chinese'">
+            </div>
+            <div data-dojo-type="esri/dijit/metadata/form/Option"
+              data-dojo-props="label:'${i18nMpa.citationLanguage.malay}',value:'malay'">
+            </div>
+            <div data-dojo-type="esri/dijit/metadata/form/Option"
+              data-dojo-props="label:'${i18nMpa.citationLanguage.tamil}',value:'tamil'">
+            </div>
           </div>
         </div>
       </div>

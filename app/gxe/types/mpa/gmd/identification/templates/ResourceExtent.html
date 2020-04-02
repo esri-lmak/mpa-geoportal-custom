@@ -9,15 +9,20 @@
         </div>
     </div>
 
-    <div data-dojo-type="esri/dijit/metadata/form/Element" data-dojo-props="target:'gmd:horizontalCoordinateSystem',minOccurs:1,
-        label:'${i18nMpa.extentTab.horizontalCoordinateSystem}'">
-        <div data-dojo-type="esri/dijit/metadata/form/InputSelectOne">
-            <div data-dojo-type="esri/dijit/metadata/form/Options">
-                <div data-dojo-type="esri/dijit/metadata/form/Option"
-                    data-dojo-props="label:'${i18nMpa.horizontalCoordinateSystem.svy21}',value:'svy21'">
-                </div>
-                <div data-dojo-type="esri/dijit/metadata/form/Option"
-                    data-dojo-props="label:'${i18nMpa.horizontalCoordinateSystem.wgs84}',value:'wgs84'">
+    <div data-dojo-type="esri/dijit/metadata/form/iso/CodeListElement" data-dojo-props="target:'gmd:horizontalCoordinateSystem',minOccurs:1,
+        label:'${i18nMpa.extentTab.horizontalCoordinateSystem}', showHeader:true">
+        <div data-dojo-type="esri/dijit/metadata/form/iso/CodeSpaceAttribute"></div>
+        <div data-dojo-type="esri/dijit/metadata/form/iso/CodeListAttribute"
+            data-dojo-props="value:'${codeListPrefix}gmd:horizontalCoordinateSystem'"></div>
+        <div data-dojo-type="esri/dijit/metadata/form/iso/CodeListValueAttribute">
+            <div data-dojo-type="esri/dijit/metadata/form/InputSelectOne">
+                <div data-dojo-type="esri/dijit/metadata/form/Options">
+                    <div data-dojo-type="esri/dijit/metadata/form/Option"
+                        data-dojo-props="label:'${i18nMpa.horizontalCoordinateSystem.svy21}',value:'1'">
+                    </div>
+                    <div data-dojo-type="esri/dijit/metadata/form/Option"
+                        data-dojo-props="label:'${i18nMpa.horizontalCoordinateSystem.wgs84}',value:'2'">
+                    </div>
                 </div>
             </div>
         </div>

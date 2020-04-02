@@ -3,48 +3,53 @@
     <div data-dojo-type="esri/dijit/metadata/form/iso/AbstractObject"
         data-dojo-props="target:'gmd:MD_LegalConstraints',minOccurs:0">
 
-        <div data-dojo-type="esri/dijit/metadata/form/Element" data-dojo-props="target:'gmd:useConstraints',minOccurs:1,
-            label:'${i18nMpa.identificationSection.constraintsTab.useConstraints}'">
-            <div data-dojo-type="esri/dijit/metadata/form/InputSelectOne">
-                <div data-dojo-type="esri/dijit/metadata/form/Options">
-                    <div data-dojo-type="esri/dijit/metadata/form/Option"
-                        data-dojo-props="label:'${i18nMpa.useContraints.copyright}',value:'copyright'">
-                    </div>
-                    <div data-dojo-type="esri/dijit/metadata/form/Option"
-                        data-dojo-props="label:'${i18nMpa.useContraints.patent}',value:'patent'">
-                    </div>
-                    <div data-dojo-type="esri/dijit/metadata/form/Option"
-                        data-dojo-props="label:'${i18nMpa.useContraints.patentPending}',value:'patentPending'">
-                    </div>
-                    <div data-dojo-type="esri/dijit/metadata/form/Option"
-                        data-dojo-props="label:'${i18nMpa.useContraints.trademark}',value:'trademark'">
-                    </div>
-                    <div data-dojo-type="esri/dijit/metadata/form/Option"
-                        data-dojo-props="label:'${i18nMpa.useContraints.license}',value:'license'">
-                    </div>
-                    <div data-dojo-type="esri/dijit/metadata/form/Option"
-                        data-dojo-props="label:'${i18nMpa.useContraints.intPropertyRights}',value:'intPropertyRights'">
-                    </div>
-                    <div data-dojo-type="esri/dijit/metadata/form/Option"
-                        data-dojo-props="label:'${i18nMpa.useContraints.otherRestrictions}',value:'otherRestrictions'">
-                    </div>
-                    <div data-dojo-type="esri/dijit/metadata/form/Option"
-                        data-dojo-props="label:'${i18nMpa.useContraints.licenseRestricted}',value:'licenseRestricted'">
-                    </div>
-                    <div data-dojo-type="esri/dijit/metadata/form/Option"
-                        data-dojo-props="label:'${i18nMpa.useContraints.licenseEndUser}',value:'licenseEndUser'">
-                    </div>
-                    <div data-dojo-type="esri/dijit/metadata/form/Option"
-                        data-dojo-props="label:'${i18nMpa.useContraints.licenseDistributor}',value:'licenseDistributor'">
-                    </div>
-                    <div data-dojo-type="esri/dijit/metadata/form/Option"
-                        data-dojo-props="label:'${i18nMpa.useContraints.private}',value:'private'">
-                    </div>
-                    <div data-dojo-type="esri/dijit/metadata/form/Option"
-                        data-dojo-props="label:'${i18nMpa.useContraints.statutory}',value:'statutory'">
-                    </div>
-                    <div data-dojo-type="esri/dijit/metadata/form/Option"
-                        data-dojo-props="label:'${i18nMpa.useContraints.inConfidence}',value:'inConfidence'">
+        <div data-dojo-type="esri/dijit/metadata/form/iso/CodeListElement" data-dojo-props="target:'gmd:useConstraints',minOccurs:1,
+            label:'${i18nMpa.identificationSection.constraintsTab.useConstraints}', showHeader:true">
+            <div data-dojo-type="esri/dijit/metadata/form/iso/CodeSpaceAttribute"></div>
+            <div data-dojo-type="esri/dijit/metadata/form/iso/CodeListAttribute"
+                data-dojo-props="value:'${codeListPrefix}gmd:useConstraints'"></div>
+            <div data-dojo-type="esri/dijit/metadata/form/iso/CodeListValueAttribute">
+                <div data-dojo-type="esri/dijit/metadata/form/InputSelectOne">
+                    <div data-dojo-type="esri/dijit/metadata/form/Options">
+                        <div data-dojo-type="esri/dijit/metadata/form/Option"
+                            data-dojo-props="label:'${i18nMpa.useContraints.copyright}',value:'1'">
+                        </div>
+                        <div data-dojo-type="esri/dijit/metadata/form/Option"
+                            data-dojo-props="label:'${i18nMpa.useContraints.patent}',value:'2'">
+                        </div>
+                        <div data-dojo-type="esri/dijit/metadata/form/Option"
+                            data-dojo-props="label:'${i18nMpa.useContraints.patentPending}',value:'3'">
+                        </div>
+                        <div data-dojo-type="esri/dijit/metadata/form/Option"
+                            data-dojo-props="label:'${i18nMpa.useContraints.trademark}',value:'4'">
+                        </div>
+                        <div data-dojo-type="esri/dijit/metadata/form/Option"
+                            data-dojo-props="label:'${i18nMpa.useContraints.license}',value:'5'">
+                        </div>
+                        <div data-dojo-type="esri/dijit/metadata/form/Option"
+                            data-dojo-props="label:'${i18nMpa.useContraints.intPropertyRights}',value:'6'">
+                        </div>
+                        <div data-dojo-type="esri/dijit/metadata/form/Option"
+                            data-dojo-props="label:'${i18nMpa.useContraints.otherRestrictions}',value:'7'">
+                        </div>
+                        <div data-dojo-type="esri/dijit/metadata/form/Option"
+                            data-dojo-props="label:'${i18nMpa.useContraints.licenseRestricted}',value:'8'">
+                        </div>
+                        <div data-dojo-type="esri/dijit/metadata/form/Option"
+                            data-dojo-props="label:'${i18nMpa.useContraints.licenseEndUser}',value:'9'">
+                        </div>
+                        <div data-dojo-type="esri/dijit/metadata/form/Option"
+                            data-dojo-props="label:'${i18nMpa.useContraints.licenseDistributor}',value:'10'">
+                        </div>
+                        <div data-dojo-type="esri/dijit/metadata/form/Option"
+                            data-dojo-props="label:'${i18nMpa.useContraints.private}',value:'11'">
+                        </div>
+                        <div data-dojo-type="esri/dijit/metadata/form/Option"
+                            data-dojo-props="label:'${i18nMpa.useContraints.statutory}',value:'12'">
+                        </div>
+                        <div data-dojo-type="esri/dijit/metadata/form/Option"
+                            data-dojo-props="label:'${i18nMpa.useContraints.inConfidence}',value:'13'">
+                        </div>
                     </div>
                 </div>
             </div>
