@@ -51,39 +51,11 @@ function (declare, lang, array, aspect, domConstruct, topic, appTopics, Template
       domConstruct.empty(this.validationErrorsNode);
     
       var client = new AppClient();
-      client.uploadMetadata(text, this.itemId, filename).then(function(response) {
-        if (response) {
-          // wait for real-time update
-          setTimeout(function() {
-            topic.publish(appTopics.ItemUploaded, {response: response});
-            dialog.hide();
-            console.log(response);
-            this._itemIdMetadata = response.item.itemID;
-          }, 1500);
-
-          // Audit Trail
-          /*
-          var _userName = AppContext.appUser.getUsername();
-          client.createAuditTrail(i18n.auditTrailType.uploadMetadata, "", "", "", _userName);
-          */
-        } else {
-          self._workingMetadata = false;
-          dialog.okCancelBar.enableOk();
-          dialog.okCancelBar.showWorking(i18n.general.error, false);
-        }
-      }).otherwise(function(error) {
-        console.warn("UploadMetadata.error", error);
-        var msg = i18n.general.error;
-        var err = client.checkError(error);
-        if (err && err.message) {
-          msg = self.checkForErrorTranslation(err.message);
-        }
-        if (err && err.validationErrors) {
-          self._loadValidationErrors(err.validationErrors);
-        }
-        self._workingMetadata = false;
-        dialog.okCancelBar.enableOk();
-        dialog.okCancelBar.showError(msg, false);
+      client.uploadNewCardMetadataFile(this._dataFile, this._dataFileName).then(function(response) {
+        console.log(response);
+		    this._itemIdMetadata = response.item.itemID;
+		  }).otherwise(function(error) {
+		    console.warn("UploadFile.error", error);
       });
     },
 
@@ -97,14 +69,18 @@ function (declare, lang, array, aspect, domConstruct, topic, appTopics, Template
     
       var client = new AppClient();
       client.uploadFile(this._dataFile, this._dataFileName).then(function(response) {
+        console.log(response);
 		    this._itemIdData = response.item.itemID;
 		  }).otherwise(function(error) {
 		    console.warn("UploadFile.error", error);
       });
 
       setTimeout(function() {
-        client.uploadData(this._userName, this._itemIdData, this._itemIdMetadata).then(function(response) {
+        console.log(this._itemIdData);
+        console.log(this._itemIdMetadata);
+        client.uploadNewCardData(this._userName, this._itemIdData, this._itemIdMetadata).then(function(response) {
           if (response) {
+            console.log(response);
             // wait for real-time update
             setTimeout(function() {
               topic.publish(appTopics.ItemUploaded, {response: response});
@@ -134,7 +110,7 @@ function (declare, lang, array, aspect, domConstruct, topic, appTopics, Template
           dialog.okCancelBar.enableOk();
           dialog.okCancelBar.showError(msg, false);
         });
-      }, 200);
+      }, 800);
     },
 
     _loadValidationErrors: function (validationErrors) {

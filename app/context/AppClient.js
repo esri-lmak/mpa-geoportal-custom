@@ -3,10 +3,12 @@ define(["dojo/_base/declare",
         "dojo/Deferred",
         "dojo/request",
         "dojo/request/xhr",
+        "dojo/dom-construct",
         "esri/tasks/Geoprocessor",
         "esri/request",
-        "dojo/dom-construct"],
-function(declare, lang, Deferred, dojoRequest, xhr, Geoprocessor, esriRequest, domConstruct) {
+        "esri/tasks/query", 
+        "esri/tasks/QueryTask"],
+function(declare, lang, Deferred, dojoRequest, xhr, domConstruct, Geoprocessor, esriRequest, Query, QueryTask) {
 
   var oThisClass = declare(null, {
 
@@ -167,6 +169,20 @@ function(declare, lang, Deferred, dojoRequest, xhr, Geoprocessor, esriRequest, d
       return esriRequest({url: url, method: "post", handleAs: "json", form: postData});
     },
 
+    uploadNewCardData: function (userName, itemIdData, itemIdMetadata) {
+      var baseRestURL = "https://mpa.esrisg.dev/arcgis/rest/services/Gptools";
+      var APIPath = "/NewCardScript/GPServer/NewItemScript/submitJob";
+      var url = baseRestURL + APIPath;
+
+      var postData = new FormData();
+      postData.append("f", "pjson");
+      postData.append("uploaded_by", userName);
+      postData.append("data_file", "{\"itemID\": \"" + itemIdData + "\"}");
+      postData.append("metadata_file", "{\"itemID\": \"" + itemIdMetadata + "\"}");
+      
+      return esriRequest({url: url, method: "post", handleAs: "json", form: postData});
+    },
+
     uploadDataGP: function(userName, itemIdData, itemIdMetadata) {
       var baseRestURL = "https://mpa.esrisg.dev/arcgis/rest/services/Geoportal";
       var APIPath = "/UploadScript/GPServer/UploadScript/submitJob";
@@ -197,6 +213,20 @@ function(declare, lang, Deferred, dojoRequest, xhr, Geoprocessor, esriRequest, d
       var url = baseRestURL + APIPath;
       
       var postData = new FormData();
+      console.log(file);
+      postData.append("file", file, fileName);
+      postData.append("f", "json");
+
+      return esriRequest({url: url, method: "post", handleAs: "json", form: postData});
+    },
+
+    uploadNewCardFile: function (file, fileName) {
+      var baseRestURL = "https://mpa.esrisg.dev/arcgis/rest/services/Gptools";
+      var APIPath = "/NewCardScript/GPServer/uploads/upload";
+      var url = baseRestURL + APIPath;
+      
+      var postData = new FormData();
+      console.log(file);
       postData.append("file", file, fileName);
       postData.append("f", "json");
 
@@ -208,14 +238,27 @@ function(declare, lang, Deferred, dojoRequest, xhr, Geoprocessor, esriRequest, d
       var APIPath = "/UploadScript/GPServer/uploads/upload";
       var url = baseRestURL + APIPath;
 
-      var formNode = domConstruct.create("form", {"method": "post","enctype": "multipart/form-data"});
+      var formNode = domConstruct.create("form", {"method": "post", "enctype": "multipart/form-data"});
       var formData = new FormData(formNode);
       var blob = new Blob([xmlData], {type: "application/xml"});
-      var file = new File([blob], title, {type: "application/xml", title: title, lastModifiedDate: Date.now()});
+      var file = new File([blob], title, {type: "application/xml", name: title, lastModifiedDate: Date.now()});
+      console.log(file);
       formData.append("file", file, title);
       formData.append("f", "json");
 
       return esriRequest({url: url, method: "post", handleAs: "json", form: formData});
+    },
+
+    uploadNewCardMetadataFile: function (file, fileName) {
+      var baseRestURL = "https://mpa.esrisg.dev/arcgis/rest/services/Gptools";
+      var APIPath = "/NewCardScript/GPServer/uploads/upload";
+      var url = baseRestURL + APIPath;
+
+      var postData = new FormData();
+      postData.append("file", file, fileName);
+      postData.append("f", "json");
+
+      return esriRequest({url: url, method: "post", handleAs: "json", form: postData});
     },
 
     completeCallback: function(jobInfo) {
@@ -271,8 +314,8 @@ function(declare, lang, Deferred, dojoRequest, xhr, Geoprocessor, esriRequest, d
     },
 	
 	  createAuditTrail: function (auditTrailTypeId, actionToId, remark, notes, createdBy) {
-      var baseRestURL = "http://127.0.0.1:5000";
-      var APIPath = "/create";
+      var baseRestURL = "https://mpa.esrisg.dev/arcgis/rest/services/Geoportal";
+      var APIPath = "/AuditTrailScript/GPServer/AuditTrailScript/create";
       var url = baseRestURL + APIPath;
       // url = this.appendAccessToken(url);
 

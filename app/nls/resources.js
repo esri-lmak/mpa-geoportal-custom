@@ -47,7 +47,9 @@ define({
         createMetadata: "Create Metadata",
         myProfile: "My Profile",
         uploadMetadata: "Upload Metadata",
-        pendingRequests: "Pending Requests"
+        uploadDataMetadata: "Upload Data & Metadata",
+        pendingRequests: "Pending Requests",
+        pendingUploadRequests: "Pending Upload Requests"
       }
     },
     

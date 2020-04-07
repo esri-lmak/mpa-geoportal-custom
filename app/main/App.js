@@ -25,9 +25,10 @@ define(["dojo/_base/declare",
         "app/main/Map3DPanel",
         "app/main/AboutPanel",
         "app/content/MetadataEditor",
-        "app/content/UploadMetadata"], 
+        "app/content/UploadMetadata",
+        "app/content/UploadDataMetadata"],
 function(declare, lang, topic, appTopics, Templated, template, i18n, util, SearchPanel, MapPanel, Map3DPanel, AboutPanel,
-    MetadataEditor, UploadMetadata) {
+    MetadataEditor, UploadMetadata, UploadDataMetadata) {
 
   var oThisClass = declare([Templated], {
 
@@ -106,6 +107,10 @@ function(declare, lang, topic, appTopics, Templated, template, i18n, util, Searc
     uploadClicked: function() {
       if (AppContext.appUser.isPublisher()) (new UploadMetadata()).show();
     },
+
+    uploadDataMetadataClicked: function() {
+      if (AppContext.appUser.isPublisher()) (new UploadDataMetadata()).show();
+    },
     
     /* =================================================================================== */
     
@@ -138,8 +143,10 @@ function(declare, lang, topic, appTopics, Templated, template, i18n, util, Searc
         // Specific to MPA - Pending Requests
         if (AppContext.appUser.isAdmin()) {
           updateHref(this.pendingRequestsNode, this.pendingRequestsLink, "/geoportal/pending-requests.html")
+          updateHref(this.pendingUploadRequestsNode, this.pendingUploadRequestsLink, "/geoportal/pending-upload-requests.html")
         } else {
           this.pendingRequestsNode.style.display = "none";
+          this.pendingUploadRequestsNode.style.display = "none";
         }
       } else {
         this.usernameNode.innerHTML = "";
@@ -151,6 +158,7 @@ function(declare, lang, topic, appTopics, Templated, template, i18n, util, Searc
         updateHref(this.myProfileNode, this.myProfileLink,null);
         // Specific to MPA - Pending Requests
         this.pendingRequestsNode.style.display = "none";
+        this.pendingUploadRequestsNode.style.display = "none";
       }
       
       var isAdmin = AppContext.appUser.isAdmin();
@@ -164,7 +172,10 @@ function(declare, lang, topic, appTopics, Templated, template, i18n, util, Searc
         else nd.style.display = "none";
       });
       
-      if (!FileReader) this.uploadNode.style.display = "none";
+      if (!FileReader) {
+        this.uploadNode.style.display = "none";
+        this.uploadDataMetadataNode.style.display = "none";
+      }
     },
 
   });

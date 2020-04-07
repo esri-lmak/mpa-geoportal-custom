@@ -41,6 +41,11 @@
 							${i18n.nav.options.uploadMetadata}
 						</a>
 					</li>
+					<li data-role="publisher" data-dojo-attach-point="uploadDataMetadataNode">
+						<a href="#" class="small" data-dojo-attach-event="onclick: uploadDataMetadataClicked">
+							${i18n.nav.options.uploadDataMetadata}
+						</a>
+					</li>
 					<li class="divider"></li>
 					<li data-dojo-attach-point="createAccountNode">
 						<a href="#" class="small" target="_blank" data-dojo-attach-point="createAccountLink">
@@ -50,6 +55,11 @@
 					<li data-dojo-attach-point="pendingRequestsNode">
 						<a href="#" class="small" target="_blank" data-dojo-attach-point="pendingRequestsLink">
 							${i18n.nav.options.pendingRequests}
+						</a>
+					</li>
+					<li data-dojo-attach-point="pendingUploadRequestsNode">
+						<a href="#" class="small" target="_blank" data-dojo-attach-point="pendingUploadRequestsLink">
+							${i18n.nav.options.pendingUploadRequests}
 						</a>
 					</li>
 					<li data-dojo-attach-point="myProfileNode">

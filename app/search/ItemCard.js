@@ -155,6 +155,8 @@ function(declare, lang, array, string, topic, dojoRequest, xhr, on, appTopics, d
         client.getRequestByFileIdAndRequestor(item.fileid, this.userName).then(function (response) {
           if (response.features.length > 0) {
             this.requestStatus = response.features[0].attributes.status;
+          } else {
+            this.requestStatus = null;
           }
         }).otherwise(function (err) {
           console.error("Unable to retrieve request.");
@@ -514,6 +516,7 @@ function(declare, lang, array, string, topic, dojoRequest, xhr, on, appTopics, d
           }
         }));
 
+        /* 
         links.push(domConstruct.create("a", {
           "class": "small",
           href: "javascript:void(0)",
@@ -522,6 +525,7 @@ function(declare, lang, array, string, topic, dojoRequest, xhr, on, appTopics, d
             (new UploadDataMetadata({itemId: itemId})).show();
           }
         }));
+        */
       }
       
       if (isAdmin) {
