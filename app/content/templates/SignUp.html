@@ -1,0 +1,61 @@
+<div>
+  <div>
+    <p>${i18n.content.signUp.instructions}</p>
+  </div>
+
+  <div class="form-group g-scrollable-typeahead" style="position: relative;">
+	  <label for="${id}_firstName">${i18n.content.signUp.firstName}</label>
+	  <div>
+	    <input id="${id}_firstName" type="text" class="form-control" 
+	      data-dojo-attach-point="firstNameInput">
+    </div>
+    <p id="firstNameError" class="g-metadata-validation-errors text-danger"></p>
+  </div>
+
+  <div class="form-group g-scrollable-typeahead" style="position: relative;">
+	  <label for="${id}_lastName">${i18n.content.signUp.lastName}</label>
+	  <div>
+	    <input id="${id}_lastName" type="text" class="form-control" 
+	      data-dojo-attach-point="lastNameInput">
+    </div>
+    <p id="lastNameError" class="g-metadata-validation-errors text-danger"></p>
+  </div>
+
+  <div class="form-group g-scrollable-typeahead" style="position: relative;">
+	  <label for="${id}_username">${i18n.content.signUp.username}</label>
+	  <div>
+	    <input id="${id}_username" type="text" class="form-control" 
+	      data-dojo-attach-point="usernameInput">
+    </div>
+    <p id="usernameError" class="g-metadata-validation-errors text-danger"></p>
+  </div>
+
+  <div class="form-group g-scrollable-typeahead" style="position: relative;">
+	  <label for="${id}_emailAddress">${i18n.content.signUp.emailAddress}</label>
+	  <div>
+	    <input id="${id}_emailAddress" type="text" class="form-control" 
+	      data-dojo-attach-point="emailAddressInput">
+    </div>
+    <p id="emailAddressError" class="g-metadata-validation-errors text-danger"></p>
+  </div>
+
+  <div class="form-group g-scrollable-typeahead" style="position: relative;">
+	  <label for="${id}_organisation">${i18n.content.signUp.organisation}</label>
+	  <div>
+      <select id="${id}_organisation" class="form-control" data-dojo-attach-point="organisationSelect">
+        <option value=""></option>
+        <option value="ava">${i18n.organisation.ava}</option>
+        <option value="bca">${i18n.organisation.bca}</option>
+        <option value="jtc">${i18n.organisation.jtc}</option>
+        <option value="mpa">${i18n.organisation.mpa}</option>
+        <option value="nea">${i18n.organisation.nea}</option>
+        <option value="nparks">${i18n.organisation.nparks}</option>
+        <option value="pub">${i18n.organisation.pub}</option>
+        <option value="ura">${i18n.organisation.ura}</option>
+      </select>
+    </div>
+    <p id="organisationError" class="g-metadata-validation-errors text-danger"></p>
+  </div>
+
+  <div class="g-metadata-validation-errors text-danger" data-dojo-attach-point="validationErrorsNode"></div>
+</div>

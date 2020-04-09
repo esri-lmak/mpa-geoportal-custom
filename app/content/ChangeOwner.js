@@ -98,12 +98,10 @@ function(declare, keys, on, topic, appTopics, BulkEdit, template, i18n,
             var data = {
                 "size": 500,
                 "query": {
-                  "match": {
-                    "sys_owner_s": {
-                      "query": query,
-                      "type": "phrase_prefix"
-                    }
+                  "match_phrase_prefix": {
+                    "sys_owner_txt": query
                   }
+                  
                 },
                 "aggregations": {
                   "usernames": {

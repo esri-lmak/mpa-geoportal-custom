@@ -52,7 +52,7 @@
 <script>
 require(["app"],function() {
   require(["dojo/ready","app/context/AppContext","app/context/AppStarter"],
-  function(ready,AppContext,AppStarter) {
+  function(ready, AppContext, AppStarter) {
     window.AppContext = new AppContext();
     ready(function() {
       esri.config.defaults.io.proxyUrl = "viewer/proxy.jsp";

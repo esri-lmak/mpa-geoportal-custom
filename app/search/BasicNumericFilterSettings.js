@@ -16,7 +16,7 @@ define(["dojo/_base/declare",
         "dojo/_base/lang",
         "dojo/number",
         "app/search/SearchComponentSettings",
-        "dojo/text!./templates/SpatialFilterSettings.html",
+        "dojo/text!./templates/BasicNumericFilterSettings.html",
         "dojo/i18n!app/nls/resources"], 
 function(declare, lang, number, SearchComponentSettings, template, i18n) {
   
@@ -32,16 +32,15 @@ function(declare, lang, number, SearchComponentSettings, template, i18n) {
     /* SearchComponentSettings API ============================================= */
     
     getTitle: function() {
-      return i18n.search.spatialFilter.settings.caption;
+      return i18n.search.numericFilter.settings.caption;
     },
     
     init: function(settings) {
       this.inherited(arguments);
       if (!settings) settings = this.targetWidget;
       this.componentLabelInput.value = settings.label;
-      this.aggCheckbox.checked = settings.allowAggregation;
       this.fieldInput.value = settings.field;
-      this.pointFieldInput.value = settings.pointField;
+      this.nestedPathInput.value = settings.nestedPath;
     },
     
     reset: function() {
@@ -58,10 +57,8 @@ function(declare, lang, number, SearchComponentSettings, template, i18n) {
       };
       
       this.targetWidget.label = chkInput(this.componentLabelInput,this.targetWidget.label);
-      this.targetWidget.allowAggregation = !!this.aggCheckbox.checked;
       this.targetWidget.field = chkInput(this.fieldInput,this.targetWidget.field);
-      this.targetWidget.pointField = chkInput(this.pointFieldInput,this.targetWidget.pointField);
-
+      this.targetWidget.nestedPath = chkInput(this.nestedPathInput,null);
       this.targetWidget.dropPane.set("title",this.targetWidget.label);
       this.targetWidget.search();
       this.hideDialog();

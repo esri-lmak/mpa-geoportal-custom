@@ -336,6 +336,22 @@ function(declare, lang, Deferred, dojoRequest, xhr, domConstruct, Geoprocessor, 
       };
 
       return xhr.post(url, info);
+    },
+
+    submitSignUp: function (firstName, lastName, username, emailAddress, organisation) {
+      var baseRestURL = "https://mpa.esrisg.dev/arcgis/rest/services/Geoportal";
+      var APIPath = "/SignUpScript/GPServer/SignUpScript/submitJob";
+      var url = baseRestURL + APIPath;
+      
+      var postData = new FormData();
+      postData.append("firstName", firstName);
+      postData.append("lastName", lastName);
+      postData.append("username", username);
+      postData.append("emailAddress", emailAddress);
+      postData.append("organisation", organisation);
+      postData.append("f", "json");
+
+      return esriRequest({url: url, method: "post", handleAs: "json", form: postData});
     }
  
   });

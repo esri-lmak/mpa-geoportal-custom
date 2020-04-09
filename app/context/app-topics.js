@@ -35,7 +35,10 @@ define([],function(){var obj={
   SignedIn: "app/SignedIn",
 
   /* params - {response:obj} */
-  RequestSubmitted: "app/RequestSubmitted"
+  RequestSubmitted: "app/RequestSubmitted",
+
+  /* params - {response:obj} */
+  SignUpSubmitted: "app/SignUpSubmitted"
 
 // .......................................................................................
 };return obj;});

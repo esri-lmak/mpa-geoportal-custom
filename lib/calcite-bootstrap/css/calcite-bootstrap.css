@@ -1502,15 +1502,13 @@ pre {
 .container {
   margin-right: auto;
   margin-left: auto;
-  padding-left: 15px;
-  padding-right: 15px; }
+  /* padding-left: 15px; */
+  /* padding-right: 15px; */ }
   .container:before, .container:after {
     content: " ";
     display: table; }
   .container:after {
     clear: both; }
-  /* Specific for MPA */
-  /*
   @media (min-width: 768px) {
     .container {
       width: 750px; } }
@@ -1520,7 +1518,6 @@ pre {
   @media (min-width: 1200px) {
     .container {
       width: 1170px; } }
-  */
 
 .container-fluid {
   margin-right: auto;
@@ -2486,7 +2483,7 @@ fieldset[disabled]
 .input-sm, .input-group-sm > .form-control,
 .input-group-sm > .input-group-addon,
 .input-group-sm > .input-group-btn > .btn {
-  height: 30px;
+  height: 24px;
   padding: 5px 10px;
   font-size: 12px;
   line-height: 1.5;
@@ -3763,10 +3760,10 @@ tbody.collapse.in {
 
 .navbar-brand {
   float: left;
-  padding: 20.5px 15px;
+  padding: 10px 15px;
   font-size: 20px;
   line-height: 24px;
-  height: 65px; }
+  height: 48px; }
   .navbar-brand:hover, .navbar-brand:focus {
     text-decoration: none; }
   .navbar-brand > img {
@@ -4065,7 +4062,7 @@ tbody.collapse.in {
   .breadcrumb > li {
     display: inline-block; }
     .breadcrumb > li + li:before {
-      content: "/ ";
+      content: "/ ";
       padding: 0 5px;
       color: #cccccc; }
   .breadcrumb > .active {

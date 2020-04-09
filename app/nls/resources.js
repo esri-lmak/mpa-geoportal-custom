@@ -14,7 +14,7 @@
  */
 define({
   root: {
-    
+
     general: {
       cancel: "Cancel",
       clear: "Clear",
@@ -27,32 +27,37 @@ define({
       deleting: "Deleting...",
       updating: "Updating...",
       uploading: "Uploading...",
+      submitting: "Submission in Progress...",
       submittingRequest: "Submitting Request...",
       working: "...",
     },
-    
+
     nav: {
       brand: "Geoportal",
       home: "Home",
       search: "Search",
+      catalog: "Catalog",
       map: "Map",
       map3d: "Map3D",
       about: "About",
+      admin: "Admin",
       content: "Content",
       welcomePattern: "{name}",
       signIn: "Sign In",
       signOut: "Sign Out",
+      signUp: "Sign Up",
       options: {
         createAccount: "Create Account",
         createMetadata: "Create Metadata",
         myProfile: "My Profile",
         uploadMetadata: "Upload Metadata",
-        uploadDataMetadata: "Upload Data & Metadata",
+        uploadDataMetadata: "Upload New",
         pendingRequests: "Pending Requests",
-        pendingUploadRequests: "Pending Upload Requests"
+        pendingUploadRequests: "Pending Upload Requests",
+        editFacet: "Edit Facet"
       }
     },
-    
+
     login: {
       caption: "Sign In",
       label: "Sign In",
@@ -61,22 +66,25 @@ define({
       incomplete: "A Username and Password are required.",
       invalidCredentials: "Invalid credentials."
     },
-    
+
     search: {
       criteria: {
         map: "Map",
         timePeriod: "Time Period",
         date: "Date",
+        paleoDate: "Date (Paleo)",
         owner: "Owner",
         topicCategory: "Topic Category",
         metadataType: "Metadata Type",
         organizations: "Organizations",
         keywords: "Keywords",
+        originType: "Origin Type",
         origin: "Source of Origin",
         approvalStatus: "Approval Status",
         access: "Access",
         accessGroups: "Access Groups",
-        missingSource: "Editor/Upload"
+        missingSource: "Editor/Upload",
+        createFilter: "Create Filter"
       },
       componentSettings: {
         componentLabel: "Label",
@@ -84,7 +92,8 @@ define({
         reset: "Reset"
       },
       searchBox: {
-        search: "Search"
+        search: "Search",
+        searchCatalog: "Search the Catalog"
       },
       spatialFilter: {
         label: "Map",
@@ -94,7 +103,13 @@ define({
         countPattern: "{count} centered here",
         settings: {
           caption: "Spatial Filter",
-          aggregations: "Aggregations"
+          aggregations: "Aggregations",
+          field: "Shape Field",
+          fieldPlaceholder: "",
+          fieldNote: "(for search, e.g. envelope_geo, shape_geo, envelope_cen_pt)",
+          pointField: "Point Field",
+          pointFieldPlaceholder: "",
+          pointFieldNote: "(for aggregation, e.g. envelope_cen_pt)"
         }
       },
       temporalFilter: {
@@ -151,7 +166,13 @@ define({
         rangePattern: "{from}..{to}",
         countPattern: "{count} aggregated here",
         searchTip: "Search",
+        searchLabel: "Search query:",
         interval: "Interval",
+        rangeTip: "Specify desired numerical range",
+        rangeLabel: "Specify range:",
+        fromLabel: "From:",
+        toLabel: "To:",
+        applyLabel: "Apply",
         settings: {
           caption: "Numeric Filter",
           field: "Numeric Field",
@@ -187,18 +208,20 @@ define({
         byRelevance: "By Relevance",
         byTitle: "By Title",
         byDate: "By Date",
+        asc: "ASC",
+        desc: "DESC",
       },
       paging: {
-        first: "<<",
+        first: "First",
         firstTip: "First",
-        previous: "<",
+        previous: "Previous",
         previousTip: "Previous",
-        next: ">",
+        next: "Next",
         nextTip: "Next",
-        last: ">>",
+        last: "Last",
         lastTip: "Last",
         lastTipDisabled: "Result exceeds limit of ${searchLimit} records.",
-        pagePattern: "Page {page}",
+        pagePattern: "{page}",
         countPattern: "{count} items"
       },
       termsAggregation: {
@@ -230,16 +253,19 @@ define({
         error: "Error loading preview"
       },
       links: {
+        web: "Web result",
         atom: "ATOM result",
         rss:  "RSS result",
         json: "JSON result",
         csv:  "CSV result",
         csw:  "CSW result",
-        kml:  "KML result"
+        kml:  "KML result",
+        dcat: "DCAT result"
       }
     },
-    
+
     item: {
+      notAvailable: "N/A",
       actions: {
         html: "HTML",
         xml: "XML",
@@ -255,7 +281,7 @@ define({
         options: {
           caption: "Options",
           editMetadata: "Edit Metadata",
-		      viewMetadata: "View Metadata",
+          viewMetadata: "View Metadata",
           uploadMetadata: "Upload Metadata",
           uploadData: "Upload Data",
           uploadDataMetadata: "Upload Data & Metadata"
@@ -274,7 +300,7 @@ define({
         status: "Service availability = ${score}%"
       }
     },
-    
+
     content: {
       updateButton: "Update",
       applyTo: {
@@ -313,7 +339,7 @@ define({
         reviewed: "Reviewed",
         disapproved: "Disapproved",
         incomplete: "Incomplete",
-		    archived: "Archived",
+        archived: "Archived",
         posted: "Posted",
         draft: "Draft"
       },
@@ -321,8 +347,8 @@ define({
         caption: "Set Field",
         tags: {
           caption: "Tags",
-          value: "User Tags (comma delimited)", 
-        }, 
+          value: "User Tags (comma delimited)",
+        },
         advanced: {
           caption: "Advanced",
           prompt: "",
@@ -340,7 +366,7 @@ define({
         button: "Upload"
       },
       uploadDataMetadata: {
-        caption: "Upload Data & Metadata",
+        caption: "Upload New",
         instructions: "An email will be sent to you on the outcome of your upload request.",
         button: "Upload"
       },
@@ -353,9 +379,19 @@ define({
         caption: "Approve Request",
         instructions: "The request will be approved.",
         button: "Approve"
+      },
+      signUp: {
+        caption: "Sign Up",
+        instructions: "Please enter all the mandatory fields to sign up an account.",
+        firstName: "First Name",
+        lastName: "Last Name",
+        username: "Username",
+        emailAddress: "Email Address",
+        organisation: "Organisation",
+        button: "Submit"
       }
     },
-    
+
     metadataEditor: {
       caption: "Metadata",
       loading: "Starting editor...",
@@ -363,7 +399,7 @@ define({
       asTemplatePrompt: "Reset identifiers",
       xmlViewOnly: "The type of metadata associated with this item is not supported by the editor."
     },
-    
+
     errorTranslations: {
       "Unrecognized metadata type.": null,
       "Access denied - not owner.": null,
@@ -372,7 +408,13 @@ define({
       "org.xml.sax.SAXParseException; lineNumber: 1; columnNumber: 1; Content is not allowed in prolog.": "Not an XML file.",
       "javax.json.stream.JsonParsingException: Invalid JSON": "Invalid JSON"
     },
-	
+
+    footer: {
+      "copyright": "© Geoportal",
+      "quickLink1": "Quick Link 1",
+      "quickLink2": "Quick Link 2"
+    },
+    
     approvalStatus: {
       none: "none",
       approved: "approved",
@@ -397,7 +439,17 @@ define({
       deleteMetadata: 7,
       signIn: 8,
       signOut: 9
+    },
+
+    organisation: {
+      ava: "AVA",
+      bca: "BCA",
+      jtc: "JTC",
+      mpa: "MPA",
+      nea: "NEA",
+      nparks: "NParks",
+      pub: "PUB",
+      ura: "URA"
     }
-	
   }
 });
