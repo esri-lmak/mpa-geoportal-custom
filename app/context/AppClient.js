@@ -344,10 +344,10 @@ function(declare, lang, Deferred, dojoRequest, xhr, domConstruct, Geoprocessor, 
       var url = baseRestURL + APIPath;
       
       var postData = new FormData();
-      postData.append("firstName", firstName);
-      postData.append("lastName", lastName);
+      postData.append("first_name", firstName);
+      postData.append("last_name", lastName);
       postData.append("username", username);
-      postData.append("emailAddress", emailAddress);
+      postData.append("email", emailAddress);
       postData.append("organisation", organisation);
       postData.append("f", "json");
 

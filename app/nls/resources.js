@@ -54,6 +54,7 @@ define({
         uploadDataMetadata: "Upload New",
         pendingRequests: "Pending Requests",
         pendingUploadRequests: "Pending Upload Requests",
+        pendingSignUpRequests: "Pending Sign Up Requests",
         editFacet: "Edit Facet"
       }
     },
@@ -389,6 +390,12 @@ define({
         emailAddress: "Email Address",
         organisation: "Organisation",
         button: "Submit"
+      },
+      sessionTimeout: {
+        caption: "Session Timeout",
+        instructions: "Your session is about to expire due to inactivity.",
+        button1: "Stay Connected",
+        button2: "Sign Out Now"
       }
     },
 

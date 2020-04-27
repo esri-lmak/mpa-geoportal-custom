@@ -75,6 +75,20 @@ function (declare, lang, array, aspect, domConstruct, topic, appTopics, Template
       if (username.length == 0) {
         validation++;
         document.getElementById("usernameError").innerHTML = "Username is mandatory.";
+      } else {
+        var client = new AppClient();
+        client.getUserByUsername(username).then(function (response) {
+          if (response.features.length > 0) {
+            var existingUsername = response.features[0].attributes.username;
+            if (existingUsername.length > 0) {
+              validation++;
+              document.getElementById("usernameError").innerHTML = "Username is exists.";
+            }
+          }
+        }).otherwise(function (err) {
+          console.error("Unable to retrieve user.");
+          console.error(err);
+        });
       }
 
       if (emailAddress.length == 0) {

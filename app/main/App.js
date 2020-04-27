@@ -27,14 +27,21 @@ define(["dojo/_base/declare",
         "app/content/MetadataEditor",
         "app/content/UploadMetadata",
         "app/content/UploadDataMetadata",
-        "app/content/SignUp"],
+        "app/content/SignUp",
+        "app/content/SessionTimeout"],
 function(declare, lang, topic, appTopics, Templated, template, i18n, util, SearchPanel, MapPanel, Map3DPanel, AboutPanel,
-    MetadataEditor, UploadMetadata, UploadDataMetadata, SignUp) {
+    MetadataEditor, UploadMetadata, UploadDataMetadata, SignUp, SessionTimeout) {
 
   var oThisClass = declare([Templated], {
 
     i18n: i18n,
     templateString: template,
+
+    // Specific to MPA - Session Timeout due to Inactivity
+    warningAfter: 180000,
+    signOutAfter: 300000,
+    // 1 minutes = 60000, 3 minutes = 180000, 5 minutes = 300000, 7 minutes = 420000, 10 minutes = 600000
+    // 15 minutes = 900000, 20 minutes = 1200000, 25 minutes = 1500000, 30 minutes = 1800000
 
     postCreate: function() {
       this.inherited(arguments);
@@ -170,10 +177,14 @@ function(declare, lang, topic, appTopics, Templated, template, i18n, util, Searc
         if (AppContext.appUser.isAdmin()) {
           updateHref(this.pendingRequestsNode, this.pendingRequestsLink, "/geoportal/pending-requests.html")
           updateHref(this.pendingUploadRequestsNode, this.pendingUploadRequestsLink, "/geoportal/pending-upload-requests.html")
+          updateHref(this.pendingSignUpRequestsNode, this.pendingSignUpRequestsLink, "/geoportal/pending-sign-up-requests.html")
         } else {
           this.pendingRequestsNode.style.display = "none";
           this.pendingUploadRequestsNode.style.display = "none";
+          this.pendingSignUpRequestsNode.style.display = "none";
         }
+
+        this.idleLogout();
       } else {
         this.usernameNode.innerHTML = "";
         this.userOptionsNode.style.display = "none";
@@ -184,18 +195,21 @@ function(declare, lang, topic, appTopics, Templated, template, i18n, util, Searc
         this.adminOptionsBtnNode.style.display = "none";
         updateHref(this.createAccountNode, this.createAccountLink, this.getCreateAccountUrl());
         updateHref(this.myProfileNode, this.myProfileLink, null);
-         // Specific to MPA - Pending Requests
-         this.pendingRequestsNode.style.display = "none";
-         this.pendingUploadRequestsNode.style.display = "none";
+        // Specific to MPA - Pending Requests
+        this.pendingRequestsNode.style.display = "none";
+        this.pendingUploadRequestsNode.style.display = "none";
+        this.pendingSignUpRequestsNode.style.display = "none";
+
+        this.clearLogout();
       }
 
       var isAdmin = AppContext.appUser.isAdmin();
       var isPublisher = AppContext.appUser.isPublisher();
-      $("li[data-role='admin']").each(function(i,nd) {
+      $("li[data-role='admin']").each(function(i, nd) {
         if (isAdmin) nd.style.display = "";
         else nd.style.display = "none";
       });
-      $("li[data-role='publisher']").each(function(i,nd) {
+      $("li[data-role='publisher']").each(function(i, nd) {
         if (isPublisher) nd.style.display = "";
         else nd.style.display = "none";
       });
@@ -219,6 +233,37 @@ function(declare, lang, topic, appTopics, Templated, template, i18n, util, Searc
     _onHome: function() {
       this.searchPanelLink.click()
       location.hash = "searchPanel"
+    },
+
+    idleLogout: function() {
+      var self = this;
+      window.onload = self.resetTimer();
+      window.onmousemove = self.resetTimer();
+      window.onmousedown = self.resetTimer();  // catches touchscreen presses as well      
+      window.ontouchstart = self.resetTimer(); // catches touchscreen swipes as well 
+      window.onclick = self.resetTimer();      // catches touchpad clicks as well
+      window.onkeypress = self.resetTimer();   
+      window.addEventListener('scroll', self.resetTimer(), true);
+    },
+
+    resetTimer: function() {
+      clearTimeout(this.warningAfter);
+      clearTimeout(this.signOutAfter);
+
+      setTimeout(function() {
+        // Display session warning timeout dialog
+        (new SessionTimeout()).show();
+      }, this.warningAfter);  
+
+      setTimeout(function() {
+        // Logout
+        AppContext.appUser.signOut();
+      }, this.signOutAfter);
+    },
+
+    clearLogout: function() {
+      clearTimeout(this.warningAfter);
+      clearTimeout(this.signOutAfter);
     }
 
   });

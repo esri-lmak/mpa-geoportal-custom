@@ -20,7 +20,8 @@ define(["dojo/_base/declare",
 		    "dojo/request",
 		    "dojo/request/xhr",
 		    "dojo/on",
-		    "app/context/app-topics",
+        "app/context/app-topics",
+        "dojo/dom-style",
 		    "dojo/dom-class",
 		    "dojo/dom-construct",
 		    "dijit/_WidgetBase",
@@ -49,7 +50,7 @@ define(["dojo/_base/declare",
 		    "app/preview/PreviewUtil",
 		    "app/preview/PreviewPane",
 		    "app/content/ApplyTo"], 
-function(declare, lang, array, string, topic, dojoRequest, xhr, on, appTopics, domClass, domConstruct,
+function(declare, lang, array, string, topic, dojoRequest, xhr, on, appTopics, domStyle, domClass, domConstruct,
   _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, Tooltip, TooltipDialog, popup, 
   template, i18n, AppClient, ServiceType, util, ConfirmationDialog, ChangeOwner, DeleteItems,
   MetadataEditor, gxeConfig, SetAccess, SetApprovalStatus, SetField, UploadMetadata,
@@ -153,13 +154,13 @@ function(declare, lang, array, string, topic, dojoRequest, xhr, on, appTopics, d
       // If not admin not required to request
       // If confidential requires request to be able to add to map
       // If restricted no request required and able to add to map
-      if (!AppContext.appUser.isAdmin()) {
+      if (!AppContext.appUser.isAdmin() && AppContext.appUser.isSignedIn()) {
         this._renderRequest(item, links);
       }
-      this._renderItemLinks(hit._id,item);
-      this._renderLinksDropdown(item,links);
-      this._renderOptionsDropdown(hit._id,item);
-      this._renderAddToMap(item,links);
+      this._renderItemLinks(hit._id, item);
+      this._renderLinksDropdown(item, links);
+      this._renderOptionsDropdown(hit._id, item);
+      this._renderAddToMap(item, links);
       this._renderServiceStatus(item);
       this._renderUrlLinks(item);
       this._renderId(item);
@@ -213,7 +214,7 @@ function(declare, lang, array, string, topic, dojoRequest, xhr, on, appTopics, d
           $(ddul).css('top', t);
         }
       };
-      $(ddul).css("position","fixed");
+      $(ddul).css("position", "fixed");
       $(dd).on('click', function() {reposition();});
       //$(window).scroll(function() {reposition();});
       //$(this.itemsNode).scroll(function() {reposition();});
@@ -294,7 +295,6 @@ function(declare, lang, array, string, topic, dojoRequest, xhr, on, appTopics, d
         // console.warn("serviceType", serviceType.isSet(), serviceType);
 
         // If URL present, File ID present and Confidential classification
-        // TO DO check whether request is pending
         setTimeout(function() {
           console.log(this.requestStatus);
           if (serviceType.isSet() && item.fileid != "-" && this.metadataDataClassification == "Confidential") {
@@ -337,7 +337,6 @@ function(declare, lang, array, string, topic, dojoRequest, xhr, on, appTopics, d
         serviceType.checkUrl(u);
         // console.warn("serviceType", serviceType.isSet(), serviceType);
 
-        // TO DO check whether request is approved
         if (serviceType.isSet()) {
           domConstruct.create("a", {
             href: "javascript:void(0)",
@@ -362,9 +361,9 @@ function(declare, lang, array, string, topic, dojoRequest, xhr, on, appTopics, d
     _renderItemLinks: function(itemId, item) {
       if (AppContext.appConfig.searchResults.showLinks) {
         var actionsNode = this.actionsNode;
-        var uri = "./rest/metadata/item/"+encodeURIComponent(itemId);
+        var uri = "./rest/metadata/item/" + encodeURIComponent(itemId);
         var htmlNode = domConstruct.create("a", {
-          href: uri+"/html",
+          href: uri + "/html",
           target: "_blank",
           title: string.substitute(i18n.item.actions.titleFormat, {action: i18n.item.actions.html, title: item.title}),
           "aria-label": string.substitute(i18n.item.actions.titleFormat, {action: i18n.item.actions.html, title: item.title}),
@@ -372,7 +371,7 @@ function(declare, lang, array, string, topic, dojoRequest, xhr, on, appTopics, d
         } ,actionsNode);
 
         var xmlNode = domConstruct.create("a", {
-          href: uri+"/xml",
+          href: uri + "/xml",
           target: "_blank",
           title: string.substitute(i18n.item.actions.titleFormat, {action: i18n.item.actions.xml, title: item.title}),
           "aria-label": string.substitute(i18n.item.actions.titleFormat, {action: i18n.item.actions.xml, title: item.title}),
@@ -380,7 +379,7 @@ function(declare, lang, array, string, topic, dojoRequest, xhr, on, appTopics, d
         }, actionsNode);
 
         var jsonNode = domConstruct.create("a", {
-          href: uri+"?pretty=true",
+          href: uri + "?pretty=true",
           target: "_blank",
           title: string.substitute(i18n.item.actions.titleFormat, {action: i18n.item.actions.json, title: item.title}),
           "aria-label": string.substitute(i18n.item.actions.titleFormat, {action: i18n.item.actions.json, title: item.title}),
@@ -644,27 +643,15 @@ function(declare, lang, array, string, topic, dojoRequest, xhr, on, appTopics, d
       var title = item.title;
       var approvalStatus = "";
       var permissions = "";
-      var idx, text = "", v;
-      if (AppContext.appConfig.searchResults.showDate && typeof date === "string" && date.length > 0) {
-        idx = date.indexOf("T");
+     
+      if (typeof date === "string" && date.length > 0) {
+        var idx = date.indexOf("T");
         if (idx > 0) date = date.substring(0,idx);
         text = date;
       }
 
-      /* 
-      if (AppContext.appConfig.searchResults.showOwner && typeof owner === "string" && owner.length > 0) {
-        if (text.length > 0) text += " ";
-        text += owner;
-      } 
-      */
-      if (AppContext.appConfig.searchResults.showOrganisation && typeof organisation === "string" && organisation.length > 0) {
-        if (text.length > 0) text += " ";
-        text += organisation;
-      }
-
       if (AppContext.appUser.isAdmin() || this._isOwner(item)) {
-        if (AppContext.appConfig.searchResults.showAccess &&
-            AppContext.geoportal.supportsGroupBasedAccess) {
+        if (AppContext.geoportal.supportsGroupBasedAccess) {
           v = item.sys_access_s;
           if (text.length > 0) text += " - ";
           if (v === "private") {
@@ -699,37 +686,57 @@ function(declare, lang, array, string, topic, dojoRequest, xhr, on, appTopics, d
 
       // set individual fields
       /* 
-      if (owner.length > 0) {
-        util.setNodeText(this.ownerNode, owner);
+      if (AppContext.appConfig.searchResults.showOwner) {
+        if (owner.length > 0) {
+          util.setNodeText(this.ownerNode, owner);
+        } else {
+          util.setNodeText(this.ownerNode, i18n.item.notAvailable);
+        }
       } else {
-        util.setNodeText(this.ownerNode, i18n.item.notAvailable);
-      } 
+        domStyle.set(this.ownerSection, "display", "none")
+      }
       */
 
       // Specific to MPA
       // Display Organisation instead of Owner
-      if (organisation.length > 0) {
-        util.setNodeText(this.ownerNode, organisation);
+      if (AppContext.appConfig.searchResults.showOrganisation) {
+        if (organisation.length > 0) {
+          util.setNodeText(this.ownerNode, organisation);
+        } else {
+          util.setNodeText(this.ownerNode, i18n.item.notAvailable);
+        }
       } else {
-        util.setNodeText(this.ownerNode, i18n.item.notAvailable);
-      } 
-
-      if (date.length > 0) {
-        util.setNodeText(this.dateNode, date);
-      } else {
-        util.setNodeText(this.dateNode, i18n.item.notAvailable);
+        domStyle.set(this.ownerSection, "display", "none")
       }
 
-      if (approvalStatus.length > 0) {
-        util.setNodeText(this.approvalStatusNode, approvalStatus);
+      if (AppContext.appConfig.searchResults.showDate) {
+        if (date.length > 0) {
+          util.setNodeText(this.dateNode, date);
+        } else {
+          util.setNodeText(this.dateNode, i18n.item.notAvailable);
+        }
       } else {
-        util.setNodeText(this.approvalStatusNode, i18n.item.notAvailable);
+        domStyle.set(this.dateSection, "display", "none")
       }
 
-      if (permissions.length > 0) {
-        util.setNodeText(this.permissionsNode, permissions);
+      if (AppContext.appConfig.searchResults.showAccess) {
+        if (permissions.length > 0) {
+          util.setNodeText(this.permissionsNode, permissions);
+        } else {
+          util.setNodeText(this.permissionsNode, i18n.item.notAvailable);
+        }
       } else {
-        util.setNodeText(this.permissionsNode, i18n.item.notAvailable);
+        domStyle.set(this.permissionSection, "display", "none")
+      }
+
+      if (AppContext.appConfig.searchResults.showApprovalStatus) {
+        if (approvalStatus.length > 0) {
+          util.setNodeText(this.approvalStatusNode, approvalStatus);
+        } else {
+          util.setNodeText(this.approvalStatusNode, i18n.item.notAvailable);
+        }
+      } else {
+        domStyle.set(this.approvalStatusSection, "display", "none")
       }
     },
 
