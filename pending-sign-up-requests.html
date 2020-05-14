@@ -70,7 +70,7 @@
     $("#pendingRequestsTable").append(row);
 
     for (var i = 0; i < data.length; i++) {
-      if (data[i].alias != "OBJECTID") {
+      if (data[i].alias != "OBJECTID" && data[i].alias != "password") {
         row.append($("<th>" + data[i].alias + "</th>"));
       }
     }
@@ -105,7 +105,9 @@
 
     if (rowData.attributes.status == 'pending') {
       row.append($('<td><button class="btn" onclick="confirmApproveRequest(\'' + 
-        rowData.attributes.requestor + '\', \'' + rowData.attributes.file_id + '\')"><i class="fa fa-thumbs-up"></i></button></td>'));
+        rowData.attributes.firstname + '\', \'' + rowData.attributes.lastname + '\', \'' +
+        rowData.attributes.username + '\', \'' + rowData.attributes.email + '\', \'' +
+        rowData.attributes.organisation + '\')"><i class="fa fa-thumbs-up"></i></button></td>'));
     } else {
       row.append($("<td></td>"));
     }
@@ -115,9 +117,8 @@
     require(["app"],function() {
       require(["app/content/ApproveRequest", "app/context/AppClient"],
         function(ApproveRequest, AppClient) {
-          // (new ApproveRequest({requestor: requestor, fileId: fileId})).show();
           var client = new AppClient();
-          var response = client.approveSignUp(requestor, fileId, "approved");
+          var response = client.submitSignUp(firstname, lastname, username, email, organisation, "user_approved");
           var action = confirm("Are you sure you want to approve the request?");
           if (action == true) {
             alert("Request submitted successfully.");

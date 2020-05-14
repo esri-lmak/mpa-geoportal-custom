@@ -23,14 +23,16 @@ define(["dojo/_base/declare",
         "app/main/SearchPanel",
         "app/main/MapPanel",
         "app/main/Map3DPanel",
+        "app/main/FeedbackPanel",
+        "app/main/HelpPanel",
         "app/main/AboutPanel",
         "app/content/MetadataEditor",
         "app/content/UploadMetadata",
         "app/content/UploadDataMetadata",
         "app/content/SignUp",
         "app/content/SessionTimeout"],
-function(declare, lang, topic, appTopics, Templated, template, i18n, util, SearchPanel, MapPanel, Map3DPanel, AboutPanel,
-    MetadataEditor, UploadMetadata, UploadDataMetadata, SignUp, SessionTimeout) {
+function(declare, lang, topic, appTopics, Templated, template, i18n, util, SearchPanel, MapPanel, Map3DPanel, FeedbackPanel, 
+    HelpPanel, AboutPanel, MetadataEditor, UploadMetadata, UploadDataMetadata, SignUp, SessionTimeout) {
 
   var oThisClass = declare([Templated], {
 
@@ -71,6 +73,14 @@ function(declare, lang, topic, appTopics, Templated, template, i18n, util, Searc
 
       $("a[href='#aboutPanel']").on("shown.bs.tab",lang.hitch(this, function(e) {
         this.setHash('aboutPanel')
+      }));
+
+      $("a[href='#feedbackPanel']").on("shown.bs.tab",lang.hitch(this, function(e) {
+        this.setHash('feedbackPanel')
+      }));
+
+      $("a[href='#helpPanel']").on("shown.bs.tab",lang.hitch(this, function(e) {
+        this.setHash('helpPanel')
       }));
 
       topic.subscribe(appTopics.AddToMapClicked, lang.hitch(this, function(params) {
@@ -184,7 +194,7 @@ function(declare, lang, topic, appTopics, Templated, template, i18n, util, Searc
           this.pendingSignUpRequestsNode.style.display = "none";
         }
 
-        this.idleLogout();
+        // this.idleLogout();
       } else {
         this.usernameNode.innerHTML = "";
         this.userOptionsNode.style.display = "none";
@@ -199,8 +209,6 @@ function(declare, lang, topic, appTopics, Templated, template, i18n, util, Searc
         this.pendingRequestsNode.style.display = "none";
         this.pendingUploadRequestsNode.style.display = "none";
         this.pendingSignUpRequestsNode.style.display = "none";
-
-        this.clearLogout();
       }
 
       var isAdmin = AppContext.appUser.isAdmin();
@@ -259,14 +267,9 @@ function(declare, lang, topic, appTopics, Templated, template, i18n, util, Searc
         // Logout
         AppContext.appUser.signOut();
       }, this.signOutAfter);
-    },
-
-    clearLogout: function() {
-      clearTimeout(this.warningAfter);
-      clearTimeout(this.signOutAfter);
     }
 
   });
 
   return oThisClass;
-});
+}); 

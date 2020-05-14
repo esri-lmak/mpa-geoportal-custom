@@ -29,7 +29,20 @@
 				</a>
 			</li>
 
-			<!-- Specific to MPA About Panel befor admin -->
+			<!-- Specific to MPA Feedback and Help Panels -->
+			<li class="nav-item">
+				<a class="nav-link" href="#feedbackPanel" data-toggle="tab">
+					${i18n.nav.feedback}
+				</a>
+			</li>
+
+			<li class="nav-item">
+				<a class="nav-link" href="#helpPanel" data-toggle="tab">
+					${i18n.nav.help}
+				</a>
+			</li>
+
+			<!-- Specific to MPA About Panel before admin -->
 			<li class="nav-item">
 				<a class="nav-link" href="#aboutPanel" data-toggle="tab">
 					${i18n.nav.about}
@@ -144,6 +157,12 @@
 		</div>
 		<div id="map3DPanel" role="tabpanel" class="tab-pane fade">
 			<div data-dojo-type="app/main/Map3DPanel" data-dojo-attach-point="map3DPanel"></div>
+		</div>
+		<div id="feedbackPanel" role="tabpanel" class="tab-pane fade">
+			<div data-dojo-type="app/main/FeedbackPanel" data-dojo-attach-point="feedbackPanel"></div>
+		</div>
+		<div id="helpPanel" role="tabpanel" class="tab-pane fade">
+			<div data-dojo-type="app/main/HelpPanel" data-dojo-attach-point="helpPanel"></div>
 		</div>
 		<div id="aboutPanel" role="tabpanel" class="tab-pane fade">
 			<div data-dojo-type="app/main/AboutPanel" data-dojo-attach-point="aboutPanel"></div>

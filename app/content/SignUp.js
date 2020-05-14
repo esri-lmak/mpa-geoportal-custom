@@ -111,11 +111,7 @@ function (declare, lang, array, aspect, domConstruct, topic, appTopics, Template
       if (validation == 0) {
         dialog.okCancelBar.showWorking(i18n.general.submitting, true);
         var client = new AppClient();
-        // TO DO Remove when method is completed
-        setTimeout(function() {
-          dialog.hide();
-        }, 1500);
-        client.submitSignUp(firstName, lastName, username, emailAddress, organisation).then(function(response) {
+        client.submitSignUp(firstName, lastName, username, emailAddress, organisation, "user_create").then(function(response) {
           if (response) {
             // wait for real-time update
             setTimeout(function() {

@@ -338,9 +338,9 @@ function(declare, lang, Deferred, dojoRequest, xhr, domConstruct, Geoprocessor, 
       return xhr.post(url, info);
     },
 
-    submitSignUp: function (firstName, lastName, username, emailAddress, organisation) {
-      var baseRestURL = "https://mpa.esrisg.dev/arcgis/rest/services/Geoportal";
-      var APIPath = "/SignUpScript/GPServer/SignUpScript/submitJob";
+    submitSignUp: function (firstName, lastName, username, emailAddress, organisation, task) {
+      var baseRestURL = "https://mpa.esrisg.dev/arcgis/rest/services/Gptools";
+      var APIPath = "/ManageUserScript/GPServer/ManageUserScript/submitJob";
       var url = baseRestURL + APIPath;
       
       var postData = new FormData();
@@ -349,9 +349,20 @@ function(declare, lang, Deferred, dojoRequest, xhr, domConstruct, Geoprocessor, 
       postData.append("username", username);
       postData.append("email", emailAddress);
       postData.append("organisation", organisation);
+      postData.append("task", task);
       postData.append("f", "json");
 
       return esriRequest({url: url, method: "post", handleAs: "json", form: postData});
+    },
+
+    getUserByUsername: function (username) {
+      var queryTask = new QueryTask("https://mpa.esrisg.dev/arcgis/rest/services/Hosted/UserTable/FeatureServer/0");
+      var query = new Query();
+      query.returnGeometry = false;
+      query.outFields = ["*"];
+      query.where = "username = '" + username + "'";
+
+      return queryTask.execute(query);
     }
  
   });

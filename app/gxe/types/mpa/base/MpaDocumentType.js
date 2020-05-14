@@ -15,6 +15,16 @@ function(declare, lang, domConstruct, DocumentType, PortalItemTransformer, i18nM
     isService: false,
     metadataStandardName: null,
     metadataStandardVersion: null,
+
+    initializeNamespaces: function() {        
+      this.addNamespace("rdf", "http://www.w3.org/1999/02/22-rdf-syntax-ns#");
+      this.addNamespace("dc", "http://purl.org/dc/elements/1.1/");
+      this.addNamespace("dct", "http://purl.org/dc/terms/");
+      this.addNamespace("ows", "http://www.opengis.net/ows");
+      this.addNamespace("gco", "http://www.isotc211.org/2005/gco");
+      this.addNamespace("gmd", "http://www.isotc211.org/2005/gmd");
+      this.addNamespace("mpa", "");
+    },
     
     afterInitializeElement: function(gxeDocument, element) {
       var p = element.gxePath;

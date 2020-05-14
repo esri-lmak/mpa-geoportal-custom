@@ -6,11 +6,12 @@ define(["dojo/_base/declare",
         "dojo/i18n!app/nls/resources",
         "app/context/AppClient",
         "app/common/SignIn",
+        "app/content/SingleSession",
         "esri/IdentityManager",
         "esri/arcgis/OAuthInfo",
         "esri/arcgis/Portal",
         "esri/arcgis/utils"], 
-function(declare, lang, Deferred, topic, appTopics, i18n, AppClient, SignIn, 
+function(declare, lang, Deferred, topic, appTopics, i18n, AppClient, SignIn, SingleSession,
     esriId, OAuthInfo, arcgisPortal, arcgisUtils) {
 	
   var oThisClass = declare(null, {
@@ -93,23 +94,30 @@ function(declare, lang, Deferred, topic, appTopics, i18n, AppClient, SignIn,
       var self = this, portalUrl = oauth.portalUrl;
       // arcgisUtils.arcgisUrl = portalUrl;  // PortalImplementation
       esriId._arcgisUrl = portalUrl;
-      esriId.getCredential(portalUrl, {oAuthPopupConfirmation:false}).then(function () {
-        var portal = new arcgisPortal.Portal(portalUrl);
-        portal.signIn().then(function(portalUser) {
-          // console.warn("portalUser", portalUser);
-          self.arcgisPortalUser = portalUser;
-          var u = portalUser.username;
-          var p = "__rtkn__:" + portalUser.credential.token;
-          self.signIn(u, p).then(function() {
+
+      var signInStatus = esriId.checkSignInStatus(portalUrl);
+      if (signInStatus != null) {
+        esriId.getCredential(portalUrl, {oAuthPopupConfirmation: false}).then(function () {
+          var portal = new arcgisPortal.Portal(portalUrl);
+          portal.signIn().then(function(portalUser) {
+            // console.warn("portalUser", portalUser);
+            self.arcgisPortalUser = portalUser;
+            var u = portalUser.username;
+            var p = "__rtkn__:" + portalUser.credential.token;
+            self.signIn(u, p).then(function() {
+            }).otherwise(function(error) {
+              // TODO handle 
+              console.warn("Error occurred while signing in:", error);
+            });
           }).otherwise(function(error) {
             // TODO handle 
             console.warn("Error occurred while signing in:", error);
           });
-        }).otherwise(function(error) {
-          // TODO handle 
-          console.warn("Error occurred while signing in:", error);
         });
-      });
+      } else {
+        (new SingleSession()).show();
+      }
+      
     },
     
     showSignIn: function() {
@@ -129,17 +137,13 @@ function(declare, lang, Deferred, topic, appTopics, i18n, AppClient, SignIn,
             if (info && info.user) {
               self.appToken = oauthToken;
               self.geoportalUser = info.user;
-              topic.publish(appTopics.SignedIn,{geoportalUser:info.user});
+              topic.publish(appTopics.SignedIn,{geoportalUser: info.user});
               dfd.resolve();
 
               // Audit Trail
               /*
 			        var _userName = AppContext.appUser.getUsername();
-			        var ipAddress = null;
-			        $.getJSON('https://api.ipify.org?format=jsonp&callback=?', function(data) {
-			          ipAddress = data.ip;
-              });
-              client.createAuditTrail(i18n.auditTrailType.signIn, "", "", ipAddress, _userName);
+              client.createAuditTrail(i18n.auditTrailType.signIn, "", "", "", _userName);
               */
             } else {
               dfd.reject(i18n.general.error);
@@ -163,10 +167,10 @@ function(declare, lang, Deferred, topic, appTopics, i18n, AppClient, SignIn,
     },
     
     signOut: function() {
-      esriId.destroyCredentials();
+      // esriId.destroyCredentials();
       // var itemName = "esriJSAPIOAuth";
       // window.sessionStorage.removeItem(itemName);
-
+      
       // Specific to MPA
       // Set Session as signout true
       window.sessionStorage.setItem("geoportalSignout", "True");
@@ -174,12 +178,22 @@ function(declare, lang, Deferred, topic, appTopics, i18n, AppClient, SignIn,
       /*
       var client = new AppClient();
       var _userName = AppContext.appUser.getUsername();
-			var ipAddress = null;
-			$.getJSON('https://api.ipify.org?format=jsonp&callback=?', function(data) {
-			  ipAddress = data.ip;
-      });
-      client.createAuditTrail(i18n.auditTrailType.signOut, "", "", ipAddress, _userName);
+      client.createAuditTrail(i18n.auditTrailType.signOut, "", "", "", _userName);
       */
+
+      var ctx = window.AppContext, oauth;
+      if (ctx.geoportal) oauth = ctx.geoportal.arcgisOAuth;
+      var portalUrl = oauth.portalUrl;
+      esriId._arcgisUrl = portalUrl;
+      esriId.getCredential(portalUrl, {oAuthPopupConfirmation: false}).then(function () {
+        var portal = new arcgisPortal.Portal(portalUrl);
+        portal.signOut().then(function(url) {
+          console.log(url);
+        }).otherwise(function(error) {
+          // TODO handle 
+          console.warn("Error occurred while signing out:", error);
+        });
+      });
 
       window.location.reload();
     },

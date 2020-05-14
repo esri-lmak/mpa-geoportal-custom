@@ -39,6 +39,8 @@ define({
       catalog: "Catalog",
       map: "Map",
       map3d: "Map3D",
+      feedback: "Feedback",
+      help: "Help",
       about: "About",
       admin: "Admin",
       content: "Content",
@@ -396,6 +398,11 @@ define({
         instructions: "Your session is about to expire due to inactivity.",
         button1: "Stay Connected",
         button2: "Sign Out Now"
+      },
+      singleSession: {
+        caption: "Single Session",
+        instructions: "A single session is only allowed.",
+        button: "Okay"
       }
     },
 
@@ -445,7 +452,8 @@ define({
       setApprovalStatus: 6,
       deleteMetadata: 7,
       signIn: 8,
-      signOut: 9
+      signOut: 9,
+      signUp: 10
     },
 
     organisation: {

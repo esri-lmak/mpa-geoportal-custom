@@ -68,7 +68,6 @@
 	<name tagname="gmd:dataQualityInfo">Data quality info</name>
 	<name tagname="gmd:dataset">Dataset Set</name>
 	<name tagname="gmd:dataSetURI">Dataset URI</name>
-	<name tagname="gmd:dataTheme">Data Theme</name>
 	<name tagname="gmd:dataType">Data type</name>
 	<name tagname="gmd:date">Date</name>
 	<name tagname="gmd:dateOfNextUpdate">Date of next update</name>
@@ -187,7 +186,6 @@
 	<name tagname="gmd:fees">Fees</name>
 	<name tagname="gmd:fileDecompressionTechnique">File decompression technique</name>
 	<name tagname="gmd:fileDescription">File description</name>
-	<name tagname="gmd:fileIdentifier">File ID</name>
 	<name tagname="gmd:fileName">File name</name>
 	<name tagname="gmd:fileType">File type</name>
 	<name tagname="gmd:filmDistortionInformationAvailability">Film distortion information availability</name>
@@ -235,9 +233,6 @@
 	<name tagname="gmd:localisedString">Localised String</name>
 	<name tagname="gmd:maintenanceAndUpdateFrequency">Maintenance and update frequency</name>
 	<name tagname="gmd:maintenanceNote">Maintenance note</name>
-	<name tagname="gmd:marineDataTheme">Marine Data Theme</name>
-	<name tagname="gmd:marineDataThemeLevel2">Marine Data Theme Level 2</name>
-	<name tagname="gmd:marineDataThemeLevel3">Marine Data Theme Level 3</name>
 	<name tagname="gmd:maximumOccurrence">Maximum occurrence</name>
 	<name tagname="gmd:maximumValue">Maximum value</name>
 	<name tagname="gmd:maxValue">Maximum value</name>
@@ -391,7 +386,6 @@
 	<name tagname="gmd:spatialRepresentationInfo">Spatial representation info</name>
 	<name tagname="gmd:spatialRepresentationType">Spatial representation type</name>
 	<name tagname="gmd:spatialResolution">Spatial resolution</name>
-	<name tagname="gmd:specialIdentifier">Special Identifier</name>
 	<name tagname="gmd:specification">Specification</name>
 	<name tagname="gmd:specification">Specification</name>
 	<name tagname="gmd:specificUsage">Specific usage</name>
@@ -696,4 +690,32 @@
 	<name tagname="gfc:listedValue">Listed value</name>
 	<name tagname="gfc:FC_ListedValue">Listed Value</name>
 	<name tagname="gfc:label">Label</name>
+
+	<!-- Specific to MPA -->
+	<name tagname="mpa:angularUnit">Angular Unit</name>
+	<name tagname="mpa:centralMeridian">Central Meridian</name>
+	<name tagname="mpa:dataTheme">Data Theme</name>
+	<name tagname="mpa:datum">Datum</name>
+	<name tagname="mpa:falseEasting">False Easting</name>
+	<name tagname="mpa:falseNorthing">False Northing</name>
+	<name tagname="mpa:featureCount">Feature Count</name>
+	<name tagname="mpa:fileIdentifier">File ID</name>
+	<name tagname="mpa:horizontalCoordinateSystem">Horizontal Coordinate System</name>
+	<name tagname="mpa:latitudeOfOrigin">Latitude of Origin</name>
+	<name tagname="mpa:linearUnit">Linear Unit</name>
+	<name tagname="mpa:majorAxis">Major Axis</name>
+	<name tagname="mpa:mainUpdateFrequency">Mainenance and  Update Frequency</name>
+	<name tagname="mpa:marineDataTheme">Marine Data Theme</name>
+	<name tagname="mpa:marineDataThemeLevel2">Marine Data Theme Level 2</name>
+	<name tagname="mpa:marineDataThemeLevel3">Marine Data Theme Level 3</name>
+	<name tagname="mpa:minorAxis">Minor Axis</name>
+	<name tagname="mpa:MD_InformationMarker">Information Marker</name>
+	<name tagname="mpa:MD_SensitivityClassification">Sensitivity Classification</name>
+	<name tagname="mpa:primeMeridian">Prime Meridian</name>
+	<name tagname="mpa:projection">Projection</name>
+	<name tagname="mpa:scale">Scale</name>
+	<name tagname="mpa:scaleFactor">Scale Factor</name>
+	<name tagname="mpa:specialIdentifier">Special Identifier</name>
+	<name tagname="mpa:spheroid">Spheroid</name>
+	<name tagname="mpa:verticalCoordinateSystem">Vertical Coordinate System</name>
 </names>
