@@ -1,0 +1,64 @@
+<div data-dojo-attach-point="containerNode">
+
+  <div data-dojo-type="esri/dijit/metadata/form/iso/ObjectReference"
+    data-dojo-props="target:'geoSG:DQ_EvaluationMethod',minOccurs:0,label:'${i18nGeoSg.qualitySection.evaluationMethod}',showHeader:false">
+
+    <div data-dojo-type="esri/dijit/metadata/form/iso/CodeListElement" data-dojo-props="target:'geoSG:DQ_EvaluationMethodType',minOccurs:0,
+        label:'${i18nGeoSg.qualitySection.evaluationMethodTab.type}', showHeader:true">
+      <div data-dojo-type="esri/dijit/metadata/form/iso/CodeSpaceAttribute"></div>
+      <div data-dojo-type="esri/dijit/metadata/form/iso/CodeListAttribute"
+        data-dojo-props="value:'${codeListPrefix}geoSG:DQ_EvaluationMethodType'"></div>
+      <div data-dojo-type="esri/dijit/metadata/form/iso/CodeListValueAttribute">
+        <div data-dojo-type="esri/dijit/metadata/form/InputSelectOne">
+          <div data-dojo-type="esri/dijit/metadata/form/Options">
+            <div data-dojo-type="esri/dijit/metadata/form/Option"
+              data-dojo-props="label:'${i18nGeoSg.evaluationMethodType.directInternal}',value:'1'">
+            </div>
+            <div data-dojo-type="esri/dijit/metadata/form/Option"
+              data-dojo-props="label:'${i18nGeoSg.evaluationMethodType.directExternal}',value:'2'">
+            </div>
+            <div data-dojo-type="esri/dijit/metadata/form/Option"
+              data-dojo-props="label:'${i18nGeoSg.evaluationMethodType.indirect}',value:'3'">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 
+    <div data-dojo-type="esri/dijit/metadata/form/Element" data-dojo-props="target:'geoSG:DQ_EvaluationMethodDescription',minOccurs:0,
+        label:'${i18nGeoSg.qualitySection.evaluationMethodTab.description}'">
+      <div data-dojo-type="esri/dijit/metadata/form/iso/GcoElement" data-dojo-props="target:'gco:CharacterString'">
+        <div data-dojo-type="esri/dijit/metadata/form/InputTextArea" data-dojo-props="large:true">
+        </div>
+      </div>
+    </div>
+    -->
+
+    <div data-dojo-type="esri/dijit/metadata/form/Element" data-dojo-props="target:'geoSG:DQ_EvaluationMethodProcedure',minOccurs:0,
+        label:'${i18nGeoSg.qualitySection.evaluationMethodTab.procedure}'">
+      <div data-dojo-type="esri/dijit/metadata/form/iso/GcoElement" data-dojo-props="target:'gco:CharacterString'">
+      </div>
+    </div>
+
+    <div data-dojo-type="esri/dijit/metadata/form/Element" data-dojo-props="target:'geoSG:DQ_Date',minOccurs:0,
+        label:'${i18nGeoSg.qualitySection.evaluationMethodTab.date}'">
+      <div data-dojo-type="esri/dijit/metadata/form/iso/GcoElement" data-dojo-props="target:'gco:Date'">
+        <div data-dojo-type="esri/dijit/metadata/form/InputDate" data-dojo-props="useNow:true"></div>
+      </div>
+    </div>
+
+    <div data-dojo-type="esri/dijit/metadata/form/Element" data-dojo-props="target:'geoSG:DQ_ValueUnit',minOccurs:0,
+        label:'${i18nGeoSg.qualitySection.evaluationMethodTab.valueUnit}'">
+      <div data-dojo-type="esri/dijit/metadata/form/iso/GcoElement" data-dojo-props="target:'gco:CharacterString'">
+      </div>
+    </div>
+
+    <div data-dojo-type="esri/dijit/metadata/form/Element" data-dojo-props="target:'geoSG:DQ_Value',minOccurs:0,
+        label:'${i18nGeoSg.qualitySection.evaluationMethodTab.value}'">
+      <div data-dojo-type="esri/dijit/metadata/form/iso/GcoElement" data-dojo-props="target:'gco:CharacterString'">
+      </div>
+    </div>
+
+  </div>
+</div>

@@ -174,6 +174,9 @@ function(declare, lang, Deferred, dojoRequest, xhr, domConstruct, Geoprocessor, 
       var APIPath = "/NewCardScript/GPServer/NewItemScript/submitJob";
       var url = baseRestURL + APIPath;
 
+      console.log(userName);
+      console.log(itemIdData);
+      console.log(itemIdMetadata);
       var postData = new FormData();
       postData.append("f", "pjson");
       postData.append("uploaded_by", userName);
@@ -293,6 +296,20 @@ function(declare, lang, Deferred, dojoRequest, xhr, domConstruct, Geoprocessor, 
       return esriRequest({url: url, method: "post", handleAs: "json", form: postData});
     },
 
+    approveConfidentialRequest: function (requestor, identifier, status) {
+      var baseRestURL = "https://mpa.esrisg.dev/arcgis/rest/services/Geoportal";
+      var APIPath = "/ConfidentialScript/GPServer/ConfidentialScript/submitJob";
+      var url = baseRestURL + APIPath;
+      
+      var postData = new FormData();
+      postData.append("requestor", requestor);
+      postData.append("identifier", identifier);
+      postData.append("status", status);
+      postData.append("f", "json");
+
+      return esriRequest({url: url, method: "post", handleAs: "json", form: postData});
+    },
+
     getRequestByFileId: function (fileId) {
       var queryTask = new QueryTask("https://mpa.esrisg.dev/arcgis/rest/services/Hosted/ConfidentialTable/FeatureServer/0");
       var query = new Query();
@@ -355,6 +372,34 @@ function(declare, lang, Deferred, dojoRequest, xhr, domConstruct, Geoprocessor, 
       return esriRequest({url: url, method: "post", handleAs: "json", form: postData});
     },
 
+    updateUser: function (username, firstName, lastName, email, role) {
+      var baseRestURL = "https://mpa.esrisg.dev/arcgis/rest/services/Gptools";
+      var APIPath = "/EditUserScript/GPServer/EditUserScript/submitJob";
+      var url = baseRestURL + APIPath;
+      
+      var postData = new FormData();
+      postData.append("username", username);
+      postData.append("first_name", firstName);
+      postData.append("last_name", lastName);
+      postData.append("email", email);
+      postData.append("role", role);
+      postData.append("f", "json");
+
+      return esriRequest({url: url, method: "post", handleAs: "json", form: postData});
+    },
+
+    updateUserLastLogin: function (username) {
+      var baseRestURL = "https://mpa.esrisg.dev/arcgis/rest/services/Gptools";
+      var APIPath = "/LoginScript/GPServer/LoginScript/submitJob";
+      var url = baseRestURL + APIPath;
+      
+      var postData = new FormData();
+      postData.append("username", username);
+      postData.append("f", "json");
+
+      return esriRequest({url: url, method: "post", handleAs: "json", form: postData});
+    },
+
     getUserByUsername: function (username) {
       var queryTask = new QueryTask("https://mpa.esrisg.dev/arcgis/rest/services/Hosted/UserTable/FeatureServer/0");
       var query = new Query();
@@ -363,7 +408,66 @@ function(declare, lang, Deferred, dojoRequest, xhr, domConstruct, Geoprocessor, 
       query.where = "username = '" + username + "'";
 
       return queryTask.execute(query);
-    }
+    },
+
+    submitFaq: function (question, answer, task) {
+      var baseRestURL = "https://mpa.esrisg.dev/arcgis/rest/services/Gptools";
+      var APIPath = "/ManageFaqsScript/GPServer/ManageFaqsScript/submitJob";
+      var url = baseRestURL + APIPath;
+      
+      var postData = new FormData();
+      postData.append("question", question);
+      postData.append("answer", answer);
+      postData.append("task", task);
+      postData.append("f", "json");
+
+      return esriRequest({url: url, method: "post", handleAs: "json", form: postData});
+    },
+
+    submitAnnouncement: function (announcementMessage, task) {
+      var baseRestURL = "https://mpa.esrisg.dev/arcgis/rest/services/Gptools";
+      var APIPath = "/ManageAnnouncementsScript/GPServer/ManageAnnouncementsScript/submitJob";
+      var url = baseRestURL + APIPath;
+      
+      var postData = new FormData();
+      postData.append("announcement", announcementMessage);
+      postData.append("task", task);
+      postData.append("f", "json");
+
+      return esriRequest({url: url, method: "post", handleAs: "json", form: postData});
+    },
+
+    downloadData: function (username, identifier, dataType, intend, details) {
+      var baseRestURL = "https://mpa.esrisg.dev/arcgis/rest/services/Gptools";
+      var APIPath = "/DownloadScript/GPServer/DownloadScript/submitJob";
+      var url = baseRestURL + APIPath;
+      
+      var postData = new FormData();
+      postData.append("username", username);
+      postData.append("identifier", identifier);
+      postData.append("dataType", dataType);
+      postData.append("intend", intend);
+      postData.append("details", details);
+      postData.append("f", "json");
+
+      return esriRequest({url: url, method: "post", handleAs: "json", form: postData});
+    },
+
+    approveDownloadRequest: function (username, identifier, dataType, intend, details) {
+      var baseRestURL = "https://mpa.esrisg.dev/arcgis/rest/services/Gptools";
+      var APIPath = "/DownloadScript/GPServer/DownloadScript/submitJob";
+      var url = baseRestURL + APIPath;
+      
+      var postData = new FormData();
+      postData.append("username", username);
+      postData.append("identifier", identifier);
+      postData.append("dataType", dataType);
+      postData.append("intend", intend);
+      postData.append("details", details);
+      postData.append("f", "json");
+
+      return esriRequest({url: url, method: "post", handleAs: "json", form: postData});
+    },
  
   });
 

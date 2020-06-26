@@ -1,0 +1,194 @@
+<div data-dojo-attach-point="containerNode">
+
+  <div data-dojo-type="esri/dijit/metadata/form/Element" data-dojo-props="target:'gmd:abstract',
+    label:'${i18nIso.AbstractMD_Identification.sAbstract}'">
+    <div data-dojo-type="esri/dijit/metadata/form/iso/GcoElement" data-dojo-props="target:'gco:CharacterString'">
+      <div data-dojo-type="esri/dijit/metadata/form/InputTextArea" data-dojo-props="large:true"></div>
+    </div>
+  </div>
+
+  <div data-dojo-type="esri/dijit/metadata/form/Element" data-dojo-props="target:'geoSG:purpose',minOccurs:0,
+    label:'${i18nGeoSg.metadataIdentification.descriptionTab.purpose}'">
+    <div data-dojo-type="esri/dijit/metadata/form/iso/GcoElement" data-dojo-props="target:'gco:CharacterString'">
+      <div data-dojo-type="esri/dijit/metadata/form/InputTextArea" data-dojo-props="large:true"></div>
+    </div>
+  </div>
+
+  <div data-dojo-type="esri/dijit/metadata/form/iso/CodeListElement" data-dojo-props="target:'geoSG:status',minOccurs:0,
+      label:'${i18nGeoSg.metadataIdentification.descriptionTab.status}', showHeader:true">
+    <div data-dojo-type="esri/dijit/metadata/form/iso/CodeSpaceAttribute"></div>
+    <div data-dojo-type="esri/dijit/metadata/form/iso/CodeListAttribute"
+      data-dojo-props="value:'${codeListPrefix}geoSG:status'"></div>
+    <div data-dojo-type="esri/dijit/metadata/form/iso/CodeListValueAttribute">
+      <div data-dojo-type="esri/dijit/metadata/form/InputSelectOne">
+        <div data-dojo-type="esri/dijit/metadata/form/Options">
+          <div data-dojo-type="esri/dijit/metadata/form/Option"
+            data-dojo-props="label:'${i18nGeoSg.statusCode.completed}',value:'1',selected:true">
+          </div>
+          <div data-dojo-type="esri/dijit/metadata/form/Option"
+            data-dojo-props="label:'${i18nGeoSg.statusCode.historicalArchive}',value:'2'">
+          </div>
+          <div data-dojo-type="esri/dijit/metadata/form/Option"
+            data-dojo-props="label:'${i18nGeoSg.statusCode.obsolete}',value:'3'">
+          </div>
+          <div data-dojo-type="esri/dijit/metadata/form/Option"
+            data-dojo-props="label:'${i18nGeoSg.statusCode.ongoing}',value:'4'">
+          </div>
+          <div data-dojo-type="esri/dijit/metadata/form/Option"
+            data-dojo-props="label:'${i18nGeoSg.statusCode.planned}',value:'5'">
+          </div>
+          <div data-dojo-type="esri/dijit/metadata/form/Option"
+            data-dojo-props="label:'${i18nGeoSg.statusCode.required}',value:'6'">
+          </div>
+          <div data-dojo-type="esri/dijit/metadata/form/Option"
+            data-dojo-props="label:'${i18nGeoSg.statusCode.underDevelopment}',value:'7'">
+          </div>
+          <div data-dojo-type="esri/dijit/metadata/form/Option"
+            data-dojo-props="label:'${i18nGeoSg.statusCode.final}',value:'8'">
+          </div>
+          <div data-dojo-type="esri/dijit/metadata/form/Option"
+            data-dojo-props="label:'${i18nGeoSg.statusCode.pending}',value:'9'">
+          </div>
+          <div data-dojo-type="esri/dijit/metadata/form/Option"
+            data-dojo-props="label:'${i18nGeoSg.statusCode.retired}',value:'10'">
+          </div>
+          <div data-dojo-type="esri/dijit/metadata/form/Option"
+            data-dojo-props="label:'${i18nGeoSg.statusCode.superseded}',value:'11'">
+          </div>
+          <div data-dojo-type="esri/dijit/metadata/form/Option"
+            data-dojo-props="label:'${i18nGeoSg.statusCode.tentative}',value:'12'">
+          </div>
+          <div data-dojo-type="esri/dijit/metadata/form/Option"
+            data-dojo-props="label:'${i18nGeoSg.statusCode.valid}',value:'13'">
+          </div>
+          <div data-dojo-type="esri/dijit/metadata/form/Option"
+            data-dojo-props="label:'${i18nGeoSg.statusCode.accepted}',value:'14'">
+          </div>
+          <div data-dojo-type="esri/dijit/metadata/form/Option"
+            data-dojo-props="label:'${i18nGeoSg.statusCode.notAccepted}',value:'15'">
+          </div>
+          <div data-dojo-type="esri/dijit/metadata/form/Option"
+            data-dojo-props="label:'${i18nGeoSg.statusCode.withdrawn}',value:'16'">
+          </div>
+          <div data-dojo-type="esri/dijit/metadata/form/Option"
+            data-dojo-props="label:'${i18nGeoSg.statusCode.purposed}',value:'17'">
+          </div>
+          <div data-dojo-type="esri/dijit/metadata/form/Option"
+            data-dojo-props="label:'${i18nGeoSg.statusCode.deprecated}',value:'18'">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div data-dojo-type="esri/dijit/metadata/form/iso/CodeListElement" data-dojo-props="target:'geoSG:mainUpdateFrequency',minOccurs:1,
+    label:'${i18nGeoSg.metadataIdentification.descriptionTab.mainUpdateFreq}', showHeader:true">
+    <div data-dojo-type="esri/dijit/metadata/form/iso/CodeSpaceAttribute"></div>
+    <div data-dojo-type="esri/dijit/metadata/form/iso/CodeListAttribute"
+      data-dojo-props="value:'${codeListPrefix}geoSG:mainUpdateFrequency'"></div>
+    <div data-dojo-type="esri/dijit/metadata/form/iso/CodeListValueAttribute">
+      <div data-dojo-type="esri/dijit/metadata/form/InputSelectOne">
+        <div data-dojo-type="esri/dijit/metadata/form/Options">
+          <div data-dojo-type="esri/dijit/metadata/form/Option"
+            data-dojo-props="label:'${i18nGeoSg.frequency.continual}',value:'1',selected:true">
+          </div>
+          <div data-dojo-type="esri/dijit/metadata/form/Option"
+            data-dojo-props="label:'${i18nGeoSg.frequency.daily}',value:'2'">
+          </div>
+          <div data-dojo-type="esri/dijit/metadata/form/Option"
+            data-dojo-props="label:'${i18nGeoSg.frequency.weekly}',value:'3'">
+          </div>
+          <div data-dojo-type="esri/dijit/metadata/form/Option"
+            data-dojo-props="label:'${i18nGeoSg.frequency.fortnightly}',value:'4'">
+          </div>
+          <div data-dojo-type="esri/dijit/metadata/form/Option"
+            data-dojo-props="label:'${i18nGeoSg.frequency.monthly}',value:'5'">
+          </div>
+          <div data-dojo-type="esri/dijit/metadata/form/Option"
+            data-dojo-props="label:'${i18nGeoSg.frequency.quarterly}',value:'6'">
+          </div>
+          <div data-dojo-type="esri/dijit/metadata/form/Option"
+            data-dojo-props="label:'${i18nGeoSg.frequency.biannually}',value:'7'">
+          </div>
+          <div data-dojo-type="esri/dijit/metadata/form/Option"
+            data-dojo-props="label:'${i18nGeoSg.frequency.annually}',value:'8'">
+          </div>
+          <div data-dojo-type="esri/dijit/metadata/form/Option"
+            data-dojo-props="label:'${i18nGeoSg.frequency.asNeeded}',value:'9'">
+          </div>
+          <div data-dojo-type="esri/dijit/metadata/form/Option"
+            data-dojo-props="label:'${i18nGeoSg.frequency.irregular}',value:'10'">
+          </div>
+          <div data-dojo-type="esri/dijit/metadata/form/Option"
+            data-dojo-props="label:'${i18nGeoSg.frequency.notPlanned}',value:'11'">
+          </div>
+          <div data-dojo-type="esri/dijit/metadata/form/Option"
+            data-dojo-props="label:'${i18nGeoSg.frequency.unknown}',value:'12'">
+          </div>
+          <div data-dojo-type="esri/dijit/metadata/form/Option"
+            data-dojo-props="label:'${i18nGeoSg.frequency.periodic}',value:'13'">
+          </div>
+          <div data-dojo-type="esri/dijit/metadata/form/Option"
+            data-dojo-props="label:'${i18nGeoSg.frequency.semiMonthly}',value:'14'">
+          </div>
+          <div data-dojo-type="esri/dijit/metadata/form/Option"
+            data-dojo-props="label:'${i18nGeoSg.frequency.biennially}',value:'15'">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div data-dojo-type="esri/dijit/metadata/form/iso/CodeListElement" data-dojo-props="target:'geoSG:geometricObjectType',minOccurs:1,
+    label:'${i18nGeoSg.metadataIdentification.descriptionTab.geometricObjectType}', showHeader:true">
+    <div data-dojo-type="esri/dijit/metadata/form/iso/CodeSpaceAttribute"></div>
+    <div data-dojo-type="esri/dijit/metadata/form/iso/CodeListAttribute"
+      data-dojo-props="value:'${codeListPrefix}geoSG:geometricObjectType'"></div>
+    <div data-dojo-type="esri/dijit/metadata/form/iso/CodeListValueAttribute">
+      <div data-dojo-type="esri/dijit/metadata/form/InputSelectOne">
+        <div data-dojo-type="esri/dijit/metadata/form/Options">
+          <div data-dojo-type="esri/dijit/metadata/form/Option"
+            data-dojo-props="label:'${i18nGeoSg.geometricObjectType.annotation}',value:'1',selected:true">
+          </div>
+          <div data-dojo-type="esri/dijit/metadata/form/Option"
+            data-dojo-props="label:'${i18nGeoSg.geometricObjectType.complex}',value:'2'">
+          </div>
+          <div data-dojo-type="esri/dijit/metadata/form/Option"
+            data-dojo-props="label:'${i18nGeoSg.geometricObjectType.composite}',value:'3'">
+          </div>
+          <div data-dojo-type="esri/dijit/metadata/form/Option"
+            data-dojo-props="label:'${i18nGeoSg.geometricObjectType.curve}',value:'4'">
+          </div>
+          <div data-dojo-type="esri/dijit/metadata/form/Option"
+            data-dojo-props="label:'${i18nGeoSg.geometricObjectType.point}',value:'5'">
+          </div>
+          <div data-dojo-type="esri/dijit/metadata/form/Option"
+            data-dojo-props="label:'${i18nGeoSg.geometricObjectType.solid}',value:'6'">
+          </div>
+          <div data-dojo-type="esri/dijit/metadata/form/Option"
+            data-dojo-props="label:'${i18nGeoSg.geometricObjectType.surface}',value:'7'">
+          </div>
+          <div data-dojo-type="esri/dijit/metadata/form/Option"
+            data-dojo-props="label:'${i18nGeoSg.geometricObjectType.raster}',value:'8'">
+          </div>
+          <div data-dojo-type="esri/dijit/metadata/form/Option"
+            data-dojo-props="label:'${i18nGeoSg.geometricObjectType.textual}',value:'9'">
+          </div>
+          <div data-dojo-type="esri/dijit/metadata/form/Option"
+            data-dojo-props="label:'${i18nGeoSg.geometricObjectType.model}',value:'10'">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div data-dojo-type="esri/dijit/metadata/form/Element" data-dojo-props="target:'geoSG:featureCount',
+    minOccurs:0, label:'${i18nGeoSg.metadataIdentification.descriptionTab.featureCount}'">
+    <div data-dojo-type="esri/dijit/metadata/form/InputNumber"></div>
+  </div>
+
+  <div data-dojo-type="esri/dijit/metadata/form/Element" data-dojo-props="target:'geoSG:scale',
+    minOccurs:0, label:'${i18nGeoSg.metadataIdentification.descriptionTab.scale}'">
+    <div data-dojo-type="esri/dijit/metadata/form/InputNumber"></div>
+  </div>
+</div>

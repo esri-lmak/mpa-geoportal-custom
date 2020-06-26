@@ -39,6 +39,15 @@ function(declare, lang, Templated, template, i18n) {
     
     postCreate: function() {
       this.inherited(arguments);
+    },
+
+    closeAnnouncements: function() {
+      var x = document.getElementById("announcements");
+      if (x.style.display === "none") {
+          x.style.display = "block";
+      } else {
+          x.style.display = "none";
+      }
     }
 
   });

@@ -1,0 +1,76 @@
+<div>
+  <div>
+    <p>${i18n.content.auditTrail.instructions}</p>
+  </div>
+
+  <div class="content main">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-xs-2">
+          <label for="searchName">Name</label>
+        </div>
+        <div class="col-xs-10">
+          <input type="text" id="searchName" placeholder="Search by Name">
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-xs-2">
+          <label for="searchAuditTrailType">Audit Trail Type</label>
+        </div> 
+        <div class="col-xs-3">
+          <select id="searchAuditTrailType" class="form-control" data-dojo-attach-point="organisationSelect">
+            <option value="">All</option>
+            <option value="1">Create Metadata </option>
+            <option value="2">Update Metadata</option>
+            <option value="3">Upload Metadata</option>
+            <option value="4">Upload Data</option>
+            <option value="5">Change Owner</option>
+            <option value="6">Set Approval Status</option>
+            <option value="7">Delete Metadata</option>
+            <option value="8">Sign In</option>
+            <option value="9">Sign Out</option>
+            <option value="10">Sign Up</option>
+          </select>
+          </div>
+      </div>
+
+      <div class="row">
+        <div class="col-xs-2">
+          <label for="searchDateFrom">Date From</label>
+        </div>
+        <div class="col-xs-10">
+          <input id="searchDateFrom" type="text" class="form-control" 
+                data-dojo-attach-point="dateFromInput" data-dojo-type="dijit/form/DateTextBox">
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-xs-2">
+          <label for="searchDateFrom">Date To</label>
+        </div>
+        <div class="col-xs-10">
+          <input id="searchDateTo" type="text" class="form-control" 
+                data-dojo-attach-point="dateToInput" data-dojo-type="dijit/form/DateTextBox">
+        </div>
+      </div>
+
+      <br />
+      
+      <div class="row">
+        <div class="col-xs-12">		
+          <table id="auditTrailTable" style="width:100%">
+            <tr>
+              <th>Audit Trail Type</th>
+              <th>Action ID</th>
+              <th>Remarks</th>
+              <th>Notes</th>
+              <th>Created By</th>
+              <th>Created Date</th>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

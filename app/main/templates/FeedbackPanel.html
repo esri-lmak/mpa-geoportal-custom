@@ -6,7 +6,117 @@
 		  <div class="row title">
 			<div class="col-xs-12">
 			  <h1>Feedback</h1>
-			  <p class="lead">Send your feedback here.</p>
+			  <p class="lead">Please provide your feedback here.</p>
+			</div>
+		  </div>
+		</div>
+	  </div>
+  
+	  <!-- main -->
+	  <div class="content main">
+		<div class="container-fluid">
+		  <div class="row">
+			<div class="col-xs-12">
+			  <div id="content" class="row">
+				<div class="col-xs-12">
+				  <h2>How do you rate your overall experience?</h2>
+				  <p>
+					<label class="radio-inline">
+					  <input type="radio" name="experience" id="radio_experience" value="excellent" data-dojo-attach-point="radioExcellent" checked>
+					  Excellent
+					</label>
+  
+					<label class="radio-inline">
+					  <input type="radio" name="experience" id="radio_experience" value="good" data-dojo-attach-point="radioGood">
+					  Good
+					</label>
+  
+					<label class="radio-inline">
+					  <input type="radio" name="experience" id="radio_experience" value="average" data-dojo-attach-point="radioAverage">
+					  Average
+					</label>
+  
+					<label class="radio-inline">
+					  <input type="radio" name="experience" id="radio_experience" value="bad" data-dojo-attach-point="radioBad">
+					  Bad
+					</label>
+				  </p>
+				</div>
+			  </div>
+			</div>
+		  </div>
+  
+		  <div class="row">
+			<div class="col-xs-12">
+			  <div id="content" class="row">
+				<div class="col-xs-12">
+				  <h2>Additional Comments:</h2>
+				  <textarea class="form-control" type="textarea" name="comments" id="comments" placeholder="Your Comments" maxlength="6000" rows="7" data-dojo-attach-point="commentsInput"></textarea>
+				  <p id="commentsError" class="g-metadata-validation-errors text-danger"></p>
+				</div>
+			  </div>
+			</div>
+		  </div>
+  
+		  <br />
+  
+		  <div class="row">
+			<div class="col-xs-12">
+			  <div id="content" class="row">
+				<div class="col-xs-6">
+				  <h2>Name:</h2>
+				  <input type="text" class="form-control" id="name" name="name" data-dojo-attach-point="nameInput"> 
+				  <p id="nameError" class="g-metadata-validation-errors text-danger"></p>
+				</div>
+			  </div>
+			</div>
+		  </div>
+  
+		  <br />
+  
+		  <div class="row">
+			<div class="col-xs-12">
+			  <div id="content" class="row">
+				<div class="col-xs-6">
+				  <h2>Email:</h2>
+				  <input type="email" class="form-control" id="email" name="email" data-dojo-attach-point="emailInput">
+				  <p id="emailError" class="g-metadata-validation-errors text-danger"></p>
+				</div>        
+			  </div>
+			</div>
+		  </div>
+  
+		  <br />
+  
+		  <div class="row">
+			<div class="col-xs-12">
+			  <div id="content" class="row">
+				<div class="col-xs-3">
+				  <button type="submit" data-dojo-attach-event="onclick: submitFeedback">Submit</button>
+				</div>
+			  </div>
+			</div>
+		  </div>
+  
+		  <br />
+  
+		  <div class="row" style="display:none;">
+			<div class="col-xs-12">
+			  <div id="content" class="row">
+				<div class="col-xs-12">
+				  <h3>Your feedback is submitted successfully.</h3>
+				</div>
+			  </div>
+			</div>
+		  </div>
+  
+		  <div class="row" style="display:none;">
+			<div class="col-xs-12">
+			  <div id="content" class="row">
+				<div class="col-xs-12">
+				  <h3>Sorry, there was an error submitting your feedback.</h3>
+				</div>
+			  </div>
 			</div>
 		  </div>
 		</div>

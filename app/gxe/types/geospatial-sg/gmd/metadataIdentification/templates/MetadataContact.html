@@ -1,0 +1,73 @@
+<div data-dojo-attach-point="containerNode">
+
+  <div data-dojo-type="esri/dijit/metadata/form/iso/ObjectReference" data-dojo-props="target:'gmd:contact',minOccurs:1,
+      label:'${i18nIso.MD_Metadata.contact}'">
+    <div data-dojo-type="esri/dijit/metadata/form/iso/AbstractObject"
+      data-dojo-props="target:'gmd:CI_ResponsibleParty',minOccurs:0">
+
+      <div data-dojo-type="esri/dijit/metadata/form/Element" data-dojo-props="target:'gmd:contactPerson',
+        label:'${i18nGeoSg.metadataIdentification.contactTab.contactPerson}'">
+        <div data-dojo-type="esri/dijit/metadata/form/iso/GcoElement" data-dojo-props="target:'gco:CharacterString'">
+        </div>
+      </div>
+
+      <div data-dojo-type="esri/dijit/metadata/form/Element" data-dojo-props="target:'gmd:organisationName',
+        label:'${i18nGeoSg.metadataIdentification.contactTab.organisationName}'">
+        <div data-dojo-type="esri/dijit/metadata/form/iso/GcoElement" data-dojo-props="target:'gco:CharacterString'">
+        </div>
+      </div>
+
+      <div data-dojo-type="esri/dijit/metadata/form/iso/CodeListReference" data-dojo-props="target:'gmd:role',
+        label:'${i18nGeoSg.metadataIdentification.contactTab.role}',minOccurs:1">
+        <div data-dojo-type="esri/dijit/metadata/form/InputSelectMany">
+          <div data-dojo-type="esri/dijit/metadata/form/Options">
+            <div data-dojo-type="esri/dijit/metadata/form/Option"
+              data-dojo-props="label:'${i18nGeoSg.role.dataSteward}',value:'1'">
+            </div>
+            <div data-dojo-type="esri/dijit/metadata/form/Option"
+              data-dojo-props="label:'${i18nGeoSg.role.dataCustodian}',value:'2'">
+            </div>
+            <div data-dojo-type="esri/dijit/metadata/form/Option"
+              data-dojo-props="label:'${i18nGeoSg.role.dataProvider}',value:'3'">
+            </div>
+            <div data-dojo-type="esri/dijit/metadata/form/Option"
+              data-dojo-props="label:'${i18nGeoSg.role.dataCollector}',value:'4'">
+            </div>
+            <div data-dojo-type="esri/dijit/metadata/form/Option"
+              data-dojo-props="label:'${i18nGeoSg.role.owner}',value:'5'">
+            </div>
+            <div data-dojo-type="esri/dijit/metadata/form/Option"
+              data-dojo-props="label:'${i18nGeoSg.role.pointOfContact}',value:'6'">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div data-dojo-type="esri/dijit/metadata/form/Element" data-dojo-props="target:'gmd:telephone',
+        label:'${i18nGeoSg.metadataIdentification.contactTab.telephone}'">
+        <div data-dojo-type="esri/dijit/metadata/form/iso/GcoElement" data-dojo-props="target:'gco:CharacterString'">
+        </div>
+      </div>
+
+      <div data-dojo-type="esri/dijit/metadata/form/Element" data-dojo-props="target:'gmd:contactInfo',
+          minOccurs:0,showHeader:false">
+        <div data-dojo-type="esri/dijit/metadata/form/Element" data-dojo-props="target:'gmd:CI_Contact',
+            minOccurs:0,showHeader:false">
+          <div data-dojo-type="esri/dijit/metadata/form/Element" data-dojo-props="target:'gmd:address',
+              minOccurs:0,showHeader:false">
+            <div data-dojo-type="esri/dijit/metadata/form/Element" data-dojo-props="target:'gmd:CI_Address',
+                minOccurs:0,showHeader:false">
+              <div data-dojo-type="esri/dijit/metadata/form/Element" data-dojo-props="target:'gmd:electronicMailAddress',minOccurs:1,
+                    label:'${i18nIso.CI_Address.electronicMailAddress}'">
+                <div data-dojo-type="esri/dijit/metadata/form/iso/GcoElement"
+                  data-dojo-props="target:'gco:CharacterString'"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>

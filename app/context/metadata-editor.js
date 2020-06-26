@@ -3,18 +3,24 @@ define([],function(){var obj={
     
     editable: {
       // Warning: The editor will be lossy if allowNonGxeDocs is enabled.
-      // Specific for MPA - to display harvested metadata
+	    // Specific for MPA - to display harvested metadata
       allowNonGxeDocs: true, 
-      geoportalTypes: ["arcgis", "fgdc", "iso19115", "iso19115-2", "mpa-iso-19115"]
+      // geoportalTypes: ["arcgis", "fgdc", "iso19115", "iso19115-2"]
+      geoportalTypes: ["iso19115", "mpa-iso-19115", "geospatial-sg"]
     },
     
     gxeContext: {
+      /* 
       allowedTypeKeys: [
         "arcgis", "fgdc", 
         "iso-19115", "iso-19119", "iso-19115-2",
         "inspire-iso-19115", "inspire-iso-19119", 
         "gemini-iso-19115", "gemini-iso-19119",
-        "mpa-iso-19115", "mpa-iso-19119"
+        "mpa-iso-19115"
+      ], 
+      */
+      allowedTypeKeys: [
+        "mpa-iso-19115", "geospatial-sg"
       ],
       basemap: "hybrid",
       allowViewXml: true,
@@ -24,6 +30,7 @@ define([],function(){var obj={
     },
   
     typeDefinitions: [
+      /* 
       {
         key: "arcgis",
         requiredPath: "esri/dijit/metadata/types/arcgis/base/DocumentType",
@@ -135,7 +142,8 @@ define([],function(){var obj={
             value: "2.2"
           }
         ]
-      },
+      }, 
+      */
       {
         key: "mpa-iso-19115",
         requiredPath: "app/gxe/types/mpa/base/DataDocumentType",
@@ -155,19 +163,19 @@ define([],function(){var obj={
         ]
       },
       {
-        key: "mpa-iso-19119",
-        requiredPath: "app/gxe/types/mpa/base/ServiceDocumentType",
+        key: "geospatial-sg",
+        requiredPath: "app/gxe/types/geospatial-sg/base/DataDocumentType",
         interrogationRules: [
           {
-            path: "/gmd:MD_Metadata/gmd:identificationInfo/srv:SV_ServiceIdentification",
+            path: "/geoSG:MD_Metadata/geoSG:metadataIdentification/geoSG:MD_DataIdentification",
             must: true
           },
           {
-            path: "/gmd:MD_Metadata/gmd:metadataStandardName/gco:CharacterString",
-            value: "MPA"
+            path: "/geoSG:MD_Metadata/geoSG:metadataStandardName/gco:CharacterString",
+            value: "Geospatial-SG"
           },
           {
-            path: "/gmd:MD_Metadata/gmd:metadataStandardVersion/gco:CharacterString",
+            path: "/geoSG:MD_Metadata/geoSG:metadataStandardVersion/gco:CharacterString",
             value: "1.0"
           }
         ]

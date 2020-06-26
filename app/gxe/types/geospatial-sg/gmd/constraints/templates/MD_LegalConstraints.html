@@ -1,0 +1,66 @@
+<div data-dojo-attach-point="containerNode">
+
+    <div data-dojo-type="esri/dijit/metadata/form/iso/AbstractObject"
+        data-dojo-props="target:'geoSG:MD_LegalConstraints',minOccurs:0">
+
+        <div data-dojo-type="esri/dijit/metadata/form/iso/CodeListElement" data-dojo-props="target:'geoSG:useConstraints',minOccurs:1,
+            label:'${i18nGeoSg.metadataIdentification.constraintsTab.useConstraints}', showHeader:true">
+            <div data-dojo-type="esri/dijit/metadata/form/iso/CodeSpaceAttribute"></div>
+            <div data-dojo-type="esri/dijit/metadata/form/iso/CodeListAttribute"
+                data-dojo-props="value:'${codeListPrefix}geoSG:useConstraints'"></div>
+            <div data-dojo-type="esri/dijit/metadata/form/iso/CodeListValueAttribute">
+                <div data-dojo-type="esri/dijit/metadata/form/InputSelectOne">
+                    <div data-dojo-type="esri/dijit/metadata/form/Options">
+                        <div data-dojo-type="esri/dijit/metadata/form/Option"
+                            data-dojo-props="label:'${i18nGeoSg.useContraints.copyright}',value:'1'">
+                        </div>
+                        <div data-dojo-type="esri/dijit/metadata/form/Option"
+                            data-dojo-props="label:'${i18nGeoSg.useContraints.patent}',value:'2'">
+                        </div>
+                        <div data-dojo-type="esri/dijit/metadata/form/Option"
+                            data-dojo-props="label:'${i18nGeoSg.useContraints.patentPending}',value:'3'">
+                        </div>
+                        <div data-dojo-type="esri/dijit/metadata/form/Option"
+                            data-dojo-props="label:'${i18nGeoSg.useContraints.trademark}',value:'4'">
+                        </div>
+                        <div data-dojo-type="esri/dijit/metadata/form/Option"
+                            data-dojo-props="label:'${i18nGeoSg.useContraints.license}',value:'5'">
+                        </div>
+                        <div data-dojo-type="esri/dijit/metadata/form/Option"
+                            data-dojo-props="label:'${i18nGeoSg.useContraints.intPropertyRights}',value:'6'">
+                        </div>
+                        <div data-dojo-type="esri/dijit/metadata/form/Option"
+                            data-dojo-props="label:'${i18nGeoSg.useContraints.otherRestrictions}',value:'7'">
+                        </div>
+                        <div data-dojo-type="esri/dijit/metadata/form/Option"
+                            data-dojo-props="label:'${i18nGeoSg.useContraints.licenseRestricted}',value:'8'">
+                        </div>
+                        <div data-dojo-type="esri/dijit/metadata/form/Option"
+                            data-dojo-props="label:'${i18nGeoSg.useContraints.licenseEndUser}',value:'9'">
+                        </div>
+                        <div data-dojo-type="esri/dijit/metadata/form/Option"
+                            data-dojo-props="label:'${i18nGeoSg.useContraints.licenseDistributor}',value:'10'">
+                        </div>
+                        <div data-dojo-type="esri/dijit/metadata/form/Option"
+                            data-dojo-props="label:'${i18nGeoSg.useContraints.private}',value:'11'">
+                        </div>
+                        <div data-dojo-type="esri/dijit/metadata/form/Option"
+                            data-dojo-props="label:'${i18nGeoSg.useContraints.statutory}',value:'12'">
+                        </div>
+                        <div data-dojo-type="esri/dijit/metadata/form/Option"
+                            data-dojo-props="label:'${i18nGeoSg.useContraints.inConfidence}',value:'13'">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div data-dojo-type="esri/dijit/metadata/form/Element" data-dojo-props="target:'geoSG:otherConstraints',minOccurs:0,maxOccurs:'unbounded',
+          label:'${i18nGeoSg.metadataIdentification.constraintsTab.otherConstraints}'">
+            <div data-dojo-type="esri/dijit/metadata/form/iso/GcoElement"
+                data-dojo-props="target:'gco:CharacterString'"></div>
+        </div>
+
+    </div>
+
+</div>

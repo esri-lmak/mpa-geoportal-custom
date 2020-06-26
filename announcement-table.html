@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>FeatureTable - Custom Menu Items</title>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+
+    <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico" />
+    <link rel="stylesheet" href="https://mpa.esrisg.dev/arcgis_js_api/library/3.25/3.25/dijit/themes/claro/claro.css">
+    <link rel="stylesheet" href="https://mpa.esrisg.dev/arcgis_js_api/library/3.25/3.25/esri/css/esri.css">
+    <link rel="stylesheet" href="./app/style/main.css">
+    <link rel="stylesheet" href="./lib/typeahead.css">
+    <link rel="stylesheet" href="./custom/custom.css">
+
+    <script type="text/javascript">
+        var dojoConfig = {
+          locale: "en",
+          async: true,
+          parseOnLoad: true,
+          packages: [
+            {
+              name: 'app',
+              location: location.pathname.replace(/\/[^/]*$/, '') + '/app',
+            }
+          ]
+        };
+    </script>
+    <script src="./lib/d3-3.5.5.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/c3/0.4.10/c3.min.js"></script>
+    <script src="./lib/jquery-3.2.1.min.js"></script>
+    <script src="./lib/bootstrap-3.3.7.min.js"></script>
+    <script src="./lib/typeahead.js"></script>
+    <script src="https://mpa.esrisg.dev/arcgis_js_api/library/3.25/3.25/init.js"></script>
+    <script src="./custom/custom.js"></script>
+    <style>
+        html,
+        body,
+        #map {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+
+    <script>
+        require([
+            "esri/layers/FeatureLayer",
+            "esri/dijit/FeatureTable",
+            "dojo/dom",
+            "dojo/parser",
+            "dojo/ready",
+            "dojo/on",
+            "dijit/layout/ContentPane",
+            "dijit/layout/BorderContainer"
+        ], function (
+            FeatureLayer, FeatureTable, dom, parser, ready, on, ContentPane, BorderContainer
+        ) {
+
+            parser.parse();
+
+            ready(function () {
+                // editable FeatureLayer
+                var featureLayer = new FeatureLayer(
+                    "https://mpa.esrisg.dev/arcgis/rest/services/Hosted/AnnouncementTable/FeatureServer/0", {
+                        mode: FeatureLayer.MODE_ONDEMAND,
+                        outFields: ["announcement", "created_by", "created_date", "modified_by", "modified_date", "status"],
+                        visible: true,
+                        editable: true,
+                        id: "fLayer2"
+                    });
+                // create new FeatureTable and set its properties 
+                var featureTable = new FeatureTable({
+                    featureLayer: featureLayer,
+                    editable: true,
+                    syncSelection: true,
+                    dateOptions: {
+                        datePattern: 'dd/MM/y',
+                        timeEnabled: true,
+                        timePattern: 'HH:mm:ss',
+                    },
+                    hiddenFields: ["objectid", "objectid_1"],
+                    // use fieldInfos object to change field's label (column header), 
+                    // change the editability of the field, and to format how field values are displayed
+                    // you will not be able to edit callnumber field in this example. 
+                    fieldInfos: [{
+                            name: 'announcement',
+                            alias: 'Announcement'
+                        },
+                        {
+                            name: 'created_by',
+                            alias: 'Created By'
+                        },
+                        {
+                            name: 'created_date',
+                            alias: 'Created Date'
+                        },
+                        {
+                            name: 'modified_by',
+                            alias: 'Modified By'
+                        },
+                        {
+                            name: 'modified_date',
+                            alias: 'Modified Date'
+                        },
+                        {
+                            name: 'status',
+                            alias: 'Status',
+                        }
+                    ],
+                    // add custom menu functions to the 'Options' drop-down Menu 
+                    menuFunctions: [{
+                            label: "Export to CSV",
+                            callback: customExportCSV
+                        },
+                        {
+                            label: "Add New Record",
+                            callback: addNewRecord
+                        },
+                        {
+                            label: "Delete Record",
+                            callback: deleteRecord
+                        }
+                    ]
+                }, 'tableNode');
+
+                featureTable.startup();
+
+                function addNewRecord(evt) {
+                    featureLayer.applyEdits(  
+                        [{  
+                            'attributes': 'announcement'
+                        }],  
+                        null,  
+                        null,  
+                        function(results) {
+                            window.location.reload(false); 
+                        },  
+                        function(err) {  
+                            console.log(err);
+                        }  
+                    );  
+                }
+
+                function deleteRecord(evt) {
+                    if (featureTable.selectedRows.length > 0) {
+                        var objectId = featureTable.selectedRows[0].objectid;
+                        const deleteFeature = [
+                            { objectid: objectId }
+                        ];
+                        featureLayer.applyEdits(  
+                        [{
+                            deleteFeatures: deleteFeature
+                        }],  
+                        null,  
+                        null,  
+                        function(results) {
+                            window.location.reload(false); 
+                        },  
+                        function(err) {  
+                            console.log(err);
+                        }  
+                    );
+                    } else {
+                        alert("Please select a record.");
+                    }
+                }
+
+                function customExportCSV(evt) {
+                    if (featureTable.selectedRows.length > 0) {
+                        var data = featureTable.selectedRows;
+                        var csv = convertArrayOfObjectsToCSV({
+                            data: data
+                        });
+
+                        if (!csv.match(/^data:text\/csv/i)) {
+                            csv = 'data:text/csv;charset=utf-8,' + csv;
+                        }
+
+                        var encodedUri = encodeURI(csv);
+                        var link = document.createElement('a');
+                        link.setAttribute('href', encodedUri);
+                        link.setAttribute('download', "Announcement_Table.csv");
+                        link.click();
+                    } else {
+                        alert("Please at least one record.");
+                    }   
+                }
+
+                function convertArrayOfObjectsToCSV(value) {
+                    var result, ctr, keys, columnDelimiter, lineDelimiter, data;
+
+                    data = value.data || null;
+                    if (data == null || !data.length) {
+                        return null;
+                    }
+
+                    columnDelimiter = value.columnDelimiter || ',';
+                    lineDelimiter = value.lineDelimiter || '\n';
+
+                    keys = Object.keys(data[0]);
+                    result = '';
+                    result += keys.join(columnDelimiter);
+                    result += lineDelimiter;
+
+                    data.forEach(function (item) {
+                        ctr = 0;
+                        keys.forEach(function (key) {
+                            if (ctr > 0)
+                                result += columnDelimiter;
+                            result += item[key];
+                            ctr++;
+                        });
+                        result += lineDelimiter;
+                    });
+
+                    return result;
+                }
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <div data-dojo-type="dijit/layout/BorderContainer" data-dojo-props="design:'headline', gutters: false"
+        style="width:100%; height:100%;">
+        <div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'center', splitter:true"
+            style="height:50%;">
+            <div id="tableNode"></div>
+        </div>
+    </div>
+</body>
+
+</html>

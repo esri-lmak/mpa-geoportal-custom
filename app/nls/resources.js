@@ -33,12 +33,14 @@ define({
     },
 
     nav: {
-      brand: "Geoportal",
+      // Specific to MPA - Brand
+      brand: "GeoSpace-Sea",
       home: "Home",
       search: "Search",
-      catalog: "Catalog",
-      map: "Map",
-      map3d: "Map3D",
+      // Specific to MPA - Catalog to Catalogue
+      catalog: "Catalogue",
+      map: "2D Marine Viewer",
+      map3d: "3D Marine Viewer",
       feedback: "Feedback",
       help: "Help",
       about: "About",
@@ -54,9 +56,15 @@ define({
         myProfile: "My Profile",
         uploadMetadata: "Upload Metadata",
         uploadDataMetadata: "Upload New",
+        downloadData: "Download Data",
+        pendingDownloadRequests: "Pending Download Requests",
         pendingRequests: "Pending Requests",
         pendingUploadRequests: "Pending Upload Requests",
         pendingSignUpRequests: "Pending Sign Up Requests",
+        manageAnnouncements: "Manage Announcements",
+        manageFaqs: "Manage FAQs",
+        auditTrail: "Audit Trail",
+        feedback: "Feedback",
         editFacet: "Edit Facet"
       }
     },
@@ -96,7 +104,8 @@ define({
       },
       searchBox: {
         search: "Search",
-        searchCatalog: "Search the Catalog"
+        // Specific to MPA - Catalog to Catalogue
+        searchCatalog: "Search the Catalogue"
       },
       spatialFilter: {
         label: "Map",
@@ -279,6 +288,7 @@ define({
         links: "WFS",
         submitRequest: "Request",
         addToMap: "Add to Map",
+        remove: "Remove",
         preview: "Preview",
         titleFormat: "${action} - ${title}",
         options: {
@@ -287,7 +297,8 @@ define({
           viewMetadata: "View Metadata",
           uploadMetadata: "Upload Metadata",
           uploadData: "Upload Data",
-          uploadDataMetadata: "Upload Data & Metadata"
+          uploadDataMetadata: "Upload New",
+          downloadData: "Download Data"
         },
         urlLinks: {
           thumbnail: "Thumbnail",
@@ -373,6 +384,46 @@ define({
         instructions: "An email will be sent to you on the outcome of your upload request.",
         button: "Upload"
       },
+      downloadData: {
+        caption: "Download Data",
+        disclaimer: "Disclaimer: ",
+        purpose: "Purpose for Data Usage",
+        details: "Details",
+        dataType: "Data Type",
+        button: "Download"
+      },
+      pendingConfidentialRequests: {
+        caption: "Pending Confidential Requests",
+        instructions: "Approve pending confidential requests."
+      },
+      pendingSignUpRequests: {
+        caption: "Pending Signup Requests",
+        instructions: "Approve pending signup requests."
+      },
+      pendingUploadRequests: {
+        caption: "Pending Upload Requests",
+        instructions: "Approve pending upload requests."
+      },
+      pendingDownloadRequests: {
+        caption: "Pending Download Requests",
+        instructions: "Approve pending download requests."
+      },
+      manageAnnouncements: {
+        caption: "Manage Announcements",
+        instructions: "Add, edit and remove Announcements to be displayed."
+      },
+      manageFaqs : {
+        caption: "Manage FAQs",
+        instructions: "Add, edit and remove FAQs to be displayed."
+      },
+      auditTrail: {
+        caption: "Audit Trail",
+        instructions: "View audit trail records by filtering the search."
+      },
+      feedback: {
+        caption: "Feedback",
+        instructions: "View feedback records."
+      },
       submitRequest: {
         caption: "Submit Request",
         instructions: "The request will be submitted for approval.",
@@ -403,6 +454,21 @@ define({
         caption: "Single Session",
         instructions: "A single session is only allowed.",
         button: "Okay"
+      },
+      announcement: {
+        caption: "Announcement",
+        instructions: "Please enter all the mandatory fields to create an announcement.",
+        announcementMessage: "Announcement Message",
+        displayFrom: "Display From",
+        displayTo: "Display To (can be blank)",
+        button: "Submit"
+      },
+      faqs: {
+        caption: "FAQs",
+        instructions: "Please enter all the mandatory fields to create FAQ.",
+        question: "Question",
+        answer: "Answer",
+        button: "Submit"
       }
     },
 
@@ -425,8 +491,11 @@ define({
 
     footer: {
       "copyright": "© Geoportal",
-      "quickLink1": "Quick Link 1",
-      "quickLink2": "Quick Link 2"
+      "home": "Home",
+      "catalogue": "Catalogue",
+      "termsOfService": "Terms of Service",
+      "privacyPolicy": "Privacy Policy",
+      "contactUs": "Contact Us"
     },
     
     approvalStatus: {
@@ -445,7 +514,7 @@ define({
   
     auditTrailType: {
       createMetadata: 1,
-      updateMetadate: 2,
+      updateMetadata: 2,
       uploadMetadata: 3,
       uploadData: 4,
       changeOwner: 5,
@@ -457,14 +526,31 @@ define({
     },
 
     organisation: {
-      ava: "AVA",
       bca: "BCA",
       jtc: "JTC",
       mpa: "MPA",
       nea: "NEA",
       nparks: "NParks",
       pub: "PUB",
+      sfa: "SFA",
       ura: "URA"
+    },
+
+    dataType: {
+      shapeFile: "Shapefile",
+      csv: "CSV",
+      fileGeodatabase: "File Geodatabase",
+      featureCollection: "Feature Collection",
+      geoJson: "GeoJson",
+      scenePackage: "Scene Package",
+      kml: "KML",
+      excel: "Excel"
+    },
+
+    purposeForDataUsage: {
+      personalUse: "Personal Use",
+      commercialUse: "Commercial Use"
     }
+
   }
 });

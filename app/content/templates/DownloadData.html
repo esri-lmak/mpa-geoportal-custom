@@ -1,0 +1,45 @@
+<div>
+  <div>
+    <p>${i18n.content.downloadData.disclaimer}</p>
+  </div>
+
+  <div class="form-group g-scrollable-typeahead" style="position: relative;">
+	  <label for="${id}_purposeSelect">${i18n.content.downloadData.purpose}</label>
+	  <div>
+	    <select id="${id}_purposeSelect" class="form-control" data-dojo-attach-point="purposeSelectInput">
+        <option value=""></option>
+        <option value="Personal Use">${i18n.purposeForDataUsage.personalUse}</option>
+        <option value="Commercial Use">${i18n.purposeForDataUsage.commercialUse}</option>
+      </select>
+    </div>
+    <p id="validationPurposeSelect" class="g-metadata-validation-errors text-danger"></p>
+  </div>
+
+  <div class="form-group g-scrollable-typeahead" style="position: relative;">
+    <label for="${id}_details">${i18n.content.downloadData.details}</label>
+	  <div>
+      <input id="${id}_details" type="text" class="form-control" data-dojo-attach-point="detailsInput">
+    </div>
+    <p id="validationDetails" class="g-metadata-validation-errors text-danger"></p>
+  </div>
+
+  <div class="form-group g-scrollable-typeahead" style="position: relative;">
+	  <label for="${id}_dataType">${i18n.content.downloadData.dataType}</label>
+	  <div>
+	    <select id="${id}_dataType" class="form-control" data-dojo-attach-point="dataTypeInput">
+        <option value=""></option>
+        <option value="Shapefile">${i18n.dataType.shapeFile}</option>
+        <option value="CSV">${i18n.dataType.csv}</option>
+        <option value="File Geodatabase">${i18n.dataType.fileGeodatabase}</option>
+        <option value="Feature Collection">${i18n.dataType.featureCollection}</option>
+        <option value="GeoJson">${i18n.dataType.geoJson}</option>
+        <option value="Scene Package">${i18n.dataType.scenePackage}</option>
+        <option value="KML">${i18n.dataType.kml}</option>
+        <option value="Excel">${i18n.dataType.excel}</option>
+      </select>
+    </div>
+    <p id="validationDataType" class="g-metadata-validation-errors text-danger"></p>
+  </div>
+
+  <div class="g-metadata-validation-errors text-danger" data-dojo-attach-point="validationErrorsNode"></div>
+</div>

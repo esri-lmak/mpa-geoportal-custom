@@ -1,0 +1,77 @@
+<div data-dojo-attach-point="containerNode">
+
+    <div data-dojo-type="esri/dijit/metadata/form/iso/AbstractObject"
+        data-dojo-props="target:'geoSG:MD_SecurityConstraints',minOccurs:0">
+
+        <div data-dojo-type="esri/dijit/metadata/form/iso/CodeListElement" data-dojo-props="target:'geoSG:MD_ClassificationCode',minOccurs:1,
+            label:'${i18nGeoSg.metadataIdentification.constraintsTab.classification}', showHeader:true">
+            <div data-dojo-type="esri/dijit/metadata/form/iso/CodeSpaceAttribute"></div>
+            <div data-dojo-type="esri/dijit/metadata/form/iso/CodeListAttribute"
+                data-dojo-props="value:'${codeListPrefix}geoSG:MD_ClassificationCode'"></div>
+            <div data-dojo-type="esri/dijit/metadata/form/iso/CodeListValueAttribute">
+                <div data-dojo-type="esri/dijit/metadata/form/InputSelectOne">
+                    <div data-dojo-type="esri/dijit/metadata/form/Options">
+                        <div data-dojo-type="esri/dijit/metadata/form/Option"
+                            data-dojo-props="label:'${i18nGeoSg.securityClassification.confidential}',value:'confidential'">
+                        </div>
+                        <div data-dojo-type="esri/dijit/metadata/form/Option"
+                            data-dojo-props="label:'${i18nGeoSg.securityClassification.restricted}',value:'restricted'">
+                        </div>
+                        <div data-dojo-type="esri/dijit/metadata/form/Option"
+                            data-dojo-props="label:'${i18nGeoSg.securityClassification.officialOpen}',value:'officialOpen'">
+                        </div>
+                        <div data-dojo-type="esri/dijit/metadata/form/Option"
+                            data-dojo-props="label:'${i18nGeoSg.securityClassification.officialClosed}',value:'officialClosed'">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Specific to MPA-->
+        <div data-dojo-type="esri/dijit/metadata/form/iso/CodeListElement" data-dojo-props="target:'geoSG:MD_SensitivityClassification',minOccurs:0,
+            label:'${i18nGeoSg.metadataIdentification.constraintsTab.securityClassification}', showHeader:true">
+            <div data-dojo-type="esri/dijit/metadata/form/iso/CodeSpaceAttribute"></div>
+            <div data-dojo-type="esri/dijit/metadata/form/iso/CodeListAttribute"
+                data-dojo-props="value:'${codeListPrefix}geoSG:MD_SensitivityClassification'"></div>
+            <div data-dojo-type="esri/dijit/metadata/form/iso/CodeListValueAttribute">
+                <div data-dojo-type="esri/dijit/metadata/form/InputSelectOne">
+                    <div data-dojo-type="esri/dijit/metadata/form/Options">
+                        <div data-dojo-type="esri/dijit/metadata/form/Option"
+                            data-dojo-props="label:'${i18nGeoSg.sensitivityClassification.sensitiveHigh}',value:'1'">
+                        </div>
+                        <div data-dojo-type="esri/dijit/metadata/form/Option"
+                            data-dojo-props="label:'${i18nGeoSg.sensitivityClassification.sensitiveNormal}',value:'2'">
+                        </div>
+                        <div data-dojo-type="esri/dijit/metadata/form/Option"
+                            data-dojo-props="label:'${i18nGeoSg.sensitivityClassification.nonSensitive}',value:'3'">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Specific to MPA-->
+        <!-- 
+        <div data-dojo-type="esri/dijit/metadata/form/iso/CodeListElement" data-dojo-props="target:'geoSG:MD_InformationMarker',minOccurs:0,
+            label:'${i18nGeoSg.metadataIdentification.constraintsTab.informationMarker}', showHeader:true">
+            <div data-dojo-type="esri/dijit/metadata/form/iso/CodeSpaceAttribute"></div>
+            <div data-dojo-type="esri/dijit/metadata/form/iso/CodeListAttribute"
+                data-dojo-props="value:'${codeListPrefix}geoSG:MD_InformationMarker'"></div>
+            <div data-dojo-type="esri/dijit/metadata/form/iso/CodeListValueAttribute">
+                <div data-dojo-type="esri/dijit/metadata/form/InputSelectOne">
+                    <div data-dojo-type="esri/dijit/metadata/form/Options">
+                        <div data-dojo-type="esri/dijit/metadata/form/Option"
+                            data-dojo-props="label:'${i18nGeoSg.informationMarker.officialClosed}',value:'1'">
+                        </div>
+                        <div data-dojo-type="esri/dijit/metadata/form/Option"
+                            data-dojo-props="label:'${i18nGeoSg.informationMarker.officialOpen}',value:'2'">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        -->
+
+    </div>
+</div>

@@ -27,8 +27,9 @@ load("classpath:metadata/js/EvaluatorFor_FGDC.js");
 load("classpath:metadata/js/EvaluatorFor_ISO.js");
 load("classpath:metadata/js/EvaluatorFor_ISO_extended.js"); // add  extended class
 load("classpath:metadata/js/EvaluatorFor_MPA.js") // Added MPA
+load("classpath:metadata/js/EvaluatorFor_Geospatial_SG.js") // Added Geospatial-SG
 
-G._metadataTypes =  {
+G._metadataTypes = {
   "iso19115base": {
     key: "iso19115",
     evaluator: G.evaluators.iso,
@@ -109,38 +110,50 @@ G._metadataTypes =  {
     //xsdLocation: "http://www.ngdc.noaa.gov/metadata/published/xsd/schema.xsd",
     //schematronXslt: "metadata/schematron/Gemini2_R2r2-schematron.xslt",
     toKnownXslt: null
+  },
+  "geospatial-sg": {
+    key: "geospatial-sg",
+    evaluator: G.evaluators.geospatialsg,
+    interrogationXPath: "/geoSG:MD_Metadata",
+    identifier: "",
+    detailsXslt: "metadata/details/geospatial-sg-details/xml-to-html-Geospatial-SG.xsl",
+    //xsdLocation: "http://www.ngdc.noaa.gov/metadata/published/xsd/schema.xsd",
+    //schematronXslt: "metadata/schematron/Gemini2_R2r2-schematron.xslt",
+    toKnownXslt: null
   }
 };
 
-G._initializeTask = function(mdoc) {
+G._initializeTask = function (mdoc) {
   var nsmap = new java.util.HashMap();
-  nsmap.put("gmd","http://www.isotc211.org/2005/gmd");
-  nsmap.put("gmi","http://www.isotc211.org/2005/gmi");
-  nsmap.put("gco","http://www.isotc211.org/2005/gco");
+  nsmap.put("gmd", "http://www.isotc211.org/2005/gmd");
+  nsmap.put("gmi", "http://www.isotc211.org/2005/gmi");
+  nsmap.put("gco", "http://www.isotc211.org/2005/gco");
 
-  nsmap.put("gml","http://www.opengis.net/gml");
-  nsmap.put("gml32","http://www.opengis.net/gml/3.2");
-  nsmap.put("srv","http://www.isotc211.org/2005/srv");
-  nsmap.put("gmx","http://www.isotc211.org/2005/gmx");
-  nsmap.put("gsr","http://www.isotc211.org/2005/gsr");
-  nsmap.put("gss","http://www.isotc211.org/2005/gss");
-  nsmap.put("gts","http://www.isotc211.org/2005/gts");
-  nsmap.put("xlink","http://www.w3.org/1999/xlink");
-  nsmap.put("rdf","http://www.w3.org/1999/02/22-rdf-syntax-ns#");
-  nsmap.put("dc","http://purl.org/dc/elements/1.1/");
-  nsmap.put("dct","http://purl.org/dc/terms/");
-  nsmap.put("ows","http://www.opengis.net/ows");
-  nsmap.put("ows2","http://www.opengis.net/ows/2.0");
-  nsmap.put("atom","http://www.w3.org/2005/Atom");
-  nsmap.put("oai_dc","http://www.openarchives.org/OAI/2.0/oai_dc/");
-  nsmap.put("doc","http://www.lyncode.com/xoai");
+  nsmap.put("gml", "http://www.opengis.net/gml");
+  nsmap.put("gml32", "http://www.opengis.net/gml/3.2");
+  nsmap.put("srv", "http://www.isotc211.org/2005/srv");
+  nsmap.put("gmx", "http://www.isotc211.org/2005/gmx");
+  nsmap.put("gsr", "http://www.isotc211.org/2005/gsr");
+  nsmap.put("gss", "http://www.isotc211.org/2005/gss");
+  nsmap.put("gts", "http://www.isotc211.org/2005/gts");
+  nsmap.put("xlink", "http://www.w3.org/1999/xlink");
+  nsmap.put("rdf", "http://www.w3.org/1999/02/22-rdf-syntax-ns#");
+  nsmap.put("dc", "http://purl.org/dc/elements/1.1/");
+  nsmap.put("dct", "http://purl.org/dc/terms/");
+  nsmap.put("ows", "http://www.opengis.net/ows");
+  nsmap.put("ows2", "http://www.opengis.net/ows/2.0");
+  nsmap.put("atom", "http://www.w3.org/2005/Atom");
+  nsmap.put("oai_dc", "http://www.openarchives.org/OAI/2.0/oai_dc/");
+  nsmap.put("doc", "http://www.lyncode.com/xoai");
+  nsmap.put("mpa", "");
+  nsmap.put("geospatial-sg", "");
   var xpath = javax.xml.xpath.XPathFactory.newInstance().newXPath();
   xpath.setNamespaceContext(new com.esri.geoportal.base.xml.XmlNamespaceContext(nsmap));
 
   var task = {
-      mdoc: mdoc,
-      item: {},
-      xpath: xpath
+    mdoc: mdoc,
+    item: {},
+    xpath: xpath
   };
   if (mdoc && mdoc.hasXml()) {
     task.dom = task.mdoc.ensureDom();
@@ -149,15 +162,16 @@ G._initializeTask = function(mdoc) {
   return task;
 };
 
-G._interrogate = function(mdoc) {
+G._interrogate = function (mdoc) {
   var task = G._initializeTask(mdoc);
-  var type = null, mdType;
+  var type = null,
+    mdType;
   var i, t, keys = Object.keys(G._metadataTypes);
   if (mdoc.hasXml() && keys) {
-    for (i=0;i<keys.length;i++) {
+    for (i = 0; i < keys.length; i++) {
       t = G._metadataTypes[keys[i]];
       if (t.interrogationXPath) {
-        if (G.hasNode(task,task.dom,t.interrogationXPath)) {
+        if (G.hasNode(task, task.dom, t.interrogationXPath)) {
           type = t;
           break;
         }
@@ -179,7 +193,7 @@ G._interrogate = function(mdoc) {
   }
 };
 
-G._evaluate = function(mdoc) {
+G._evaluate = function (mdoc) {
   var task = G._initializeTask(mdoc);
   var key = mdoc.getMetadataType().getKey();
   var metadataType = G._metadataTypes[key];
@@ -192,11 +206,11 @@ G._evaluate = function(mdoc) {
     //print(JSON.stringify(task.item));
   } else {
     // TODO log
-    print("No metadata evaluator for key: "+key);
+    print("No metadata evaluator for key: " + key);
   }
 };
 
-G._getDetailsXslt = function(key) {
+G._getDetailsXslt = function (key) {
   var metadataType = G._metadataTypes[key];
   if (metadataType && metadataType.detailsXslt) {
     return metadataType.detailsXslt;
@@ -215,6 +229,3 @@ function getDetailsXslt(key) {
 function interrogate(mdoc) {
   G._interrogate(mdoc);
 }
-
-
-

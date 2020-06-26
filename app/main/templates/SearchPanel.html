@@ -1,8 +1,14 @@
-<div  data-dojo-attach-point="contentNode">
+<div data-dojo-attach-point="contentNode">
+  <div class="g-search-content-row">
+    <span style="float:right" class="close" data-dojo-attach-event="onclick: closeAnnouncements">&times;</span>
+  </div>
+  <div id="announcements">
+    <iframe scrolling="no" frameBorder="0" width="100%" height="100%" style="overflow: hidden" src="../../../geoportal/announcement-panel.html"></iframe>
+  </div>
   <div class="g-search-panel" data-dojo-type="app/search/SearchPane">
     <div class="g-search-bar-row">
       <div class="g-search-bar">
-        <span class="g-search-bar-title">Search Catalog</span>
+        <span class="g-search-bar-title">Data Catalogue</span>
         <div data-dojo-type="app/search/SearchBox"></div>
       </div>
     </div>

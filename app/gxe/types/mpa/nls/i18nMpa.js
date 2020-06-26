@@ -3,11 +3,11 @@ define({
 
         documentTypes: {
             data: {
-                caption: "MPA 19115 (Data)",
+                caption: "Geospatial-SG",
                 description: ""
             },
             service: {
-                caption: "MPA 19119 (Service)",
+                caption: "Geospatial-SG",
                 description: ""
             }
         },

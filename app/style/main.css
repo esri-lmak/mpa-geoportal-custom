@@ -698,7 +698,7 @@ body {
 
 /* ITEM CARD */
 .g-item-card {
-  display: flex;
+  /* display: flex; */
   align-items: flex-start;
   justify-content: space-between;
   margin: 12px 0;

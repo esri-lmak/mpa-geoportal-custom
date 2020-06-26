@@ -49,6 +49,7 @@
 				</a>
 			</li>
 
+			<!--
 			<li class="nav-item" data-dojo-attach-point="adminOptionsBtnNode">
 				<a class="g-nav-dropdown-link dropdown-toggle nav-padding-fix" href="#" aria-label="Dropdown Menu"
 					data-toggle="dropdown">
@@ -70,8 +71,7 @@
 							${i18n.nav.options.uploadMetadata}
 						</a>
 					</li>
-					<!-- Specific to MPA -->
-					<li data-role="publisher" data-dojo-attach-point="uploadDataMetadataNode">
+					<li data-role="publisher">
 						<a href="#" class="small" data-dojo-attach-event="onclick: uploadDataMetadataClicked">
 							${i18n.nav.options.uploadDataMetadata}
 						</a>
@@ -91,15 +91,35 @@
 							${i18n.nav.options.pendingSignUpRequests}
 						</a>
 					</li>
-					<!-- TODO provide edit facet functionality in App.js
+					<li data-role="admin">
+						<a href="#" class="small" data-dojo-attach-event="onclick: downloadRequestsClicked">
+							${i18n.nav.options.pendingDownloadRequests}
+						</a>
+					</li>
+					<li data-role="admin">
+						<a href="#announcementsPanel" class="small" target="_blank">
+							${i18n.nav.options.manageAnnouncements}
+						</a>
+					</li>
+					<li data-role="admin">
+						<a href="#faqsPanel" class="small" target="_blank">
+							${i18n.nav.options.manageFaqs}
+						</a>
+					</li>
+					<li data-role="admin">
+						<a href="#auditTrailPanel" class="small" target="_blank">
+							${i18n.nav.options.auditTrail}
+						</a>
+					</li>
+					TODO provide edit facet functionality in App.js
           			<li data-role="publisher">
             			<a href="#" class="small" data-dojo-attach-event="onclick: editFacetClicked">
               				${i18n.nav.options.editFacet}
             			</a>
           			</li>
-        			-->
 				</ul>
 			</li>
+			-->
 		</ul>
 
 		<div class="g-tools">
@@ -107,11 +127,77 @@
 				<a href="#" class="dropdown-toggle g-user" aria-label="Dropdown Menu" data-toggle="dropdown">
 					<img class="g-user-thumb" src="images/account-placehold.svg" />
 					<span class="g-username" data-dojo-attach-point="usernameNode"></span>
+					<svg class="g-nav-dropdown-icon" viewBox="0 -6 24 24">
+						<path d="M7,10L12,15L17,10H7Z" />
+					</svg>
 				</a>
 
 				<ul class="dropdown-menu">
 					<li class="divider"></li>
 					<li class="divider"></li>
+					<li data-role="publisher">
+						<a href="#" class="small" data-dojo-attach-event="onclick: createMetadataClicked">
+							${i18n.nav.options.createMetadata}
+						</a>
+					</li>
+					<li data-role="publisher">
+						<a href="#" class="small" data-dojo-attach-event="onclick: uploadClicked">
+							${i18n.nav.options.uploadMetadata}
+						</a>
+					</li>
+					<!-- Specific to MPA -->
+					<li data-role="publisher">
+						<a href="#" class="small" data-dojo-attach-event="onclick: uploadDataMetadataClicked">
+							${i18n.nav.options.uploadDataMetadata}
+						</a>
+					</li>
+					<li data-role="admin">
+						<a href="#" class="small" data-dojo-attach-event="onclick: pendingConfidentialRequestsClicked">
+							${i18n.nav.options.pendingRequests}
+						</a>
+					</li>
+					<li data-role="admin">
+						<a href="#" class="small" data-dojo-attach-event="onclick: pendingUploadRequestsClicked">
+							${i18n.nav.options.pendingUploadRequests}
+						</a>
+					</li>
+					<li data-role="admin">
+						<a href="#" class="small" data-dojo-attach-event="onclick: downloadRequestsClicked">
+							${i18n.nav.options.pendingDownloadRequests}
+						</a>
+					</li>
+					<li data-role="admin">
+						<a href="#" class="small" data-dojo-attach-event="onclick: manageAnnouncementsClicked">
+							${i18n.nav.options.manageAnnouncements}
+						</a>
+					</li>
+					<li data-role="admin">
+						<a href="#" class="small" data-dojo-attach-event="onclick: manageFaqsClicked">
+							${i18n.nav.options.manageFaqs}
+						</a>
+					</li>
+					<li data-role="admin">
+						<a href="#" class="small" data-dojo-attach-event="onclick: auditTrailClicked">
+							${i18n.nav.options.auditTrail}
+						</a>
+					</li>
+					<li data-role="admin">
+						<a href="#" class="small" data-dojo-attach-event="onclick: feedbackClicked">
+							${i18n.nav.options.feedback}
+						</a>
+					</li>
+					<li data-role="admin">
+						<a href="#" class="small" data-dojo-attach-event="onclick: pendingSignUpRequestsClicked">
+							${i18n.nav.options.pendingSignUpRequests}
+						</a>
+					</li>
+					<!-- TODO provide edit facet functionality in App.js
+          			<li data-role="publisher">
+            			<a href="#" class="small" data-dojo-attach-event="onclick: editFacetClicked">
+              				${i18n.nav.options.editFacet}
+            			</a>
+          			</li>
+					-->
 					<li data-dojo-attach-point="createAccountNode">
 						<a href="#" class="small" target="_blank" data-dojo-attach-point="createAccountLink">
 							${i18n.nav.options.createAccount}

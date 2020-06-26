@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>FeatureTable - Custom Menu Items</title>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+
+    <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico" />
+    <link rel="stylesheet" href="https://mpa.esrisg.dev/arcgis_js_api/library/3.25/3.25/dijit/themes/claro/claro.css">
+    <link rel="stylesheet" href="https://mpa.esrisg.dev/arcgis_js_api/library/3.25/3.25/esri/css/esri.css">
+    <link rel="stylesheet" href="./app/style/main.css">
+    <link rel="stylesheet" href="./lib/typeahead.css">
+    <link rel="stylesheet" href="./custom/custom.css">
+
+    <script type="text/javascript">
+        var dojoConfig = {
+            locale: "en",
+            async: true,
+            parseOnLoad: true,
+            packages: [{
+                name: 'app',
+                location: location.pathname.replace(/\/[^/]*$/, '') + '/app',
+            }]
+        };
+    </script>
+    <script src="./lib/d3-3.5.5.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/c3/0.4.10/c3.min.js"></script>
+    <script src="./lib/jquery-3.2.1.min.js"></script>
+    <script src="./lib/bootstrap-3.3.7.min.js"></script>
+    <script src="./lib/typeahead.js"></script>
+    <script src="https://mpa.esrisg.dev/arcgis_js_api/library/3.25/3.25/init.js"></script>
+    <script src="./custom/custom.js"></script>
+    <style>
+        html,
+        body,
+        #map {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+
+    <script>
+        require([
+            "esri/layers/FeatureLayer",
+            "esri/dijit/FeatureTable",
+            "dojo/dom",
+            "dojo/parser",
+            "dojo/ready",
+            "dojo/on",
+            "dijit/layout/ContentPane",
+            "dijit/layout/BorderContainer"
+        ], function (
+            FeatureLayer, FeatureTable, dom, parser, ready, on, ContentPane, BorderContainer
+        ) {
+
+            parser.parse();
+
+            ready(function () {
+                // editable FeatureLayer
+                var featureLayer = new FeatureLayer(
+                    "https://mpa.esrisg.dev/arcgis/rest/services/Hosted/UserTable/FeatureServer/0", {
+                        mode: FeatureLayer.MODE_ONDEMAND,
+                        outFields: ["username", "organisation", "firstname", "lastname", "email",
+                            "role", "last_login", "created_date", "modified_date"
+                        ],
+                        visible: true,
+                        id: "fLayer2"
+                    });
+                // create new FeatureTable and set its properties 
+                var featureTable = new FeatureTable({
+                    featureLayer: featureLayer,
+                    editable: false,
+                    syncSelection: true,
+                    dateOptions: {
+                        datePattern: 'dd/MM/y',
+                        timeEnabled: true,
+                        timePattern: 'HH:mm:ss',
+                    },
+                    hiddenFields: ["objectid", "password"],
+                    // use fieldInfos object to change field's label (column header), 
+                    // change the editability of the field, and to format how field values are displayed
+                    // you will not be able to edit callnumber field in this example. 
+                    fieldInfos: [{
+                            name: 'username',
+                            alias: 'Username'
+                        },
+                        {
+                            name: 'organisation',
+                            alias: 'Organisation'
+                        },
+                        {
+                            name: 'firstname',
+                            alias: 'First Name'
+                        },
+                        {
+                            name: 'lastname',
+                            alias: 'Last Name'
+                        },
+                        {
+                            name: 'email',
+                            alias: 'Email'
+                        },
+                        {
+                            name: 'role',
+                            alias: 'Role'
+                        },
+                        {
+                            name: 'last_login',
+                            alias: 'Last Login'
+                        },
+                        {
+                            name: 'created_date',
+                            alias: 'Created Date'
+                        },
+                        {
+                            name: 'modified_date',
+                            alias: 'Modified Date'
+                        }
+                    ],
+                    // add custom menu functions to the 'Options' drop-down Menu 
+                    menuFunctions: [
+                        {
+                            label: "Edit",
+                            callback: editRecord
+                        },
+                        {
+                            label: "Export to CSV",
+                            callback: customExportCSV
+                        }
+                    ]
+                }, 'tableNode');
+
+                featureTable.startup();
+
+                function customExportCSV(evt) {
+                    if (featureTable.selectedRows.length > 0) {
+                        var data = featureTable.selectedRows;
+                        var csv = convertArrayOfObjectsToCSV({
+                            data: data
+                        });
+
+                        if (!csv.match(/^data:text\/csv/i)) {
+                            csv = 'data:text/csv;charset=utf-8,' + csv;
+                        }
+
+                        var encodedUri = encodeURI(csv);
+                        var link = document.createElement('a');
+                        link.setAttribute('href', encodedUri);
+                        link.setAttribute('download', "Registered_Users.csv");
+                        link.click();
+                    } else {
+                        alert("Please at least one record.");
+                    }          
+                }
+
+                function convertArrayOfObjectsToCSV(value) {
+                    var result, ctr, keys, columnDelimiter, lineDelimiter, data;
+
+                    data = value.data || null;
+                    if (data == null || !data.length) {
+                        return null;
+                    }
+
+                    columnDelimiter = value.columnDelimiter || ',';
+                    lineDelimiter = value.lineDelimiter || '\n';
+
+                    keys = Object.keys(data[0]);
+                    result = '';
+                    result += keys.join(columnDelimiter);
+                    result += lineDelimiter;
+
+                    data.forEach(function (item) {
+                        ctr = 0;
+                        keys.forEach(function (key) {
+                            if (ctr > 0)
+                                result += columnDelimiter;
+                            result += item[key];
+                            ctr++;
+                        });
+                        result += lineDelimiter;
+                    });
+
+                    return result;
+                }
+
+                function approveRecord(evt) {
+                    require(["app"], function () {
+                        require(["app/content/ApproveRequest", "app/context/AppClient"],
+                            function (ApproveRequest, AppClient) {
+                                if (featureTable.selectedRows.length > 0) {
+                                    var username = featureTable.selectedRows[0].username;
+                                    var objectId = featureTable.selectedRows[0].objectid;
+
+                                    // (new ApproveRequest({requestor: username, fileId: objectId})).show();
+                                    var client = new AppClient();
+                                    var response = client.approveUserRequest(username,
+                                        objectId, "approved");
+                                    var action = confirm(
+                                        "Are you sure you want to approve the request?");
+                                    if (action == true) {
+                                        alert("Request submitted successfully.");
+                                        setTimeout(function () {
+                                            window.location.reload();
+                                        }, 1500);
+                                    }
+                                } else {
+                                    alert("Please select a record.");
+                                }
+                            }
+                        );
+                    });
+                }
+
+                function editRecord(evt) {
+                    require(["app"], function () {
+                        require(["app/content/ApproveRequest", "app/context/AppClient"],
+                            function (ApproveRequest, AppClient) {
+                                if (featureTable.selectedRows.length > 0) {
+                                    var username = featureTable.selectedRows[0].username;
+                                    var firstName = featureTable.selectedRows[0].firstname;
+                                    var lastName = featureTable.selectedRows[0].lastname;
+                                    var email = featureTable.selectedRows[0].email;
+                                    var role = featureTable.selectedRows[0].role;
+
+                                    document.getElementById('username').innerHTML = username;
+                                    document.getElementById('firstName').value = firstName;
+                                    document.getElementById('lastName').value = lastName;
+                                    document.getElementById('email').innerHTML = email;
+                                    document.getElementById('role').value = role;
+                                    var editForm = document.getElementById("editForm");
+                                    editForm.style.display = "block";
+                                } else {
+                                    alert("Please select a record.");
+                                }
+                            }
+                        );
+                    });
+                }
+            });
+        });
+
+        function editUserRecord() {
+            require(["app"], function () {
+                require(["app/context/AppClient"],
+                    function (AppClient) {
+                        document.getElementById("firstNameError").innerHTML = "";
+                        document.getElementById("lastNameError").innerHTML = "";
+                        document.getElementById("roleError").innerHTML = "";
+
+                        var username = document.getElementById('username').innerHTML;
+                        var firstName = document.getElementById('firstName').value;
+                        var lastName = document.getElementById('lastName').value;
+                        var email = document.getElementById('email').innerHTML;
+                        var role = document.getElementById('role').value;
+                        console.log(username);
+                        console.log(email);
+
+                        var validation = 0;
+                        if (firstName.length == 0) {
+                            validation++;
+                            document.getElementById("firstNameError").innerHTML = "First Name is mandatory.";
+                        }
+
+                        if (lastName.length == 0) {
+                            validation++;
+                            document.getElementById("lastNameError").innerHTML = "Last Name is mandatory.";
+                        }
+
+                        if (role.length == 0) {
+                            validation++;
+                            document.getElementById("roleError").innerHTML = "Role is mandatory.";
+                        }
+
+                        if (validation == 0) {
+                            var client = new AppClient();
+                            client.updateUser(username, firstName, lastName, email, role).then(function (response) {
+                                if (response) {
+                                    var editForm = document.getElementById("editForm");
+                                    editForm.style.display = "none";
+
+                                    alert("User record updated successfully.");
+                                    setTimeout(function () {
+                                        window.location.reload();
+                                    }, 1500);
+                                }
+                            }).otherwise(function (error) {
+                                console.warn("User.error", error);
+                            });
+                        }
+                    }
+                );
+            });
+        }
+    </script>
+</head>
+
+<body>
+    <div data-dojo-type="dijit/layout/BorderContainer" data-dojo-props="design:'headline', gutters: false"
+        style="width:100%; height:100%;">
+        <div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'center', splitter:true"
+            style="height:50%;">
+            <div id="tableNode"></div>
+        </div>
+    </div>
+
+    <div id="editForm" style="display: none;">
+        <div class="row">
+            <div class="col-xs-12">
+                <div id="content" class="row">
+                    <div class="col-xs-6">
+                        <h2>Username:</h2>
+                        <p id="username"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-12">
+                <div id="content" class="row">
+                    <div class="col-xs-6">
+                        <h2>First Name:</h2>
+                        <input type="text" class="form-control" id="firstName" name="firstName"
+                            data-dojo-attach-point="firstNameInput">
+                        <p id="firstNameError" class="g-metadata-validation-errors text-danger"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-12">
+                <div id="content" class="row">
+                    <div class="col-xs-6">
+                        <h2>Last Name:</h2>
+                        <input type="text" class="form-control" id="lastName" name="lastName"
+                            data-dojo-attach-point="lastNameInput">
+                        <p id="lastNameError" class="g-metadata-validation-errors text-danger"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-12">
+                <div id="content" class="row">
+                    <div class="col-xs-6">
+                        <h2>Email:</h2>
+                        <p id="email"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-12">
+                <div id="content" class="row">
+                    <div class="col-xs-6">
+                        <h2>Role:</h2>
+                        <select id="role" class="form-control" data-dojo-attach-point="roleSelect">
+                            <option value="Admin">Admin</option>
+                            <option value="Manager">Manager</option>
+                            <option value="User">User</option>
+                        </select>
+                        <p id="roleError" class="g-metadata-validation-errors text-danger"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-12">
+                <div id="content" class="row">
+                    <div class="col-xs-3">
+                        <button type="submit" onclick="editUserRecord()">Edit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

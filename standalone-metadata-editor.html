@@ -5,138 +5,21 @@
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<link rel="stylesheet" href="//esri.github.io/calcite-bootstrap/assets/css/calcite-bootstrap.css">
-<link rel="stylesheet" href="//js.arcgis.com/3.19/esri/themes/calcite/dijit/calcite.css">
-<link rel="stylesheet" href="//js.arcgis.com/3.19/esri/themes/calcite/esri/esri.css">
-<link rel="stylesheet" href="//js.arcgis.com/3.19/esri/dijit/metadata/css/gxe.css"/>
-<link rel="stylesheet" href="//js.arcgis.com/3.19/esri/dijit/metadata/css/gxe-calcite.css"/>
-<script data-main="./custom/3.25/" src="./custom/require.js"></script>
+<link rel="stylesheet" href="./lib/calcite-bootstrap/css/calcite-bootstrap.css">
+<link rel="stylesheet" href="https://mpa.esrisg.dev/arcgis_js_api/library/3.25/3.25/esri/themes/calcite/dijit/calcite.css">
+<link rel="stylesheet" href="https://mpa.esrisg.dev/arcgis_js_api/library/3.25/3.25/esri/themes/calcite/esri/esri.css">
+<link rel="stylesheet" href="https://mpa.esrisg.dev/arcgis_js_api/library/3.25/3.25/esri/dijit/metadata/css/gxe.css"/>
+<link rel="stylesheet" href="https://mpa.esrisg.dev/arcgis_js_api/library/3.25/3.25/esri/dijit/metadata/css/gxe-calcite.css"/>
+<script src="https://mpa.esrisg.dev/arcgis_js_api/library/3.25/3.25/init.js"></script>
 <script>
 
   var gxeWasInitialized = false;
 
   var gxeAllowedTypeKeys = [
-    "arcgis", "fgdc", 
-    "iso-19115", "iso-19119", "iso-19115-2",
-    "inspire-iso-19115", "inspire-iso-19119", 
-    "gemini-iso-19115", "gemini-iso-19119",
-    "mpa-iso-19115", "mpa-iso-19119",
-    "myprofile-iso-19115", "myprofile-iso-19119"
+    "mpa-iso-19115", "geospatial-sg"
   ];
 
   var gxeTypeDefinitions = [
-    {
-      key: "arcgis",
-      requiredPath: "esri/dijit/metadata/types/arcgis/base/DocumentType",
-      interrogationRules: [{
-         path: "/metadata/Esri/ArcGISFormat",
-         must: true
-      }]
-    },
-    {
-      key: "fgdc",
-      requiredPath: "esri/dijit/metadata/types/fgdc/base/DocumentType",
-      interrogationRules: [{
-         path: "/metadata/idinfo/citation",
-         must: true
-      }]
-    },
-    {
-      key: "iso-19115",
-      requiredPath: "esri/dijit/metadata/types/iso/base/DataDocumentType",
-      interrogationRules: [{
-         path: "/gmd:MD_Metadata/gmd:identificationInfo/gmd:MD_DataIdentification",
-         must: true
-      }]
-    },
-    {
-      key: "iso-19119",
-      requiredPath: "esri/dijit/metadata/types/iso/base/ServiceDocumentType",
-      interrogationRules: [{
-         path: "/gmd:MD_Metadata/gmd:identificationInfo/srv:SV_ServiceIdentification",
-         must: true
-      }]
-    },
-    {
-      key: "iso-19115-2",
-      requiredPath: "esri/dijit/metadata/types/iso/base/GmiDocumentType",
-      interrogationRules: [{
-         path: "/gmi:MI_Metadata",
-         must: true
-      }]
-    },
-    {
-      key: "inspire-iso-19115",
-      requiredPath: "esri/dijit/metadata/types/inspire/base/DataDocumentType",
-      interrogationRules: [
-        {
-          path: "/gmd:MD_Metadata/gmd:identificationInfo/gmd:MD_DataIdentification",
-          must: true
-        },
-        {
-          path: "/gmd:MD_Metadata/gmd:metadataStandardName/gco:CharacterString",
-          value: "INSPIRE Metadata Implementing Rules"
-        },
-        {
-          path: "/gmd:MD_Metadata/gmd:metadataStandardVersion/gco:CharacterString",
-          value: "Technical Guidelines based on EN ISO 19115 and EN ISO 19119 (Version 1.2)"
-        }
-      ]
-    },
-    {
-      key: "inspire-iso-19119",
-      requiredPath: "esri/dijit/metadata/types/inspire/base/ServiceDocumentType",
-      interrogationRules: [
-        {
-          path: "/gmd:MD_Metadata/gmd:identificationInfo/srv:SV_ServiceIdentification",
-          must: true
-        },
-        {
-          path: "/gmd:MD_Metadata/gmd:metadataStandardName/gco:CharacterString",
-          value: "INSPIRE Metadata Implementing Rules"
-        },
-        {
-          path: "/gmd:MD_Metadata/gmd:metadataStandardVersion/gco:CharacterString",
-          value: "Technical Guidelines based on EN ISO 19115 and EN ISO 19119 (Version 1.2)"
-        }
-      ]
-    },
-    {
-      key: "gemini-iso-19115",
-      requiredPath: "esri/dijit/metadata/types/gemini/base/DataDocumentType",
-      interrogationRules: [
-        {
-          path: "/gmd:MD_Metadata/gmd:identificationInfo/gmd:MD_DataIdentification",
-          must: true
-        },
-        {
-          path: "/gmd:MD_Metadata/gmd:metadataStandardName/gco:CharacterString",
-          value: "UK GEMINI"
-        },
-        {
-          path: "/gmd:MD_Metadata/gmd:metadataStandardVersion/gco:CharacterString",
-          value: "2.2"
-        }
-      ]
-    },
-    {
-      key: "gemini-iso-19119",
-      requiredPath: "esri/dijit/metadata/types/gemini/base/ServiceDocumentType",
-      interrogationRules: [
-        {
-          path: "/gmd:MD_Metadata/gmd:identificationInfo/srv:SV_ServiceIdentification",
-          must: true
-        },
-        {
-          path: "/gmd:MD_Metadata/gmd:metadataStandardName/gco:CharacterString",
-          value: "UK GEMINI"
-        },
-        {
-          path: "/gmd:MD_Metadata/gmd:metadataStandardVersion/gco:CharacterString",
-          value: "2.2"
-        }
-      ]
-    },
     {
       key: "mpa-iso-19115",
       requiredPath: "esri/dijit/metadata/types/mpa/base/DataDocumentType",
@@ -156,59 +39,24 @@
       ]
     },
     {
-      key: "mpa-iso-19119",
-      requiredPath: "esri/dijit/metadata/types/mpa/base/ServiceDocumentType",
+      key: "geospatial-sg",
+      requiredPath: "esri/dijit/metadata/types/geospatial-sg/base/DataDocumentType",
       interrogationRules: [
         {
-          path: "/gmd:MD_Metadata/gmd:identificationInfo/srv:SV_ServiceIdentification",
+          path: "/geoSG:MD_Metadata/geoSG:metadataIdentification/geoSG:MD_DataIdentification",
           must: true
         },
         {
-          path: "/gmd:MD_Metadata/gmd:metadataStandardName/gco:CharacterString",
-          value: "MPA"
+          path: "/geoSG:MD_Metadata/geoSG:metadataStandardName/gco:CharacterString",
+          value: "Geospatial-SG"
         },
         {
-          path: "/gmd:MD_Metadata/gmd:metadataStandardVersion/gco:CharacterString",
-          value: "1.0"
-        }
-      ]
-    },
-    {
-      key: "myprofile-iso-19115",
-      requiredPath: "app/gxe/types/myprofile/base/DataDocumentType",
-      interrogationRules: [
-        {
-          path: "/gmd:MD_Metadata/gmd:identificationInfo/gmd:MD_DataIdentification",
-          must: true
-        },
-        {
-          path: "/gmd:MD_Metadata/gmd:metadataStandardName/gco:CharacterString",
-          value: "MyProfile"
-        },
-        {
-          path: "/gmd:MD_Metadata/gmd:metadataStandardVersion/gco:CharacterString",
-          value: "1.0"
-        }
-      ]
-    },
-    {
-      key: "myprofile-iso-19119",
-      requiredPath: "app/gxe/types/myprofile/base/ServiceDocumentType",
-      interrogationRules: [
-        {
-          path: "/gmd:MD_Metadata/gmd:identificationInfo/srv:SV_ServiceIdentification",
-          must: true
-        },
-        {
-          path: "/gmd:MD_Metadata/gmd:metadataStandardName/gco:CharacterString",
-          value: "MyProfile"
-        },
-        {
-          path: "/gmd:MD_Metadata/gmd:metadataStandardVersion/gco:CharacterString",
+          path: "/geoSG:MD_Metadata/geoSG:metadataStandardVersion/gco:CharacterString",
           value: "1.0"
         }
       ]
     }
+
   ];
 
   function openMetadataEditor() {
@@ -224,10 +72,10 @@
              "dojo/i18n!esri/dijit/metadata/nls/i18nInspire",
              "dojo/i18n!esri/dijit/metadata/nls/i18nGemini",
              "dojo/i18n!esri/dijit/metadata/nls/i18nMpa",
-             "dojo/i18n!app/gxe/types/myprofile/nls/i18nMyProfile",
+             "dojo/i18n!esri/dijit/metadata/nls/i18nGeoSg",
              "dojo/domReady!"],
       function(lang, array, Deferred, Dialog, DescriptorMixin, 
-        i18nArcGIS, i18nFgdc, i18nIso, i18nInspire, i18nGemini, i18nMpa, i18nMyProfile) {
+        i18nArcGIS, i18nFgdc, i18nIso, i18nInspire, i18nGemini, i18nMpa, i18nGeoSg) {
       
         if (!DescriptorMixin.prototype.xtnWasExtended) {
           lang.extend(DescriptorMixin, {
@@ -238,7 +86,7 @@
             i18nInspire: i18nInspire,
             i18nGemini: i18nGemini,
             i18nMpa: i18nMpa,
-            i18nMyProfile: i18nMyProfile
+            i18nGeoSg: i18nGeoSg
           });
         }
       
@@ -337,15 +185,17 @@
 	          });
           }
         );
+        
       }
     );
+    
   }
   
 </script>
-</head>
+
 <body class="calcite">
   <div style="margin:20px;">
-      <h1>Geoportal Standalone Metadata Editor</h1>
+    <h1>Geoportal Standalone Metadata Editor</h1>
   </div>
   <div style="margin:20px;">
     <button onclick="openMetadataEditor()">Open Metadata Editor</button>

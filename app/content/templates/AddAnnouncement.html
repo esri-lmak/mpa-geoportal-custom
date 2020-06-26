@@ -1,0 +1,34 @@
+<div>
+  <div>
+    <p>${i18n.content.announcement.instructions}</p>
+  </div>
+
+  <div class="form-group g-scrollable-typeahead" style="position: relative;">
+	  <label for="${id}_announcementMessage">${i18n.content.announcement.announcementMessage}</label>
+	  <div>
+	    <input id="${id}_announcementMessage" type="text" class="form-control" 
+	      data-dojo-attach-point="announcementMessageInput">
+    </div>
+    <p id="announcementMessageError" class="g-metadata-validation-errors text-danger"></p>
+  </div>
+
+  <div class="form-group g-scrollable-typeahead" style="position: relative;">
+	  <label for="${id}_displayFrom">${i18n.content.announcement.displayFrom}</label>
+	  <div>
+	    <input id="${id}displayFrom" type="text" class="form-control" 
+	      data-dojo-attach-point="displayFromInput" data-dojo-type="dijit/form/DateTextBox">
+    </div>
+    <p id="displayFromError" class="g-metadata-validation-errors text-danger"></p>
+  </div>
+
+  <div class="form-group g-scrollable-typeahead" style="position: relative;">
+	  <label for="${id}displayTo">${i18n.content.announcement.displayTo}</label>
+	  <div>
+	    <input id="${id}displayTo" type="text" class="form-control" 
+	      data-dojo-attach-point="displayToInput" data-dojo-type="dijit/form/DateTextBox">
+    </div>
+    <p id="displayToError" class="g-metadata-validation-errors text-danger"></p>
+  </div>
+
+  <div class="g-metadata-validation-errors text-danger" data-dojo-attach-point="validationErrorsNode"></div>
+</div>

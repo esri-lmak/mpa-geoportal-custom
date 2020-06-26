@@ -1,0 +1,125 @@
+<div data-dojo-attach-point="containerNode">
+
+  <div data-dojo-type="esri/dijit/metadata/form/iso/CodeListElement" data-dojo-props="target:'geoSG:horizontalCoordinateSystem',minOccurs:1,
+      label:'${i18nGeoSg.others.extentTab.horizontalCoordinateSystem}', showHeader:true">
+    <div data-dojo-type="esri/dijit/metadata/form/iso/CodeSpaceAttribute"></div>
+    <div data-dojo-type="esri/dijit/metadata/form/iso/CodeListAttribute"
+      data-dojo-props="value:'${codeListPrefix}geoSG:horizontalCoordinateSystem'"></div>
+    <div data-dojo-type="esri/dijit/metadata/form/iso/CodeListValueAttribute">
+      <div data-dojo-type="esri/dijit/metadata/form/InputSelectOne">
+        <div data-dojo-type="esri/dijit/metadata/form/Options">
+          <div data-dojo-type="esri/dijit/metadata/form/Option"
+            data-dojo-props="label:'${i18nGeoSg.horizontalCoordinateSystem.svy21}',value:'1'">
+          </div>
+          <div data-dojo-type="esri/dijit/metadata/form/Option"
+            data-dojo-props="label:'${i18nGeoSg.horizontalCoordinateSystem.wgs84}',value:'2'">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div data-dojo-type="esri/dijit/metadata/form/iso/ObjectReference"
+    data-dojo-props="target:'gmd:extent',minOccurs:0,showHeader:false">
+    <div data-dojo-type="esri/dijit/metadata/form/iso/AbstractObject"
+      data-dojo-props="target:'gmd:EX_Extent',minOccurs:0">
+      <div data-dojo-type="esri/dijit/metadata/types/geospatial-sg/gmd/others/GeographicElement"></div>
+    </div>
+  </div>
+
+  <div data-dojo-type="esri/dijit/metadata/form/Element" data-dojo-props="target:'geoSG:verticalCoordinateSystem',minOccurs:0,
+      label:'${i18nGeoSg.others.extentTab.verticalCoordinateSystem}'">
+    <div data-dojo-type="esri/dijit/metadata/form/iso/GcoElement" data-dojo-props="target:'gco:CharacterString'">
+    </div>
+  </div>
+
+  <div data-dojo-type="esri/dijit/metadata/form/Element" data-dojo-props="target:'geoSG:datum',minOccurs:0,
+      label:'${i18nGeoSg.others.extentTab.datum}'">
+    <div data-dojo-type="esri/dijit/metadata/form/iso/GcoElement" data-dojo-props="target:'gco:CharacterString'">
+    </div>
+  </div>
+
+  <div data-dojo-type="esri/dijit/metadata/form/Element" data-dojo-props="target:'geoSG:spheroid',minOccurs:0,
+      label:'${i18nGeoSg.others.extentTab.spheroid}'">
+    <div data-dojo-type="esri/dijit/metadata/form/iso/GcoElement" data-dojo-props="target:'gco:CharacterString'">
+    </div>
+  </div>
+
+  <div data-dojo-type="esri/dijit/metadata/form/Element" data-dojo-props="target:'geoSG:majorAxis',minOccurs:0,
+      label:'${i18nGeoSg.others.extentTab.majorAxis}'">
+    <div data-dojo-type="esri/dijit/metadata/form/iso/GcoElement" data-dojo-props="target:'gco:Decimal'">
+      <div data-dojo-type="esri/dijit/metadata/form/InputNumber" data-dojo-props="hint:'${i18nBase.hints.longitude}'">
+      </div>
+    </div>
+  </div>
+
+  <div data-dojo-type="esri/dijit/metadata/form/Element" data-dojo-props="target:'geoSG:minorAxis',minOccurs:0,
+      label:'${i18nGeoSg.others.extentTab.minorAxis}'">
+    <div data-dojo-type="esri/dijit/metadata/form/iso/GcoElement" data-dojo-props="target:'gco:Decimal'">
+      <div data-dojo-type="esri/dijit/metadata/form/InputNumber" data-dojo-props="hint:'${i18nBase.hints.longitude}'">
+      </div>
+    </div>
+  </div>
+
+  <div data-dojo-type="esri/dijit/metadata/form/Element" data-dojo-props="target:'geoSG:primeMeridian',minOccurs:0,
+      label:'${i18nGeoSg.others.extentTab.primeMeridian}'">
+    <div data-dojo-type="esri/dijit/metadata/form/iso/GcoElement" data-dojo-props="target:'gco:CharacterString'">
+    </div>
+  </div>
+
+  <div data-dojo-type="esri/dijit/metadata/form/Element" data-dojo-props="target:'geoSG:angularUnit',minOccurs:0,
+      label:'${i18nGeoSg.others.extentTab.angularUnit}'">
+    <div data-dojo-type="esri/dijit/metadata/form/iso/GcoElement" data-dojo-props="target:'gco:CharacterString'">
+    </div>
+  </div>
+
+  <div data-dojo-type="esri/dijit/metadata/form/Element" data-dojo-props="target:'geoSG:projection',minOccurs:0,
+      label:'${i18nGeoSg.others.extentTab.projection}'">
+    <div data-dojo-type="esri/dijit/metadata/form/iso/GcoElement" data-dojo-props="target:'gco:CharacterString'">
+    </div>
+  </div>
+
+  <div data-dojo-type="esri/dijit/metadata/form/Element" data-dojo-props="target:'geoSG:falseEasting',minOccurs:0,
+      label:'${i18nGeoSg.others.extentTab.falseEasting}'">
+    <div data-dojo-type="esri/dijit/metadata/form/iso/GcoElement" data-dojo-props="target:'gco:Decimal'">
+      <div data-dojo-type="esri/dijit/metadata/form/InputNumber" data-dojo-props="hint:'${i18nBase.hints.longitude}'">
+      </div>
+    </div>
+  </div>
+
+  <div data-dojo-type="esri/dijit/metadata/form/Element" data-dojo-props="target:'geoSG:falseNorthing',minOccurs:0,
+      label:'${i18nGeoSg.others.extentTab.falseNorthing}'">
+    <div data-dojo-type="esri/dijit/metadata/form/iso/GcoElement" data-dojo-props="target:'gco:Decimal'">
+      <div data-dojo-type="esri/dijit/metadata/form/InputNumber" data-dojo-props="hint:'${i18nBase.hints.longitude}'">
+      </div>
+    </div>
+  </div>
+
+  <div data-dojo-type="esri/dijit/metadata/form/Element" data-dojo-props="target:'geoSG:centralMeridian',minOccurs:0,
+      label:'${i18nGeoSg.others.extentTab.centralMeridian}'">
+    <div data-dojo-type="esri/dijit/metadata/form/iso/GcoElement" data-dojo-props="target:'gco:Decimal'">
+      <div data-dojo-type="esri/dijit/metadata/form/InputNumber" data-dojo-props="hint:'${i18nBase.hints.longitude}'">
+      </div>
+    </div>
+  </div>
+
+  <div data-dojo-type="esri/dijit/metadata/form/Element" data-dojo-props="target:'geoSG:scaleFactor',
+      minOccurs:0, label:'${i18nGeoSg.others.extentTab.scaleFactor}'">
+    <div data-dojo-type="esri/dijit/metadata/form/InputNumber"></div>
+  </div>
+
+  <div data-dojo-type="esri/dijit/metadata/form/Element" data-dojo-props="target:'geoSG:latitudeOfOrigin',minOccurs:0,
+      label:'${i18nGeoSg.others.extentTab.latitudeOfOrigin}'">
+    <div data-dojo-type="esri/dijit/metadata/form/iso/GcoElement" data-dojo-props="target:'gco:Decimal'">
+      <div data-dojo-type="esri/dijit/metadata/form/InputNumber" data-dojo-props="hint:'${i18nBase.hints.longitude}'">
+      </div>
+    </div>
+  </div>
+
+  <div data-dojo-type="esri/dijit/metadata/form/Element" data-dojo-props="target:'geoSG:linearUnit',minOccurs:0,
+      label:'${i18nGeoSg.others.extentTab.linearUnit}'">
+    <div data-dojo-type="esri/dijit/metadata/form/iso/GcoElement" data-dojo-props="target:'gco:CharacterString'">
+    </div>
+  </div>
+
+</div>

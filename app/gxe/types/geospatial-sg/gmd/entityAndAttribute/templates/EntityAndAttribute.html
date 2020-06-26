@@ -1,0 +1,90 @@
+<div data-dojo-attach-point="containerNode">
+
+  <div data-dojo-type="esri/dijit/metadata/form/iso/ObjectReference" data-dojo-props="target:'geoSG:entityAndAttribute',minOccurs:1,
+      label:'${i18nGeoSg.sections.entityAndAttribute}',showHeader:false">
+    <div data-dojo-type="esri/dijit/metadata/form/Element" data-dojo-props="target:'geoSG:entity',
+        label:'${i18nGeoSg.entityAndAttribute.entity}'">
+      <div data-dojo-type="esri/dijit/metadata/form/iso/GcoElement" data-dojo-props="target:'gco:CharacterString'">
+      </div>
+    </div>
+
+    <div data-dojo-type="esri/dijit/metadata/form/Element" data-dojo-props="target:'geoSG:attributeName',
+        label:'${i18nGeoSg.entityAndAttribute.attributeName}'">
+      <div data-dojo-type="esri/dijit/metadata/form/iso/GcoElement" data-dojo-props="target:'gco:CharacterString'">
+      </div>
+    </div>
+
+    <div data-dojo-type="esri/dijit/metadata/form/Element" data-dojo-props="target:'geoSG:attributeAlias',
+        label:'${i18nGeoSg.entityAndAttribute.attributeAlias}'">
+      <div data-dojo-type="esri/dijit/metadata/form/iso/GcoElement" data-dojo-props="target:'gco:CharacterString'">
+      </div>
+    </div>
+
+    <div data-dojo-type="esri/dijit/metadata/form/Element" data-dojo-props="target:'geoSG:attributeDefinition',
+        label:'${i18nGeoSg.entityAndAttribute.attributeDefinition}'">
+      <div data-dojo-type="esri/dijit/metadata/form/iso/GcoElement" data-dojo-props="target:'gco:CharacterString'">
+      </div>
+    </div>
+
+    <div data-dojo-type="esri/dijit/metadata/form/iso/CodeListElement" data-dojo-props="target:'geoSG:attributeDataType',minOccurs:1,
+        label:'${i18nGeoSg.entityAndAttribute.attributeDataType}', showHeader:true">
+      <div data-dojo-type="esri/dijit/metadata/form/iso/CodeSpaceAttribute"></div>
+      <div data-dojo-type="esri/dijit/metadata/form/iso/CodeListAttribute"
+        data-dojo-props="value:'${codeListPrefix}geoSG:attributeDataType'"></div>
+      <div data-dojo-type="esri/dijit/metadata/form/iso/CodeListValueAttribute">
+        <div data-dojo-type="esri/dijit/metadata/form/InputSelectOne">
+          <div data-dojo-type="esri/dijit/metadata/form/Options">
+            <div data-dojo-type="esri/dijit/metadata/form/Option"
+              data-dojo-props="label:'${i18nGeoSg.attributeDataType.characterString}',value:'1',selected:true">
+            </div>
+            <div data-dojo-type="esri/dijit/metadata/form/Option"
+              data-dojo-props="label:'${i18nGeoSg.attributeDataType.integer}',value:'2'">
+            </div>
+            <div data-dojo-type="esri/dijit/metadata/form/Option"
+              data-dojo-props="label:'${i18nGeoSg.attributeDataType.real}',value:'3'">
+            </div>
+            <div data-dojo-type="esri/dijit/metadata/form/Option"
+              data-dojo-props="label:'${i18nGeoSg.attributeDataType.boolean}',value:'4'">
+            </div>
+            <div data-dojo-type="esri/dijit/metadata/form/Option"
+              data-dojo-props="label:'${i18nGeoSg.attributeDataType.date}',value:'5'">
+            </div>
+            <div data-dojo-type="esri/dijit/metadata/form/Option"
+              data-dojo-props="label:'${i18nGeoSg.attributeDataType.dateTime}',value:'6'">
+            </div>
+            <div data-dojo-type="esri/dijit/metadata/form/Option"
+              data-dojo-props="label:'${i18nGeoSg.attributeDataType.binary}',value:'7'">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div data-dojo-type="esri/dijit/metadata/form/iso/CodeListElement" data-dojo-props="target:'geoSG:attributeNullability',minOccurs:1,
+        label:'${i18nGeoSg.entityAndAttribute.attributeNullability}', showHeader:true">
+      <div data-dojo-type="esri/dijit/metadata/form/iso/CodeSpaceAttribute"></div>
+      <div data-dojo-type="esri/dijit/metadata/form/iso/CodeListAttribute"
+        data-dojo-props="value:'${codeListPrefix}geoSG:attributeDataType'"></div>
+      <div data-dojo-type="esri/dijit/metadata/form/iso/CodeListValueAttribute">
+        <div data-dojo-type="esri/dijit/metadata/form/InputSelectOne">
+          <div data-dojo-type="esri/dijit/metadata/form/Options">
+            <div data-dojo-type="esri/dijit/metadata/form/Option"
+              data-dojo-props="label:'${i18nGeoSg.nullability.nullable}',value:'1',selected:true">
+            </div>
+            <div data-dojo-type="esri/dijit/metadata/form/Option"
+              data-dojo-props="label:'${i18nGeoSg.nullability.nonNullable}',value:'2'">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div data-dojo-type="esri/dijit/metadata/form/Element" data-dojo-props="target:'geoSG:attributeDomainValue',minOccurs:0,
+        label:'${i18nGeoSg.entityAndAttribute.attributeDomainValue}'">
+      <div data-dojo-type="esri/dijit/metadata/form/iso/GcoElement" data-dojo-props="target:'gco:CharacterString'">
+      </div>
+    </div>
+
+  </div>
+
+</div>

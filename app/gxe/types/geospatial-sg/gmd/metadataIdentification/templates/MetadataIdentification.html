@@ -1,0 +1,30 @@
+<div data-dojo-attach-point="containerNode">
+  <div data-dojo-type="esri/dijit/metadata/form/iso/ObjectReference" data-dojo-props="target:'geoSG:metadataIdentification',
+    label:'${i18nGeoSg.sections.metadataIdentification}', showHeader:false">
+    <div data-dojo-type="esri/dijit/metadata/form/iso/AbstractObject"
+      data-dojo-props="target:'geoSG:MD_DataIdentification',minOccurs:0">
+      <div data-dojo-type="esri/dijit/metadata/form/Tabs">
+        <div data-dojo-type="app/gxe/types/geospatial-sg/gmd/metadataIdentification/ResourceCitation"
+          data-dojo-props="label:'${i18nGeoSg.metadataIdentification.citation}'"></div>
+
+        <div data-dojo-type="app/gxe/types/geospatial-sg/gmd/metadataIdentification/ResourceDescription"
+          data-dojo-props="label:'${i18nGeoSg.metadataIdentification.description}'"></div>
+
+        <div data-dojo-type="esri/dijit/metadata/types/iso/gmd/identification/ResourceKeywords"
+          data-dojo-props="label:'${i18nIso.identificationSection.keywords}'"></div>
+
+        <div data-dojo-type="app/gxe/types/geospatial-sg/gmd/constraints/ResourceConstraints"
+          data-dojo-props="label:'${i18nIso.identificationSection.constraints}'"></div>
+
+        <div data-dojo-type="app/gxe/types/geospatial-sg/gmd/metadataIdentification/ResourceDataTheme"
+          data-dojo-props="label:'${i18nGeoSg.metadataIdentification.dataTheme}'"></div>
+
+        <div data-dojo-type="app/gxe/types/geospatial-sg/gmd/metadataIdentification/ResourceLineage"
+          data-dojo-props="label:'${i18nGeoSg.metadataIdentification.lineage}'"></div>
+
+        <div data-dojo-type="app/gxe/types/geospatial-sg/gmd/metadataIdentification/MetadataContact"
+          data-dojo-props="label:'${i18nGeoSg.metadataIdentification.contact}'"></div>
+      </div>
+    </div>
+  </div>
+</div>

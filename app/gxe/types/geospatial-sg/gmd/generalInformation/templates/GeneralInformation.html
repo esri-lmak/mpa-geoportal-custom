@@ -1,0 +1,19 @@
+<div data-dojo-attach-point="containerNode">
+  <div data-dojo-type="esri/dijit/metadata/form/iso/ObjectReference" data-dojo-props="target:'geoSG:generalInformation',
+    label:'${i18nGeoSg.sections.generalInformation}', showHeader:false">
+    <div data-dojo-type="esri/dijit/metadata/form/Tabs">
+      <div data-dojo-type="app/gxe/types/geospatial-sg/gmd/generalInformation/MetadataIdentifier"
+        data-dojo-props="label:'${i18nGeoSg.generalInformation.identifier}'"></div>
+
+      <div data-dojo-type="app/gxe/types/geospatial-sg/gmd/generalInformation/MetadataDate"
+        data-dojo-props="label:'${i18nGeoSg.generalInformation.date}'"></div>
+
+      <div data-dojo-type="app/gxe/types/geospatial-sg/gmd/generalInformation/MetadataStandard"
+        data-dojo-props="label:'${i18nIso.metadataSection.standard}'"></div>
+
+      <div data-dojo-type="app/gxe/types/mpa/gmd/metadataEntity/MetadataReference"
+        data-dojo-props="label:'${i18nIso.metadataSection.reference}'"></div>
+
+    </div>
+  </div>
+</div>

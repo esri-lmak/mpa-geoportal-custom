@@ -1,0 +1,19 @@
+<div data-dojo-attach-point="containerNode">
+  <div data-dojo-type="esri/dijit/metadata/form/iso/ObjectReference" data-dojo-props="target:'geoSG:dataQualityInfo',
+    label:'${i18nGeoSg.sections.dataQuality}', showHeader:false">
+    <div data-dojo-type="esri/dijit/metadata/form/Tabs">
+      <div data-dojo-type="app/gxe/types/geospatial-sg/gmd/dataQuality/DataQualityScope"
+        data-dojo-props="label:'${i18nGeoSg.qualitySection.scope}'"></div>
+
+      <div data-dojo-type="app/gxe/types/geospatial-sg/gmd/dataQuality/DataQualityValue"
+        data-dojo-props="label:'${i18nGeoSg.qualitySection.value}'"></div>
+
+      <div data-dojo-type="app/gxe/types/geospatial-sg/gmd/dataQuality/DataQualityQuality"
+        data-dojo-props="label:'${i18nGeoSg.qualitySection.quality}'"></div>
+
+      <div data-dojo-type="app/gxe/types/geospatial-sg/gmd/dataQuality/DataQualityEvaluation"
+        data-dojo-props="label:'${i18nGeoSg.qualitySection.evaluationMethod}'"></div>
+
+    </div>
+  </div>
+</div>

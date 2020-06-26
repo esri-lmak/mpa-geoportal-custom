@@ -1,0 +1,48 @@
+<div data-dojo-attach-point="containerNode">
+
+  <div data-dojo-type="esri/dijit/metadata/form/iso/ObjectReference"
+    data-dojo-props="target:'geoSG:DQ_Quality',minOccurs:0,label:'${i18nGeoSg.qualitySection.quality}',showHeader:false">
+
+    <div data-dojo-type="esri/dijit/metadata/form/Element" data-dojo-props="target:'geoSG:DQ_AQL',
+        minOccurs:1, label:'${i18nGeoSg.qualitySection.qualityTab.acceptanceQualityLimit}'">
+      <div data-dojo-type="esri/dijit/metadata/form/InputNumber" data-dojo-props="minValue:0,maxValue:100">
+      </div>
+    </div>
+
+    <div data-dojo-type="esri/dijit/metadata/form/Element" data-dojo-props="target:'geoSG:DQ_FeatureType',minOccurs:0,
+        label:'${i18nGeoSg.qualitySection.qualityTab.featureType}'">
+      <div data-dojo-type="esri/dijit/metadata/form/iso/GcoElement" data-dojo-props="target:'gco:CharacterString'">
+      </div>
+    </div>
+
+    <div data-dojo-type="esri/dijit/metadata/form/Element" data-dojo-props="target:'geoSG:DQ_ErrorCount',
+        minOccurs:0, label:'${i18nGeoSg.qualitySection.qualityTab.errorCount}'">
+      <div data-dojo-type="esri/dijit/metadata/form/InputNumber" data-dojo-props="minValue:0"></div>
+    </div>
+
+    <div data-dojo-type="esri/dijit/metadata/form/Element" data-dojo-props="target:'geoSG:DQ_ErrorRate',
+        minOccurs:0, label:'${i18nGeoSg.qualitySection.qualityTab.errorRate}'">
+      <div data-dojo-type="esri/dijit/metadata/form/InputNumber" data-dojo-props="minValue:0,maxValue:100">
+      </div>
+    </div>
+
+    <div data-dojo-type="esri/dijit/metadata/form/iso/CodeListElement" data-dojo-props="target:'geoSG:DQ_Pass',minOccurs:1,
+        label:'${i18nGeoSg.qualitySection.qualityTab.pass}', showHeader:true">
+      <div data-dojo-type="esri/dijit/metadata/form/iso/CodeSpaceAttribute"></div>
+      <div data-dojo-type="esri/dijit/metadata/form/iso/CodeListAttribute"
+        data-dojo-props="value:'${codeListPrefix}geoSG:DQ_Pass'"></div>
+      <div data-dojo-type="esri/dijit/metadata/form/iso/CodeListValueAttribute">
+        <div data-dojo-type="esri/dijit/metadata/form/InputSelectOne">
+          <div data-dojo-type="esri/dijit/metadata/form/Options">
+            <div data-dojo-type="esri/dijit/metadata/form/Option"
+              data-dojo-props="label:'${i18nGeoSg.yesNoCode.yes}',value:'yes'">
+            </div>
+            <div data-dojo-type="esri/dijit/metadata/form/Option"
+              data-dojo-props="label:'${i18nGeoSg.yesNoCode.no}',value:'no'">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

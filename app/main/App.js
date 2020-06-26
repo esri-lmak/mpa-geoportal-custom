@@ -30,9 +30,53 @@ define(["dojo/_base/declare",
         "app/content/UploadMetadata",
         "app/content/UploadDataMetadata",
         "app/content/SignUp",
-        "app/content/SessionTimeout"],
+        "app/content/SessionTimeout",
+        "app/content/DownloadRequests",
+        "app/content/ConfidentialRequests",
+        "app/content/UploadRequests",
+        "app/content/SignUpRequests",
+        "app/content/ManageAnnouncements",
+        "app/content/ManageFaqs",
+        "app/content/AuditTrail",
+        "app/content/Feedback"],
 function(declare, lang, topic, appTopics, Templated, template, i18n, util, SearchPanel, MapPanel, Map3DPanel, FeedbackPanel, 
-    HelpPanel, AboutPanel, MetadataEditor, UploadMetadata, UploadDataMetadata, SignUp, SessionTimeout) {
+    HelpPanel, AboutPanel, MetadataEditor, UploadMetadata, UploadDataMetadata, SignUp, SessionTimeout,
+    DownloadRequests, ConfidentialRequests, UploadRequests, SignUpRequests, ManageAnnouncements, ManageFaqs, AuditTrail, Feedback) {
+      
+    /* 
+    var warningAfter = 180000;
+    var signOutAfter = 300000;
+    
+    window.onload = function(e) { 
+      idleLogout();
+    };
+
+    function idleLogout() {
+      var self = this;
+      window.onload = resetTimer();
+      window.onmousemove = resetTimer();
+      window.onmousedown = resetTimer();  // catches touchscreen presses as well      
+      window.ontouchstart = resetTimer(); // catches touchscreen swipes as well 
+      window.onclick = resetTimer();      // catches touchpad clicks as well
+      window.onkeypress = resetTimer();   
+      window.addEventListener('scroll', resetTimer(), true);
+    };
+
+    function resetTimer() {
+      clearTimeout(warningAfter);
+      clearTimeout();
+
+      setTimeout(function() {
+        // Display session warning timeout dialog
+        (new SessionTimeout()).show();
+      }, warningAfter);  
+
+      setTimeout(function() {
+        // Logout
+        AppContext.appUser.signOut();
+      }, signOutAfter);
+    }
+    */
 
   var oThisClass = declare([Templated], {
 
@@ -149,6 +193,38 @@ function(declare, lang, topic, appTopics, Templated, template, i18n, util, Searc
       if (AppContext.appUser.isPublisher()) (new UploadDataMetadata()).show();
     },
 
+    downloadRequestsClicked: function() {
+      (new DownloadRequests()).show();
+    },
+
+    pendingConfidentialRequestsClicked: function() {
+      (new ConfidentialRequests()).show();
+    },
+
+    pendingUploadRequestsClicked: function() {
+      (new UploadRequests()).show();
+    },
+
+    pendingSignUpRequestsClicked: function() {
+      (new SignUpRequests()).show();
+    },
+
+    manageAnnouncementsClicked: function() {
+      (new ManageAnnouncements()).show();
+    },
+
+    manageFaqsClicked: function() {
+      (new ManageFaqs()).show();
+    },
+
+    auditTrailClicked: function() {
+      (new AuditTrail()).show();
+    },
+
+    feedbackClicked: function() {
+      (new Feedback()).show();
+    },
+
     editFacetClicked: function() {
       console.warn("TODO provide edit facet functionality in App.js")
     },
@@ -180,19 +256,9 @@ function(declare, lang, topic, appTopics, Templated, template, i18n, util, Searc
         this.signInNode.style.display = "none";
         this.signOutNode.style.display = "";
         this.signUpNode.style.display = "none";
-        this.adminOptionsBtnNode.style.display = "";
+        // this.adminOptionsBtnNode.style.display = "";
         updateHref(this.createAccountNode, this.createAccountLink, null);
-        updateHref(this.myProfileNode, this.myProfileLink ,AppContext.appUser.getMyProfileUrl());
-        // Specific to MPA - Pending Requests
-        if (AppContext.appUser.isAdmin()) {
-          updateHref(this.pendingRequestsNode, this.pendingRequestsLink, "/geoportal/pending-requests.html")
-          updateHref(this.pendingUploadRequestsNode, this.pendingUploadRequestsLink, "/geoportal/pending-upload-requests.html")
-          updateHref(this.pendingSignUpRequestsNode, this.pendingSignUpRequestsLink, "/geoportal/pending-sign-up-requests.html")
-        } else {
-          this.pendingRequestsNode.style.display = "none";
-          this.pendingUploadRequestsNode.style.display = "none";
-          this.pendingSignUpRequestsNode.style.display = "none";
-        }
+        updateHref(this.myProfileNode, this.myProfileLink, AppContext.appUser.getMyProfileUrl());
 
         // this.idleLogout();
       } else {
@@ -202,13 +268,9 @@ function(declare, lang, topic, appTopics, Templated, template, i18n, util, Searc
         this.signInNode.style.display = "";
         this.signOutNode.style.display = "none";
         this.signUpNode.style.display = "";
-        this.adminOptionsBtnNode.style.display = "none";
+        // this.adminOptionsBtnNode.style.display = "none";
         updateHref(this.createAccountNode, this.createAccountLink, this.getCreateAccountUrl());
         updateHref(this.myProfileNode, this.myProfileLink, null);
-        // Specific to MPA - Pending Requests
-        this.pendingRequestsNode.style.display = "none";
-        this.pendingUploadRequestsNode.style.display = "none";
-        this.pendingSignUpRequestsNode.style.display = "none";
       }
 
       var isAdmin = AppContext.appUser.isAdmin();
@@ -239,8 +301,11 @@ function(declare, lang, topic, appTopics, Templated, template, i18n, util, Searc
     },
     
     _onHome: function() {
+      /*
       this.searchPanelLink.click()
       location.hash = "searchPanel"
+      */
+      window.location = "https://mpa.esrisg.dev/portal/apps/sites/#/landingpage";
     },
 
     idleLogout: function() {

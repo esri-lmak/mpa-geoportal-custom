@@ -1,0 +1,25 @@
+<div>
+  <div>
+    <p>${i18n.content.faqs.instructions}</p>
+  </div>
+
+  <div class="form-group g-scrollable-typeahead" style="position: relative;">
+	  <label for="${id}_question">${i18n.content.faqs.question}</label>
+	  <div>
+	    <input id="${id}_question" type="text" class="form-control" 
+	      data-dojo-attach-point="questionInput">
+    </div>
+    <p id="questionError" class="g-metadata-validation-errors text-danger"></p>
+  </div>
+
+  <div class="form-group g-scrollable-typeahead" style="position: relative;">
+	  <label for="${id}answer">${i18n.content.faqs.answer}</label>
+	  <div>
+	    <input id="${id}answer" type="text" class="form-control" 
+	      data-dojo-attach-point="answerInput">
+    </div>
+    <p id="answerError" class="g-metadata-validation-errors text-danger"></p>
+  </div>
+
+  <div class="g-metadata-validation-errors text-danger" data-dojo-attach-point="validationErrorsNode"></div>
+</div>
